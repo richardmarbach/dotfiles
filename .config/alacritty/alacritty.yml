@@ -1,0 +1,60 @@
+# Colors (LuciusDarkHighContrast)
+colors:
+  # Default colors
+  primary:
+    background: '#303030'
+    foreground: '#eeeeee'
+
+  # Cursor colors
+  cursor:
+    text: '#303030'
+    cursor: '#afd7ff'
+
+  # Normal colors
+  normal:
+    black:   '#303030'
+    red:     '#ff8787'
+    green:   '#d7ffaf'
+    yellow:  '#ffffd7'
+    blue:    '#afffff'
+    magenta: '#ffd7ff'
+    cyan:    '#afffd7'
+    white:   '#eeeeee'
+
+  # Bright colors
+  bright:
+    black:   '#303030'
+    red:     '#ff8787'
+    green:   '#d7ffaf'
+    yellow:  '#ffffd7'
+    blue:    '#afffff'
+    magenta: '#ffd7ff'
+    cyan:    '#afffd7'
+    white:   '#eeeeee'
+font:
+  italic:
+    family: 'Hack'
+    style: 'Italic'
+  bold:
+    family: 'Hack'
+    style: 'Bold'
+  normal:
+    family: 'Hack'
+key_bindings:
+  - { key: Q, mods: Control, chars: "\x11" }
+  - { key: F, mods: Alt, chars: "\x1bf" }
+  - { key: B, mods: Alt, chars: "\x1bb" }
+  - { key: E, mods: Alt, chars: "\x1be" }
+  - { key: D, mods: Alt, chars: "\x1bd" }
+  - { key: H, mods: Alt, chars: "\x1bh" }
+  - { key: L, mods: Alt, chars: "\x1bl" }
+  - { key: O, mods: Alt, chars: "\x1bo" }
+  - { key: P, mods: Alt, chars: "\x1bp" }
+  - { key: W, mods: Alt, chars: "\x1bw" }
+  - { key: V, mods: Alt, chars: "\x1bv" }
+  - { key: S, mods: Alt, chars: "\x1bs" }
+  - { key: C, mods: Alt, chars: "\x1bc" }
+  - { key: U, mods: Alt, chars: "\x1bu" }
+  - { key: T, mods: Alt, chars: "\x1bt" }
+  - { key: Slash, mods: Control, chars: "\x1f" }
+  - { key: Slash, mods: Alt, chars: "\x1b/" }

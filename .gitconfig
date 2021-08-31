@@ -1,0 +1,66 @@
+[user]
+  name = Richard Marbach
+  email = rmarbach@gmail.com
+	signingKey = CE19FC0A57826C2A49F982936FB4A2E8EBFE2998
+[color]
+  ui = auto
+[alias]
+  st = status
+  ci = commit --verbose
+  co = checkout
+  amend = commit --amend
+  aa = add --all
+  dh1 = diff HEAD~1
+
+  delete-branches = "!fish -c 'git-delete-branches'"
+
+  unstage = "!. ~/.githelpers && git_unstage"
+
+  # Fancy logging.
+  #   h = head
+  #   hp = head with patch
+  #   r = recent commits, only current branch
+  #   ra = recent commits, all reachable refs
+  #   l = all commits, only current branch
+  #   la = all commits, all reachable refs
+  #   b = all branches
+  #   bs = all branches, sorted by last commit date
+  head = !git r -1
+  h = !git head
+  hp = "!. ~/.githelpers && show_git_head"
+  r = !GIT_NO_PAGER=1 git l -30
+  ra = !git r --all
+  l = "!. ~/.githelpers && pretty_git_log"
+  la = !git l --all
+  b = "!. ~/.githelpers && pretty_git_branch"
+  bs = "!. ~/.githelpers && pretty_git_branch_sorted"
+[core]
+  editor = nvim
+  pager = delta
+  log = delta
+  reflow = delta
+  show = delta
+[delta]
+  side-by-side = true
+  plus-style = "syntax #012800"
+  minus-style = "syntax #340001"
+  syntax-theme = Monokai Extended
+  navigate = true
+[interactive]
+  diffFilter = delta --color-only
+[merge]
+  tool = vimdiff
+[mergetool]
+  prompt = true
+[mergetool "vimdiff"]
+  cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[difftool]
+  prompt = false
+[diff]
+  tool = vimdiff
+[init]
+  defaultBranch = main
+[commit]
+  gpgSign = false
+[gpg]
+  program = /usr/local/bin/gpg

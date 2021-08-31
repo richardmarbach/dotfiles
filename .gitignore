@@ -1,0 +1,63 @@
+*
+
+# Bash
+!.bash*
+.*.swp
+.bash_history
+.bash_local
+.bash_logout
+!.profile
+
+# Zsh
+!.zshrc
+!.zsh
+!.zsh/*
+!.zsh/contrib
+!.zsh/contrib/*
+# Do ignore local/sensitive settings
+.zsh/*local
+# Swapfiles
+.zsh/*.swp
+
+# Git stuff
+!.gitconfig
+!.gitignore
+!.githelpers
+!.gitmodules
+
+# Local tools
+!bin
+!bin/*
+
+# Configs!
+!.config
+
+# Tmux
+!.config/tmux
+!.config/tmux/*
+
+# vim
+!.config/nvim
+!.config/nvim/*
+!.config/nvim/*/*
+!.config/nvim/*/*/*
+
+# Plug
+!.vim
+!.vim/autoload
+!.vim/autoload/plug.vim
+
+# fish
+!.config/fish
+!.config/fish/*
+!.config/fish/*/*
+!.config/fish/*/*/*
+
+# solargraph
+!.config/solargraph
+!.config/solargraph/*
+
+# Alacritty
+!.config/alacritty
+!.config/alacritty/*
+
