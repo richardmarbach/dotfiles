@@ -14,6 +14,7 @@ Plug 'romainl/vim-cool'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 Plug 'tpope/vim-repeat'
 Plug 'mattn/emmet-vim'
 
@@ -21,8 +22,8 @@ Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'neovim/nvim-lspconfig'
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'deoplete-plugins/deoplete-lsp'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-buffer'
 
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
@@ -69,7 +70,6 @@ let g:sh_noisk=1
 set termguicolors
 
 set updatetime=200
-set completeopt=menu,noselect
 
 set background=dark
 let g:lucius_high_contrast=1
@@ -145,39 +145,23 @@ nnoremap <leader>f :call fzf#vim#files(".")<cr>
 nnoremap <leader>g :call fzf#vim#gitfiles(".")<cr>
 nnoremap <leader>e :call fzf#vim#files(expand('%:h'))<cr>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" VIAEurope Project FZF mappings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <leader>s :call fzf#vim#files("./spec")<cr>
 nnoremap <leader>p :call fzf#vim#files("./parts")<cr>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ALE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:ale_fixers = {
-"       \ 'javascript': ['prettier'],
-"       \ 'typescript': [],
-"       \ 'rust': ['rustfmt'],
-"       \ 'ruby': ['standardrb']
-" \}
-" let g:ale_linters = {
-"       \ 'javascript': ['tsserver', 'eslint'],
-"       \ 'typescript': ['tsserver'],
-"       \ 'rust': ['analyzer'],
-"       \ 'ruby': ['standardrb', 'solargraph']
-" \}
-" let g:ale_fix_on_save = 1
-" let g:ale_lint_delay = 0
-" " let g:ale_lint_on_insert_leave = 1
-" " let g:ale_lint_on_text_changed = 'normal'
 
-" set omnifunc=ale#completion#OmniFunc
-" let g:ale_completion_autoimport = 1
-" let g:ale_completion_enabled = 1
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Autocompletion
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" let g:tsuquyomi_disable_quickfix = 1
-"
-let g:deoplete#enable_at_startup = 1
+lua << EOF
+local cmp = require('cmp')
+cmp.setup {
+  completion = {
+    completeopt = 'menu,menuone,noinsert,noselect',
+    autocomplete = false
+  }
+}
+EOF
 
 lua << EOF
 require('lspfuzzy').setup {}
@@ -244,6 +228,7 @@ ts.setup {
   ensure_installed = { 'bash', 'css', 'dockerfile', 'fish', 'json', 'lua', 'ruby', 'yaml', 'svelte', 'scss', 'javascript', 'html' },
   highlight = { enable = true },
   incremental_selection = { enable = true },
+  context_commentstring = { enable = true },
   indent = { enable = true },
   textobjects = { 
     enable = true,
@@ -285,5 +270,6 @@ ts.setup {
     },
   },
 } 
+
 EOF
 
