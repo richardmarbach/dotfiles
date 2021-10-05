@@ -13,17 +13,20 @@ Plug 'jonathanfilip/vim-lucius'
 Plug 'romainl/vim-cool'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-surround'
+
 Plug 'tpope/vim-commentary'
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 Plug 'tpope/vim-repeat'
+
 Plug 'mattn/emmet-vim'
 
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'neovim/nvim-lspconfig'
 
-Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/nvim-cmp'
 
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
@@ -54,6 +57,8 @@ set autowrite
 set diffopt+=vertical
 set shell=fish\ --login
 set mouse=a
+set splitbelow
+set splitright
 
 set nofoldenable
 " set foldmethod=expr
@@ -159,6 +164,10 @@ cmp.setup {
   completion = {
     completeopt = 'menu,menuone,noinsert,noselect',
     autocomplete = false
+  },
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'buffer' }
   }
 }
 EOF
@@ -214,7 +223,8 @@ for _, server in ipairs(servers) do
     on_attach = on_attach,
     flags = {
       debounce_text_changes = 50,
-    }
+    },
+    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   }
 end
 
@@ -273,3 +283,7 @@ ts.setup {
 
 EOF
 
+" ------------------- Testing ---------------------
+nnoremap <leader>t <cmd>lua require('run_tests').run_test_file()<cr>
+nnoremap <leader>T <cmd>lua require('run_tests').run_nearest_test()<Cr>
+nnoremap <leader>a <cmd>lua require('run_tests').run_tests()<Cr>
