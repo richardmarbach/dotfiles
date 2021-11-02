@@ -26,6 +26,7 @@ Plug 'neovim/nvim-lspconfig'
 
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/nvim-cmp'
 
 Plug 'junegunn/fzf'
@@ -59,6 +60,8 @@ set shell=fish\ --login
 set mouse=a
 set splitbelow
 set splitright
+
+set completeopt=menu,menuone,noinsert,noselect
 
 set nofoldenable
 " set foldmethod=expr
@@ -162,12 +165,26 @@ lua << EOF
 local cmp = require('cmp')
 cmp.setup {
   completion = {
-    completeopt = 'menu,menuone,noinsert,noselect',
-    autocomplete = false
+    autocomplete = false,
+    completeopt='menu,menuone,noinsert'
+  },
+  mapping = {
+    ["<C-p>"] = cmp.mapping.select_prev_item(),
+    ["<C-n>"] = cmp.mapping.select_next_item(),
+    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<C-Space>"] = cmp.mapping.complete(),
+    ['<C-y>'] = cmp.mapping.confirm({ select = false }),
+    ["<C-e>"] = cmp.mapping.close(),
+    ["<CR>"] = cmp.mapping.confirm({
+       behavior = cmp.ConfirmBehavior.Replace,
+       select = true,
+    }),
   },
   sources = {
     { name = 'nvim_lsp' },
-    { name = 'buffer' }
+    { name = 'buffer' },
+    { name = 'path' },
   }
 }
 EOF
@@ -227,6 +244,19 @@ for _, server in ipairs(servers) do
     capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   }
 end
+
+
+lsp.eslint.setup {
+  on_attach = on_attach,
+  filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue", "svelte" },
+  flags = {
+    debounce_text_changes = 50,
+  },
+  capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  settings = {
+    packageManager = "yarn"
+  }
+}
 
 EOF
 
