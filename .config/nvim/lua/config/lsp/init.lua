@@ -14,7 +14,7 @@ function on_attach(client, bufnr)
 
 
   if client.resolved_capabilities.document_formatting then
-    keymaps.set_buf_keymap("<space>=", "<cmd>lua vim.lsp.buf.formatting()<CR>")
+    keymaps.set_buf_keymap(bufnr, 'n', "<space>=", "<cmd>lua vim.lsp.buf.formatting()<CR>")
 
 --    vim.api.nvim_command[[augroup Format]]
 --    vim.api.nvim_command[[autocmd! * <buffer>]]
@@ -23,7 +23,7 @@ function on_attach(client, bufnr)
   end
 
   if client.resolved_capabilities.document_range_formatting then
-    keymaps.set_buf_keymap("<space>=", "<cmd>lua vim.lsp.buf.formatting()<CR>")
+    keymaps.set_buf_keymap(bufnr, 'n', "<space>=", "<cmd>lua vim.lsp.buf.formatting()<CR>")
   end
 end
 

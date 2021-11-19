@@ -36,14 +36,19 @@ local keymappings = {
 
     ["<leader>n"] = "<cmd>lua require('utils.file').rename()<cr>",
 
-    ["<leader>f"] = "<cmd>Telescope find_files<cr>",
-    ["<leader>g"] = "<cmd>Telescope live_grep<cr>",
-    ["<leader>b"] = "<cmd>Telescope buffers<cr>",
-    ["<leader>cc"] = "<cmd>Telescope git_commits<cr>",
-    ["<leader>cb"] = "<cmd>Telescope git_bcommits<cr>",
-    ["<leader>e"] = [[<cmd>lua require('telescope.builtin').find_files({cwd = require('telescope.utils').buffer_dir()})<CR>]],
+    ["<leader>gg"] = "<cmd>lua require('telescope.builtin').live_grep()<CR>",
+    ["<leader>ge"] = "<cmd>lua require('telescope.builtin').live_grep({cwd = require('telescope.utils').buffer_dir()})<CR>",
+    ["<leader>ga"] = "<cmd>lua require('telescope.builtin').live_grep({search_dirs = {'parts/', 'app/'}})<cr>",
+    ["<leader>gs"] = "<cmd>lua require('telescope.builtin').live_grep({search_dirs = {'spec/'}})<cr>",
+
+    ["<leader>ff"] = "<cmd>lua require('telescope.builtin').find_files()<CR>",
+    ["<leader>fe"] = "<cmd>lua require('telescope.builtin').find_files({cwd = require('telescope.utils').buffer_dir()})<CR>",
     ["<leader>fs"] = "<cmd>lua require('telescope.builtin').find_files({search_dirs = {'spec/'}})<CR>",
     ["<leader>fa"] = "<cmd>lua require('telescope.builtin').find_files({search_dirs = {'parts/', 'app/'}})<CR>",
+
+    ["<leader>fb"] = "<cmd>Telescope buffers<cr>",
+    ["<leader>fc"] = "<cmd>Telescope git_commits<cr>",
+    ["<leader>fd"] = "<cmd>Telescope git_bcommits<cr>",
   },
   insert_mode = {
     ["<C-l>"] = { "<space>=><space>", { noremap = true } },

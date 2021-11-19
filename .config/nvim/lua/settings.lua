@@ -30,6 +30,9 @@ vim.wo.scrolloff = 3
 -- Atleast 80 chars!
 vim.o.winwidth = 79
 
+-- Sometimes we wanna see input confirmation dialog
+vim.o.cmdheight = 2
+
 -- Pick longest options first and show all options
 vim.o.wildmode = 'longest,list'
 
