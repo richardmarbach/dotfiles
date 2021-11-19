@@ -3,23 +3,8 @@ local M = {}
 function M.setup()
   local ts = require('nvim-treesitter.configs')
 
-  local languages = {
-    'bash',
-    'css',
-    'dockerfile',
-    'fish',
-    'json',
-    'lua',
-    'ruby',
-    'yaml',
-    'svelte',
-    'scss',
-    'javascript',
-    'html',
-  }
-
   ts.setup {
-    ensure_installed = languages,
+    ensure_installed = 'maintained',
     highlight = { enable = true },
     incremental_selection = { enable = true },
     context_commentstring = { enable = true },
@@ -36,6 +21,15 @@ function M.setup()
           ["ic"] = "@class.inner",
           ["ab"] = "@block.outer",
           ["ib"] = "@block.inner",
+        },
+      },
+      swap = { 
+        enable = true,
+        swap_next = {
+          ["<leader>a"] = "@parameter.inner",
+        },
+        swap_previous = {
+          ["<leader>A"] = "@parameter.inner",
         },
       },
       move = {

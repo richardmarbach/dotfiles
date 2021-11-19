@@ -1,11 +1,17 @@
 local M = {}
 
+local modules = {
+  'cmp',
+  'lsp',
+  'lualine',
+  'telescope',
+  'treesitter',
+}
+
 function M.setup() 
-  require('config/cmp').setup()
-  require('config/lsp').setup()
-  require('config/lualine').setup()
-  require('config/telescope').setup()
-  require('config/treesitter').setup()
+  for _, module in ipairs(modules) do
+    require('config.'..module).setup()
+  end
 end
 
 return M

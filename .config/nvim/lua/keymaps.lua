@@ -27,7 +27,7 @@ local generic_opts = {
 
 local keymappings = {
   normal_mode = {
-    ["<leader>v"] = "$MYVIMRC<CR>",
+    ["<leader>v"] = "<cmd>tabnew $MYVIMRC<CR>",
     ["<leader><leader>"] = "<C-^>",
 
     ["<leader>t"] = "<cmd>lua require('run_tests').run_test_file()<CR>",
@@ -42,8 +42,8 @@ local keymappings = {
     ["<leader>cc"] = "<cmd>Telescope git_commits<cr>",
     ["<leader>cb"] = "<cmd>Telescope git_bcommits<cr>",
     ["<leader>e"] = [[<cmd>lua require('telescope.builtin').find_files({cwd = require('telescope.utils').buffer_dir()})<CR>]],
-    ["<leader>s"] = "<cmd>lua require('telescope.builtin').find_files({search_dirs = {'spec/'}})<CR>",
-    ["<leader>p"] = "<cmd>lua require('telescope.builtin').find_files({search_dirs = {'parts/', 'app/'}})<CR>",
+    ["<leader>fs"] = "<cmd>lua require('telescope.builtin').find_files({search_dirs = {'spec/'}})<CR>",
+    ["<leader>fa"] = "<cmd>lua require('telescope.builtin').find_files({search_dirs = {'parts/', 'app/'}})<CR>",
   },
   insert_mode = {
     ["<C-l>"] = { "<space>=><space>", { noremap = true } },

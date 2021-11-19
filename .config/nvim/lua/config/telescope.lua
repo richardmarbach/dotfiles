@@ -6,8 +6,8 @@ function M.setup()
   telescope.setup {
     extensions = {
       fzf = {
-        -- override_generic_sorter = true,  -- override the generic sorter
-        -- override_file_sorter = true,     -- override the file sorter
+        override_generic_sorter = false,
+        override_file_sorter = true,
       }
     }
   }
