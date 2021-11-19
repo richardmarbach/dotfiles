@@ -56,6 +56,9 @@ function M.plugins()
     -- Easier lsp configuration
     use { 'neovim/nvim-lspconfig' }
 
+    -- Better formatting support
+    use { 'mhartington/formatter.nvim' }
+
     -- Autocompletion
     use { 
       'hrsh7th/nvim-cmp',

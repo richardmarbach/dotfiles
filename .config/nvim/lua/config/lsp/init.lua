@@ -13,18 +13,18 @@ function on_attach(client, bufnr)
   keymaps.setup_lsp_mappings(bufnr)
 
 
-  if client.resolved_capabilities.document_formatting then
-    keymaps.set_buf_keymap(bufnr, 'n', "<space>=", "<cmd>lua vim.lsp.buf.formatting()<CR>")
+  -- if client.resolved_capabilities.document_formatting then
+  --   keymaps.set_buf_keymap(bufnr, 'n', "<space>=", "<cmd>lua vim.lsp.buf.formatting()<CR>")
 
 --    vim.api.nvim_command[[augroup Format]]
 --    vim.api.nvim_command[[autocmd! * <buffer>]]
 --    vim.api.nvim_command[[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
 --    vim.api.nvim_command[[augroup END]]
-  end
+  -- end
 
-  if client.resolved_capabilities.document_range_formatting then
-    keymaps.set_buf_keymap(bufnr, 'n', "<space>=", "<cmd>lua vim.lsp.buf.formatting()<CR>")
-  end
+  -- if client.resolved_capabilities.document_range_formatting then
+  --   keymaps.set_buf_keymap(bufnr, 'n', "<space>=", "<cmd>lua vim.lsp.buf.formatting()<CR>")
+  -- end
 end
 
 function get_capabilities()

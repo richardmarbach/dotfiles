@@ -36,7 +36,10 @@ local keymappings = {
 
     ["<leader>n"] = "<cmd>lua require('utils.file').rename()<cr>",
 
+    ["<space>="] = "<cmd>Format<CR>",
+
     ["<leader>gg"] = "<cmd>lua require('telescope.builtin').live_grep()<CR>",
+    ["<leader>gw"] = "<cmd>lua require('telescope.builtin').grep_string()<CR>",
     ["<leader>ge"] = "<cmd>lua require('telescope.builtin').live_grep({cwd = require('telescope.utils').buffer_dir()})<CR>",
     ["<leader>ga"] = "<cmd>lua require('telescope.builtin').live_grep({search_dirs = {'parts/', 'app/'}})<cr>",
     ["<leader>gs"] = "<cmd>lua require('telescope.builtin').live_grep({search_dirs = {'spec/'}})<cr>",

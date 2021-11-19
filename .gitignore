@@ -42,6 +42,7 @@
 !.config/nvim/*/*
 !.config/nvim/*/*/*
 !.config/nvim/*/*/*/*
+.config/nvim/*/*/plugin/packer_compiled.lua
 
 # Plug
 !.vim

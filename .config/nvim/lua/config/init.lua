@@ -3,6 +3,7 @@ local M = {}
 local modules = {
   'cmp',
   'lsp',
+  'formatter',
   'lualine',
   'telescope',
   'treesitter',
