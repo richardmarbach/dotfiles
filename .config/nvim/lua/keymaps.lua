@@ -30,9 +30,9 @@ local keymappings = {
     ["<leader>v"] = "<cmd>tabnew $MYVIMRC<CR>",
     ["<leader><leader>"] = "<C-^>",
 
-    ["<leader>t"] = "<cmd>lua require('run_tests').run_test_file()<CR>",
-    ["<leader>T"] = "<cmd>lua require('run_tests').run_nearest_test()<CR>",
-    ["<leader>a"] = "<cmd>lua require('run_tests').run_tests()<CR>",
+    ["<leader>t"] ={"<cmd>lua require('run_tests').run_test_file()<CR>", {noremap=true, silent=false}},
+    ["<leader>T"] ={"<cmd>lua require('run_tests').run_nearest_test()<CR>", {noremap=true, silent=false}},
+    ["<leader>a"] ={"<cmd>lua require('run_tests').run_tests()<CR>", {noremap=true, silent=false}},
 
     ["<leader>n"] = "<cmd>lua require('utils.file').rename()<cr>",
 
