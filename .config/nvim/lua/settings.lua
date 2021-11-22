@@ -86,11 +86,10 @@ u.create_augroup("vimrcEx", {
   {"FileType text setlocal textwidth=79"},
 
   -- When editing a file, always jump to the last cursor position
-  {[[BufReadPost *
-        \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-        \   exe "normal g'\"" |
-        \ endif]]
-  },
+  [[autocmd BufReadPost *
+      \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+      \ |   exe "normal! g`\""
+      \ | endif]],
 
   {"FileType ruby,haml,eruby,yml,yaml,html,sass,cucumber set ai sw=2 sts=2 et"},
   {"FileType python set sw=4 sts=4 et"},
@@ -103,5 +102,5 @@ u.create_augroup("vimrcEx", {
   --   endif
   -- endfun]],
   "autocmd! BufRead,BufNewFile *.fish setfiletype fish",
-  "autocmd! BufRead,BufNewFile * v:lua.select_fish()",
+  -- "autocmd! BufRead,BufNewFile * v:lua.select_fish()",
 })
