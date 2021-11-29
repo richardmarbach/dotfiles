@@ -14,9 +14,9 @@ local function run_tests(filename)
   end
 
   if filename == "" then
-    cmd('tabnew term://bin/test')
+    cmd('keepalt tabnew term://bin/test')
   else
-    cmd('split term://bundle exec rspec --color ' .. filename)
+    cmd('keepalt split term://bundle exec rspec --color ' .. filename)
   end
 end
 

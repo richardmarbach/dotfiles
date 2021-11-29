@@ -3,15 +3,18 @@ local M = {}
 local modules = {
   'cmp',
   'lsp',
-  'formatter',
+  -- 'formatter',
   'lualine',
   'telescope',
   'treesitter',
 }
 
-function M.setup() 
+function M.setup(config) 
+  config = config or {}
+
   for _, module in ipairs(modules) do
-    require('config.'..module).setup()
+    local moduleConfig = config[module] or {}
+    require('config.'..module).setup(moduleConfig)
   end
 end
 
