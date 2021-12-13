@@ -59,6 +59,16 @@ local keymappings = {
   },
   insert_mode = {
     ["<C-l>"] = { "<space>=><space>", { noremap = true } },
+
+    ["<Tab>"] = {"snippy#can_expand_or_advance() ? '<Plug>(snippy-expand-or-next)' : '<Tab>'", { expr = true }},
+    ["<S-Tab>"] = {"snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<Tab>'", { expr = true }},
+  },
+  select_mode = {
+    ["<Tab>"] = {"snippy#can_jump(1) ? '<Plug>(snippy-next)' : '<Tab>'", { expr = true }},
+    ["<S-Tab>"] = {"snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<Tab>'", { expr = true }},
+  },
+  visual_block_mode = {
+    ["<Tab>"] = "<Plug>(snippy-cut-text)",
   },
   command_mode = {
     ["%%"] = {"expand('%:h').'/'", { expr = true, noremap = true }},

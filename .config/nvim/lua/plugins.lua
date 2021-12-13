@@ -59,6 +59,13 @@ function M.plugins()
     -- Better formatting support
     use { 'mhartington/formatter.nvim' }
 
+    -- Snippets
+    use {
+      'honza/vim-snippets',
+      requires = {
+        {'dcampos/nvim-snippy'},
+      }
+    }
     -- Autocompletion
     use { 
       'hrsh7th/nvim-cmp',
@@ -66,6 +73,7 @@ function M.plugins()
         {'hrsh7th/cmp-nvim-lsp'},
         {'hrsh7th/cmp-buffer'},
         {'hrsh7th/cmp-path'},
+        {'dcampos/cmp-snippy'}
       }
     }
 
