@@ -42,6 +42,7 @@ font:
     family: 'Hack'
 key_bindings:
   - { key: Q, mods: Control, chars: "\x11" }
+  - { key: Q, mods: Alt, chars: "\x1bq" }
   - { key: F, mods: Alt, chars: "\x1bf" }
   - { key: B, mods: Alt, chars: "\x1bb" }
   - { key: E, mods: Alt, chars: "\x1be" }
@@ -56,5 +57,6 @@ key_bindings:
   - { key: C, mods: Alt, chars: "\x1bc" }
   - { key: U, mods: Alt, chars: "\x1bu" }
   - { key: T, mods: Alt, chars: "\x1bt" }
+  - { key: M, mods: Alt, chars: "\x1bm" }
   - { key: Slash, mods: Control, chars: "\x1f" }
   - { key: Slash, mods: Alt, chars: "\x1b/" }
