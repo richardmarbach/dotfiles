@@ -4,18 +4,20 @@ local fn = vim.fn
 local exec = vim.api.nvim_command
 
 function M.init()
-  local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
+  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  local bootstrap = false
   if fn.empty(fn.glob(install_path)) == 1 then
     exec("!git clone https://github.com/wbthomason/packer.nvim "..install_path)
+    bootstrap = true
   end
   vim.cmd [[packadd packer.nvim]]
   vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile'
 
-  M.setup()
+  M.setup(bootstrap)
 end
 
 
-function M.setup()
+function M.setup(bootstrap)
   local packer = require('packer')
 
   packer.init({
@@ -24,22 +26,40 @@ function M.setup()
     }
   })
   packer.startup(M.plugins())
+
+  if bootstrap then
+    packer.sync()
+  end
 end
 
 function M.plugins()
   return function()
-    -- Color scheme
-    use { 'jonathanfilip/vim-lucius' }
+    -- Packer can manage itself
+    use 'wbthomason/packer.nvim'
 
-    -- Remove search highliting on exit
-    use { 'romainl/vim-cool' }
+    -- Helpers
+    use { 'nvim-lua/plenary.nvim' }
+
+    -- Personal wiki integration
+    use { 'vimwiki/vimwiki' }
+
+    -- Debug protocol
+    use { 'mfussenegger/nvim-dap' }
+
+    -- Git integration
+    use { 'sindrets/diffview.nvim' }
+    use { 'lewis6991/gitsigns.nvim', disable = true }
+
+    -- Color scheme
+    use {"ellisonleao/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
+
     -- Better splitting and joining
     use { 'AndrewRadev/splitjoin.vim' }
     -- Surround text objects with stuff
     use { 'tpope/vim-surround' }
 
     -- Comment lines
-    use { 'tpope/vim-commentary' }
+    use { 'numToStr/Comment.nvim' }
     -- Context aware commenting
     use { 'JoosepAlviste/nvim-ts-context-commentstring' }
 
@@ -50,7 +70,7 @@ function M.plugins()
     use { 'mattn/emmet-vim' }
 
     -- AST awareness
-    use { 'nvim-treesitter/nvim-treesitter' }
+    use { 'nvim-treesitter/nvim-treesitter', run = ":TSUpdate" }
     use { 'nvim-treesitter/nvim-treesitter-textobjects' }
 
     -- Easier lsp configuration
@@ -89,6 +109,12 @@ function M.plugins()
 
     -- Nicer status line
     use { 'hoob3rt/lualine.nvim' }
+
+    -- Better rust integration
+    use { 'simrat39/rust-tools.nvim' }
+
+    -- Tet runner integration
+    use { 'vim-test/vim-test' }
   end
 end
 

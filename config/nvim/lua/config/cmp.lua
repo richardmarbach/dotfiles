@@ -7,10 +7,10 @@ local has_words_before = function()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
-local snippy = require("snippy")
-local cmp = require('cmp')
-
 function M.setup()
+  local snippy = require("snippy")
+  local cmp = require('cmp')
+
   snippy.setup({
       mappings = {
           is = {
@@ -45,34 +45,16 @@ function M.setup()
          select = true,
       }),
       ['<C-Space>'] = cmp.mapping.confirm(),
-      -- ["<Tab>"] = cmp.mapping(function(fallback)
-      --   if cmp.visible() then
-      --     cmp.select_next_item()
-      --   elseif snippy.can_expand_or_advance() then
-      --     snippy.expand_or_advance()
-      --   elseif has_words_before() then
-      --     cmp.complete()
-      --   else
-      --     fallback()
-      --   end
-      -- end, { "i", "s" }),
-
-      -- ["<S-Tab>"] = cmp.mapping(function(fallback)
-      --   if cmp.visible() then
-      --     cmp.select_prev_item()
-      --   elseif snippy.can_jump(-1) then
-      --     snippy.previous()
-      --   else
-      --     fallback()
-      --   end
-      -- end, { "i", "s" }),
     },
     sources = {
       { name = 'nvim_lsp', max_item_count = 10},
-      { name = 'buffer', max_item_count = 5 },
       { name = 'snippy' },
+      { name = 'buffer', max_item_count = 5 },
       { name = 'path' },
-    }
+    },
+    experimental = {
+      ghost_test = true
+    },
   }
 end
 

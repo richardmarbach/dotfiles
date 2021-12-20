@@ -2,9 +2,6 @@ local fn = vim.fn
 local cmd = vim.cmd
 local u = require('utils')
 
--- Don't unload buffers
-vim.o.hidden = true
-
 -- Tabs are spaces!
 vim.o.expandtab = true
 -- Set tab indentation
@@ -20,9 +17,6 @@ vim.o.laststatus = 2
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
--- Don't open a new buffer if already open
-vim.o.switchbuf = 'useopen'
-
 -- Highlight the line our cursor is on
 vim.wo.cursorline = true
 vim.wo.scrolloff = 3
@@ -35,9 +29,6 @@ vim.o.wildmode = 'longest,list'
 
 -- Say no to bak files!
 vim.o.writebackup = false
-
--- Only insert one space when joining lines
-vim.o.joinspaces = false
 
 -- We don't need to gutter
 vim.o.signcolumn = 'no'

@@ -1,7 +1,6 @@
 [user]
   name = Richard Marbach
   email = rmarbach@gmail.com
-	signingKey = CE19FC0A57826C2A49F982936FB4A2E8EBFE2998
 [color]
   ui = auto
 [alias]
@@ -61,7 +60,3 @@
   tool = vimdiff
 [init]
   defaultBranch = main
-[commit]
-  gpgSign = false
-[gpg]
-  program = /usr/local/bin/gpg

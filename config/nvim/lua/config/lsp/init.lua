@@ -48,7 +48,6 @@ end
 
 
 function M.setup()
-  require('lspfuzzy').setup {}
   local lsp = require('lspconfig')
 
   for _, provider in ipairs(lsp_providers) do
