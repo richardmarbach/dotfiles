@@ -7,7 +7,7 @@
 - link:
   ~/.tmux: tmux
   ~/.config/:
-    glob: true	
+    glob: true
     path: config/*
     relink: true
   ~/.zshrc: zshrc
