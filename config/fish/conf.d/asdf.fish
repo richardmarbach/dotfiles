@@ -1,4 +1,4 @@
-if test -eq (uname) "Darwin"
+if test (uname) = "Darwin" 
   source /usr/local/opt/asdf/asdf.fish
 else 
   source ~/.asdf/asdf.fish

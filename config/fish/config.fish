@@ -2,7 +2,7 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
-if test -eq (uname) "Darwin"
+if test (uname) = "Darwin"
   if test -d (brew --prefix)"/share/fish/completions"
       set -gx fish_complete_path $fish_complete_path (brew --prefix)/share/fish/completions
   end
