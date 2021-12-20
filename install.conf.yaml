@@ -2,24 +2,29 @@
     link:
       relink: true
 
-- clean: ['~']
+- clean: 
+    ~/: {}
+    ~/config:
+      recursive: true
+    ~/.tmux:
+      recursive: true
 
 - link:
-  ~/.tmux: tmux
-  ~/.config/:
-    glob: true
-    path: config/*
-    relink: true
-  ~/.zshrc: zshrc
-  ~/.bash_profile: bash_profile
+    ~/.tmux/plugins/tpm:
+        path: tmux/plugins/tpm
+        create: true
+    ~/.config/:
+      glob: true
+      path: config/**
+      relink: true
+      create: true
+    ~/.zshrc: zshrc
+    ~/.bash_profile: bash_profile
 
 - create:
-  - ~/vimwiki
-  - ~/.ssh:
-    mode: 0700
-  - ~/projects
   - ~/.local/bin
+  - ~/projects
+  - ~/vimwiki
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
-  - fish -c "fish_add_path ~/.local/bin"
