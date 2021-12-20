@@ -12,13 +12,6 @@ if test -eq (uname) "Darwin"
   end
 
   source /usr/local/opt/asdf/asdf.fish
-
-  source /usr/local/share/chruby/chruby.fish
-  source /usr/local/share/gem_home/gem_home.fish
-  if test -f '.ruby-version'
-    chruby (cat .ruby-version)
-  end
-
 else 
   source ~/.asdf/asdf.fish
 

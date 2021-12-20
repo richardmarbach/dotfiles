@@ -18,6 +18,8 @@
   - ~/.ssh:
     mode: 0700
   - ~/projects
+  - ~/bin
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
+  - fish -c "fish_add_path ~/bin"
