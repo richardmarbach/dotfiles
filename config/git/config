@@ -13,7 +13,7 @@
 
   delete-branches = "!fish -c 'git-delete-branches'"
 
-  unstage = "!. ~/config/git/helpers && git_unstage"
+  unstage = reset --
 
   # Fancy logging.
   #   h = head
