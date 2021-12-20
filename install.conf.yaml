@@ -12,8 +12,6 @@
     relink: true
   ~/.zshrc: zshrc
   ~/.bash_profile: bash_profile
-  ~/.gitconfig: gitconfig
-  ~/.githelpers: githelpers
 
 - create:
   - ~/vimwiki

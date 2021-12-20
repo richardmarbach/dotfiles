@@ -25,3 +25,4 @@ else
   mkdir -p ~/.config/fish/completions; and ln -fs ~/.asdf/completions/asdf.fish ~/.config/fish/completions
 end
 
+set fish_function_path $fish_function_path ~/.config/fish/plugins/plugin-foreign-env/functions

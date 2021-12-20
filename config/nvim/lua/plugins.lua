@@ -58,6 +58,9 @@ function M.plugins()
     -- Surround text objects with stuff
     use { 'tpope/vim-surround' }
 
+    -- Alternate file configuration
+    use { 'tpope/vim-projectionist' }
+
     -- Comment lines
     use { 'numToStr/Comment.nvim' }
     -- Context aware commenting
