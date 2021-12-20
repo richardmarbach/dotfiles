@@ -22,9 +22,11 @@
     ~/.bash_profile: bash_profile
 
 - create:
-  - ~/.local/bin
-  - ~/projects
-  - ~/vimwiki
+    ~/.local/bin:
+    ~/projects:
+    ~/vimwiki:
+    ~/.ssh:
+      mode: 0700
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
