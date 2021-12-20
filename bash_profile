@@ -1,5 +1,3 @@
-export PATH="$HOME/bin:$PATH"
-
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
 
 if [[ uname == "Darwin" ]]; then
