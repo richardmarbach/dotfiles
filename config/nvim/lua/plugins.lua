@@ -11,7 +11,7 @@ function M.init()
     bootstrap = true
   end
   vim.cmd [[packadd packer.nvim]]
-  vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile'
+  vim.cmd 'autocmd BufWritePost plugins.lua source $MYVIMRC | PackerCompile'
 
   M.setup(bootstrap)
 end

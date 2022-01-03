@@ -41,7 +41,7 @@ local keymappings = {
     ["<leader>gg"] = "<cmd>lua require('telescope.builtin').live_grep()<CR>",
     ["<leader>gw"] = "<cmd>lua require('telescope.builtin').grep_string()<CR>",
     ["<leader>ge"] = "<cmd>lua require('telescope.builtin').live_grep({cwd = require('telescope.utils').buffer_dir()})<CR>",
-    ["<leader>ga"] = "<cmd>lua require('telescope.builtin').live_grep({search_dirs = {'parts/', 'app/'}})<cr>",
+    ["<leader>ga"] = "<cmd>lua require('telescope.builtin').live_grep({search_dirs = {'parts/', 'app/', 'lib/'}})<cr>",
     ["<leader>gs"] = "<cmd>lua require('telescope.builtin').live_grep({search_dirs = {'spec/'}})<cr>",
     ["<leader>gd"] = "<cmd>lua require('telescope.builtin').live_grep({search_dirs = {vim.fn.input('Enter the directory to search: ', '', 'file')}})<cr>",
 
