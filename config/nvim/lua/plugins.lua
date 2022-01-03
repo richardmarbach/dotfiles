@@ -51,7 +51,7 @@ function M.plugins()
     use { 'lewis6991/gitsigns.nvim', disable = true }
 
     -- Color scheme
-    use {"ellisonleao/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
+    use { 'lifepillar/vim-gruvbox8' }
 
     -- Better splitting and joining
     use { 'AndrewRadev/splitjoin.vim' }
