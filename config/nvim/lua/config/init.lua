@@ -16,6 +16,10 @@ function M.setup(config)
     local moduleConfig = config[module] or {}
     require('config.'..module).setup(moduleConfig)
   end
+
+
+  vim.g['test#strategy'] = 'neovim'
+  vim.g['test#neovim#term_position'] = 'botright 15'
 end
 
 return M

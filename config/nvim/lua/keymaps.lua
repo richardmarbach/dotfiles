@@ -26,13 +26,18 @@ local generic_opts = {
 }
 
 local keymappings = {
+  term_mode = {
+    ["<C-o>"] = {"<C-\\><C-n>", {noremap = false, silent = false}},
+  },
   normal_mode = {
     ["<leader>v"] = "<cmd>tabnew $MYVIMRC<CR>",
     ["<leader><leader>"] = "<C-^>",
 
-    ["<leader>t"] ={"<cmd>lua require('run_tests').run_test_file()<CR>", {noremap=true, silent=false}},
-    ["<leader>T"] ={"<cmd>lua require('run_tests').run_nearest_test()<CR>", {noremap=true, silent=false}},
-    ["<leader>a"] ={"<cmd>lua require('run_tests').run_tests()<CR>", {noremap=true, silent=false}},
+    ["<leader>tT"] = "<cmd>TestNearest<CR>",
+    ["<leader>tt"] = "<cmd>TestFile<CR>",
+    ["<leader>ta"] = "<cmd>TestSuite<CR>",
+    ["<leader>tl"] = "<cmd>TestLast<CR>",
+    ["<leader>tg"] = "<cmd>TestVisit<CR>",
 
     ["<leader>n"] = "<cmd>lua require('utils.file').rename()<cr>",
 
