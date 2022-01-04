@@ -20,11 +20,7 @@ end
 function M.setup(bootstrap)
   local packer = require('packer')
 
-  packer.init({
-    config = {
-      compile_path = fn.stdpath('config') .. '/lua/packer_compiled.lua'
-    }
-  })
+  packer.init()
   packer.startup(M.plugins())
 
   if bootstrap then
