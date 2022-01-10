@@ -73,25 +73,28 @@ function _G.select_fish()
   end
 end
 
+
 u.create_augroup("vimrcEx", {
   {"FileType text setlocal textwidth=79"},
 
   -- When editing a file, always jump to the last cursor position
   [[autocmd BufReadPost *
-      \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+      \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'gitcommit'
       \ |   exe "normal! g`\""
       \ | endif]],
 
   {"FileType ruby,haml,eruby,yml,yaml,html,sass,cucumber set ai sw=2 sts=2 et"},
-  {"FileType python set sw=4 sts=4 et"},
+  {"FileType c,python set sw=4 sts=4 et"},
   {"FileType make set noexpandtab"},
   "autocmd! BufRead,BufNewFile *.sass setfiletype sass",
 
-  -- [[fun! s:SelectFish()
-  --   if getline(1) =~# '^#!.*/bin/\%(env\s\+\)\?fish\>'
-  --         set ft=fish
-  --   endif
-  -- endfun]],
-  "autocmd! BufRead,BufNewFile *.fish setfiletype fish",
-  -- "autocmd! BufRead,BufNewFile * v:lua.select_fish()",
+  [[
+  fun! s:SelectFish()
+    if getline(1) =~# '^#!.*/bin/\%(env\s\+\)\?fish\>'
+          set ft=fish
+    endif
+  endfun
+  autocmd! BufRead,BufNewFile *.fish setfiletype fish
+  autocmd! BufRead,BufNewFile * call s:SelectFish()
+  ]]
 })
