@@ -41,7 +41,7 @@ local keymappings = {
 
     ["<leader>n"] = "<cmd>lua require('utils.file').rename()<cr>",
 
-    -- ["<space>="] = "<cmd>Format<CR>",
+    ["<leader>b"] =  "<cmd>lua require('telescope.builtin').file_browser()<CR>",
 
     ["<leader>gg"] = "<cmd>lua require('telescope.builtin').live_grep()<CR>",
     ["<leader>gw"] = "<cmd>lua require('telescope.builtin').grep_string()<CR>",
