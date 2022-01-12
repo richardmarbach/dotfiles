@@ -87,7 +87,7 @@ function M.plugins()
       }
     }
     -- Autocompletion
-    use { 
+    use {
       'hrsh7th/nvim-cmp',
       requires = {
         {'hrsh7th/cmp-nvim-lsp'},
@@ -98,12 +98,13 @@ function M.plugins()
     }
 
     -- Fuzzy finder
-    use { 
+    use {
       'nvim-telescope/telescope.nvim',
       requires = {
         {'nvim-lua/plenary.nvim' },
         {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
         {"nvim-telescope/telescope-file-browser.nvim"},
+        {"kyazdani42/nvim-web-devicons"},
       }
 
     }

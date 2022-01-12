@@ -18,8 +18,8 @@
       path: config/**
       relink: true
       create: true
-    ~/.zshrc: zshrc
-    ~/.bash_profile: bash_profile
+    ~/.zshrc: .zshrc
+    ~/.bash_profile: .bash_profile
 
 - create:
     ~/.local/bin:

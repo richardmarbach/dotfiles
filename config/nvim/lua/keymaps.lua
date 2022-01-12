@@ -41,8 +41,6 @@ local keymappings = {
 
     ["<leader>n"] = "<cmd>lua require('utils.file').rename()<cr>",
 
-    ["<leader>b"] =  "<cmd>lua require('telescope.builtin').file_browser()<CR>",
-
     ["<leader>gg"] = "<cmd>lua require('telescope.builtin').live_grep()<CR>",
     ["<leader>gw"] = "<cmd>lua require('telescope.builtin').grep_string()<CR>",
     ["<leader>ge"] = "<cmd>lua require('telescope.builtin').live_grep({cwd = require('telescope.utils').buffer_dir()})<CR>",
@@ -61,8 +59,8 @@ local keymappings = {
     ["<leader>fgc"] = "<cmd>Telescope git_commits<cr>",
     ["<leader>fgd"] = "<cmd>Telescope git_bcommits<cr>",
 
-    ["<leader>bb"] = "<cmd>lua require('telescope.builtin').file_browser({hidden = true})<CR>",
-    ["<leader>be"] = "<cmd>lua require('telescope.builtin').file_browser({hidden = true, cwd = require('telescope.utils').buffer_dir()})<CR>",
+    ["<leader>bb"] = "<cmd>lua require('telescope').extensions.file_browser.file_browser({hidden = true})<CR>",
+    ["<leader>be"] = "<cmd>lua require('telescope').extensions.file_browser.file_browser({hidden = true, cwd = require('telescope.utils').buffer_dir()})<CR>",
   },
   insert_mode = {
     ["<C-l>"] = { "<space>=><space>", { noremap = true } },
