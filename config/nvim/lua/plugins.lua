@@ -74,6 +74,7 @@ function M.plugins()
 
     -- Easier lsp configuration
     use { 'neovim/nvim-lspconfig' }
+    use { 'williamboman/nvim-lsp-installer' }
 
     -- Better formatting support
     use { 'mhartington/formatter.nvim' }

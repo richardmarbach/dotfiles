@@ -9,7 +9,7 @@ function M.setup()
     incremental_selection = { enable = true },
     context_commentstring = { enable = true },
     indent = { enable = true },
-    textobjects = { 
+    textobjects = {
       enable = true,
       select = {
         enable = true,
@@ -23,7 +23,7 @@ function M.setup()
           ["ib"] = "@block.inner",
         },
       },
-      swap = { 
+      swap = {
         enable = true,
         swap_next = {
           ["<leader>a"] = "@parameter.inner",
@@ -57,7 +57,7 @@ function M.setup()
         },
       },
     },
-  } 
+  }
 end
 
 return M

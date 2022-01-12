@@ -105,7 +105,6 @@ local lsp_keymappings = {
   },
 }
 
- 
 function M.set_keymap(mode, lhs, rhs)
   local opt = generic_opts[mode] and generic_opts[mode] or opts
   if type(rhs) == "table" then
