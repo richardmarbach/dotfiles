@@ -22,6 +22,7 @@ local function setup_lsp_config(provider)
 	if ok then
 		config = vim.tbl_extend("force", config, lsp_config)
 	end
+
 	return config
 end
 
