@@ -1,12 +1,11 @@
-require('plugins').init()
+require("plugins").init()
 
-require('settings')
-require('colorscheme')
+require("settings")
+require("colorscheme")
 
-require('keymaps').setup()
+require("keymaps").setup()
 
-require('config').setup()
+require("config").setup()
 
-vim.g['test#strategy'] = 'neovim'
-vim.g['test#neovim#term_position'] = 'botright 14'
-
+vim.g["test#strategy"] = "neovim"
+vim.g["test#neovim#term_position"] = "botright 14"

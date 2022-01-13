@@ -46,6 +46,21 @@ function M.setup()
 	lsp_installer.on_server_ready(function(server)
 			server:setup(setup_lsp_config(server.name))
 	end)
+
+
+  require("null-ls").setup({
+      on_attach = on_attach,
+      flags = {
+        debounce_text_changes = 50,
+      },
+      capabilities = get_capabilities(),
+      sources = {
+          require("null-ls").builtins.formatting.stylua,
+          require("null-ls").builtins.formatting.standardrb,
+          require("null-ls").builtins.diagnostics.eslint_d,
+          require("null-ls").builtins.completion.spell,
+      },
+  })
 end
 
 return M
