@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+if [[ $(uname) == 'Darwin' ]]; then
+  brew tap homebrew/cask-fonts
+  brew install --cask font-Hack-nerd-font
+else
+  mkdir -p ~/.local/share/fonts
+  cd ~/.local/share/fonts
+  curl -fLo "Hack-Nerd-Font-Complete.zip" https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.zip
+  unzip "Hack-Nerd-Font-Complete.zip"
+  rm "Hack-Nerd-Font-Complete.zip"
+  fc-cache -fv
+  cd -
+fi
