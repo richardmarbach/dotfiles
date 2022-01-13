@@ -4,6 +4,20 @@ local function get_capabilities()
 	return require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 end
 
+local lsp_configs = {
+	["sumneko_lua"] = require("lua-dev").setup(),
+	["solargraph"] = {
+		init_options = {
+			formatting = false,
+		},
+		settings = {
+			solargraph = {
+				diagnostics = true,
+			},
+		},
+	},
+}
+
 local function setup_lsp_config(provider)
 	local config = {
 		on_attach = function(client, bufnr)
@@ -18,10 +32,9 @@ local function setup_lsp_config(provider)
 		capabilities = get_capabilities(),
 	}
 
-	local ok, lsp_config = pcall(require, "config.lsp." .. provider)
-	if ok then
-		config = vim.tbl_extend("force", config, lsp_config)
-	end
+  if lsp_configs[provider] then
+		config = vim.tbl_extend("force", config, lsp_configs[provider])
+  end
 
 	return config
 end

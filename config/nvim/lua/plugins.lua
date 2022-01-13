@@ -46,6 +46,9 @@ function M.plugins()
     use { 'sindrets/diffview.nvim' }
     use { 'lewis6991/gitsigns.nvim' }
 
+    -- Neovim lua dev
+    use { 'folke/lua-dev.nvim' }
+
     -- Color scheme
     use { 'lifepillar/vim-gruvbox8' }
 
