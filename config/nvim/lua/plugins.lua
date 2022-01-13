@@ -44,7 +44,7 @@ function M.plugins()
 
     -- Git integration
     use { 'sindrets/diffview.nvim' }
-    use { 'lewis6991/gitsigns.nvim', disable = true }
+    use { 'lewis6991/gitsigns.nvim' }
 
     -- Color scheme
     use { 'lifepillar/vim-gruvbox8' }

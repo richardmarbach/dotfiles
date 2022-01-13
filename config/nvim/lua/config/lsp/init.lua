@@ -56,6 +56,8 @@ function M.setup()
 			require("null-ls").builtins.formatting.standardrb,
 			require("null-ls").builtins.formatting.eslint_d.with({ extra_filetypes = { "svelte" } }),
 			require("null-ls").builtins.diagnostics.eslint_d.with({ extra_filetypes = { "svelte" } }),
+			require("null-ls").builtins.code_actions.eslint_d.with({ extra_filetypes = { "svelte" } }),
+			require("null-ls").builtins.code_actions.gitsigns,
 			require("null-ls").builtins.completion.spell,
 		},
 	})
