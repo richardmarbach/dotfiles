@@ -44,7 +44,10 @@ function M.plugins()
 
     -- Git integration
     use { 'sindrets/diffview.nvim' }
-    use { 'lewis6991/gitsigns.nvim', disable = true }
+    use { 'lewis6991/gitsigns.nvim' }
+
+    -- Neovim lua dev
+    use { 'folke/lua-dev.nvim' }
 
     -- Color scheme
     use { 'lifepillar/vim-gruvbox8' }
@@ -75,6 +78,7 @@ function M.plugins()
     -- Easier lsp configuration
     use { 'neovim/nvim-lspconfig' }
     use { 'williamboman/nvim-lsp-installer' }
+    use { 'jose-elias-alvarez/null-ls.nvim' }
 
     -- Better formatting support
     use { 'mhartington/formatter.nvim' }

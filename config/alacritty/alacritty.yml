@@ -33,13 +33,13 @@ colors:
     white:   '#eeeeee'
 font:
   italic:
-    family: 'Hack'
+    family: 'Hack Nerd Font Mono'
     style: 'Italic'
   bold:
-    family: 'Hack'
+    family: 'Hack Nerd Font Mono'
     style: 'Bold'
   normal:
-    family: 'Hack'
+    family: 'Hack Nerd Font Mono'
 key_bindings:
   - { key: Q, mods: Control, chars: "\x11" }
   - { key: Q, mods: Alt, chars: "\x1bq" }
