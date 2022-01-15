@@ -94,12 +94,12 @@ local lsp_keymappings = {
     ['<space>rn'] = '<cmd>lua vim.lsp.buf.rename()<CR>',
     ['<space>ca'] = '<cmd>Telescope lsp_code_actions<CR>',
     ['gr'] = '<cmd>Telescope lsp_references<CR>',
-    ['<space>e'] = '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>',
+    ['<space>e'] = '<cmd>lua vim.lsp.diagnostic.open_float()<CR>',
     ['[d'] = '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>',
     [']d'] = '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>',
-    ['<space>q'] = '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>',
-    ['<space>dd'] = '<cmd>Telescope lsp_document_diagnostics<CR>',
-    ['<space>dD'] = '<cmd>Telescope lsp_workspace_diagnostics<CR>',
+    ['<space>q'] = '<cmd>lua vim.diagnostic.setloclist()<CR>',
+    ['<space>dd'] = '<cmd>Telescope diagnostics bufnr=0<CR>',
+    ['<space>dD'] = '<cmd>Telescope diagnostics<CR>',
   },
 }
 
