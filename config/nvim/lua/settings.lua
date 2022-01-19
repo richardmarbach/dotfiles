@@ -76,7 +76,7 @@ end
 u.nvim_create_augroups({
 	vimrcEx = {
 		{ "FileType text setlocal textwidth=79" },
-		{ "FileType vimwiki setlocal columns=80" },
+		{ "FileType vimwiki setlocal columns=80,linebreak" },
 
 		-- When editing a file, always jump to the last cursor position
 		{
