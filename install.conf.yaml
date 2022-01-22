@@ -20,11 +20,11 @@
       create: true
     ~/.zshrc: .zshrc
     ~/.bash_profile: .bash_profile
+    ~/notes: notes
 
 - create:
     ~/.local/bin:
     ~/projects:
-    ~/vimwiki:
     ~/.ssh:
       mode: 0700
 

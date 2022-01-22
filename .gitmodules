@@ -8,3 +8,6 @@
 [submodule "config/fish/plugins/plugin-foreign-env"]
 	path = config/fish/plugins/plugin-foreign-env
 	url = https://github.com/oh-my-fish/plugin-foreign-env
+[submodule "notes"]
+	path = notes
+	url = git@github.com:richardmarbach/wiki.git

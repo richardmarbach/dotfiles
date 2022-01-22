@@ -5,7 +5,10 @@ function M.setup()
 
 	ts.setup({
 		ensure_installed = "maintained",
-		highlight = { enable = true },
+		highlight = {
+			enable = true,
+			additional_vim_regex_highlighting = { "markdown" },
+		},
 		incremental_selection = { enable = true },
 		context_commentstring = { enable = true },
 		indent = { enable = true },

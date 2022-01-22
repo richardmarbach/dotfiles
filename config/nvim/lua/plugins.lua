@@ -37,7 +37,8 @@ function M.plugins()
     use { 'nvim-lua/plenary.nvim' }
 
     -- Personal wiki integration
-    use { 'vimwiki/vimwiki' }
+    -- use { 'vimwiki/vimwiki' }
+    use { "mickael-menu/zk-nvim" }
 
     -- Debug protocol
     use { 'mfussenegger/nvim-dap' }
