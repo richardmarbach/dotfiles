@@ -65,8 +65,8 @@ local keymappings = {
 		["<leader>zn"] = "<Cmd>ZkNew { title = vim.fn.input('Title: ') }<CR>",
 		["<leader>zo"] = "<Cmd>ZkNotes<CR>",
 		["<leader>zt"] = "<Cmd>ZkTags<CR>",
-		-- ["<leader>zf"] = "<Cmd>ZkNotes { match = vim.fn.input('Search: ') }<CR>",
-		["<leader>zf"] = "<Cmd>Telescope zk notes",
+		["<leader>zf"] = "<Cmd>ZkNotes { match = vim.fn.input('Search: ') }<CR>",
+		-- ["<leader>zf"] = "<Cmd>Telescope zk notes<CR>",
 	},
 	insert_mode = {
 		["<C-l>"] = { "<space>=><space>", { noremap = true } },
