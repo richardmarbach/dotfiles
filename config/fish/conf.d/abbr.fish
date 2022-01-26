@@ -1,6 +1,4 @@
 abbr -a g "git"
-abbr -a gs "git stash"
-abbr -a gsp "git stash pop"
 
 abbr -a d "docker"
 abbr -a di "docker image"
