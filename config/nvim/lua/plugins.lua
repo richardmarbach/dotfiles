@@ -4,124 +4,124 @@ local fn = vim.fn
 local exec = vim.api.nvim_command
 
 function M.init()
-	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-	local bootstrap = false
-	if fn.empty(fn.glob(install_path)) == 1 then
-		exec("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
-		bootstrap = true
-	end
-	vim.cmd([[packadd packer.nvim]])
-	vim.cmd("autocmd BufWritePost plugins.lua source $MYVIMRC | PackerCompile")
+  local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+  local bootstrap = false
+  if fn.empty(fn.glob(install_path)) == 1 then
+    exec("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
+    bootstrap = true
+  end
+  vim.cmd([[packadd packer.nvim]])
+  vim.cmd("autocmd BufWritePost plugins.lua source $MYVIMRC | PackerCompile")
 
-	M.setup(bootstrap)
+  M.setup(bootstrap)
 end
 
 function M.setup(bootstrap)
-	local packer = require("packer")
+  local packer = require("packer")
 
-	packer.init()
-	packer.startup(M.plugins())
+  packer.init()
+  packer.startup(M.plugins())
 
-	if bootstrap then
-		packer.sync()
-	end
+  if bootstrap then
+    packer.sync()
+  end
 end
 
 function M.plugins()
-	return function()
-		-- Packer can manage itself
-		use("wbthomason/packer.nvim")
+  return function()
+    -- Packer can manage itself
+    use("wbthomason/packer.nvim")
 
-		-- Helpers
-		use({ "nvim-lua/plenary.nvim" })
+    -- Helpers
+    use({ "nvim-lua/plenary.nvim" })
 
-		-- Personal wiki integration
-		-- use { 'vimwiki/vimwiki' }
-		use({ "mickael-menu/zk-nvim" })
+    -- Personal wiki integration
+    -- use { 'vimwiki/vimwiki' }
+    use({ "mickael-menu/zk-nvim" })
 
-		-- Debug protocol
-		use({ "mfussenegger/nvim-dap" })
+    -- Debug protocol
+    use({ "mfussenegger/nvim-dap" })
 
-		-- Git integration
-		use({ "sindrets/diffview.nvim" })
-		use({ "lewis6991/gitsigns.nvim" })
+    -- Git integration
+    use({ "sindrets/diffview.nvim" })
+    use({ "lewis6991/gitsigns.nvim" })
 
-		-- Neovim lua dev
-		use({ "folke/lua-dev.nvim" })
+    -- Neovim lua dev
+    use({ "folke/lua-dev.nvim" })
 
-		-- Color scheme
-		use({ "lifepillar/vim-gruvbox8" })
+    -- Color scheme
+    use({ "lifepillar/vim-gruvbox8" })
 
-		-- Better splitting and joining
-		use({ "AndrewRadev/splitjoin.vim" })
-		-- Surround text objects with stuff
-		use({ "tpope/vim-surround" })
+    -- Better splitting and joining
+    use({ "AndrewRadev/splitjoin.vim" })
+    -- Surround text objects with stuff
+    use({ "tpope/vim-surround" })
 
-		-- Alternate file configuration
-		use({ "tpope/vim-projectionist" })
+    -- Alternate file configuration
+    use({ "tpope/vim-projectionist" })
 
-		-- Comment lines
-		use({ "numToStr/Comment.nvim" })
-		-- Context aware commenting
-		use({ "JoosepAlviste/nvim-ts-context-commentstring" })
+    -- Comment lines
+    use({ "numToStr/Comment.nvim" })
+    -- Context aware commenting
+    use({ "JoosepAlviste/nvim-ts-context-commentstring" })
 
-		-- More powerful dot operator
-		use({ "tpope/vim-repeat" })
+    -- More powerful dot operator
+    use({ "tpope/vim-repeat" })
 
-		-- Autocomplete html
-		use({ "mattn/emmet-vim" })
+    -- Autocomplete html
+    use({ "mattn/emmet-vim" })
 
-		-- AST awareness
-		use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
-		use({ "nvim-treesitter/nvim-treesitter-textobjects" })
+    -- AST awareness
+    use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+    use({ "nvim-treesitter/nvim-treesitter-textobjects" })
 
-		-- Easier lsp configuration
-		use({ "neovim/nvim-lspconfig" })
-		use({ "williamboman/nvim-lsp-installer" })
-		use({ "jose-elias-alvarez/null-ls.nvim" })
+    -- Easier lsp configuration
+    use({ "neovim/nvim-lspconfig" })
+    use({ "williamboman/nvim-lsp-installer" })
+    use({ "jose-elias-alvarez/null-ls.nvim" })
 
-		-- Better formatting support
-		use({ "mhartington/formatter.nvim" })
+    -- Better formatting support
+    use({ "mhartington/formatter.nvim" })
 
-		-- Snippets
-		use({
-			"honza/vim-snippets",
-			requires = {
-				{ "dcampos/nvim-snippy" },
-			},
-		})
-		-- Autocompletion
-		use({
-			"hrsh7th/nvim-cmp",
-			requires = {
-				{ "hrsh7th/cmp-nvim-lsp" },
-				{ "hrsh7th/cmp-buffer" },
-				{ "hrsh7th/cmp-path" },
-				{ "dcampos/cmp-snippy" },
-				{ "richardmarbach/cmp-github" },
-			},
-		})
+    -- Snippets
+    use({
+      "honza/vim-snippets",
+      requires = {
+        { "dcampos/nvim-snippy" },
+      },
+    })
+    -- Autocompletion
+    use({
+      "hrsh7th/nvim-cmp",
+      requires = {
+        { "hrsh7th/cmp-nvim-lsp" },
+        { "hrsh7th/cmp-buffer" },
+        { "hrsh7th/cmp-path" },
+        { "dcampos/cmp-snippy" },
+        { "richardmarbach/cmp-github" },
+      },
+    })
 
-		-- Fuzzy finder
-		use({
-			"nvim-telescope/telescope.nvim",
-			requires = {
-				{ "nvim-lua/plenary.nvim" },
-				{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-				{ "nvim-telescope/telescope-file-browser.nvim" },
-				{ "kyazdani42/nvim-web-devicons" },
-			},
-		})
+    -- Fuzzy finder
+    use({
+      "nvim-telescope/telescope.nvim",
+      requires = {
+        { "nvim-lua/plenary.nvim" },
+        { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+        { "nvim-telescope/telescope-file-browser.nvim" },
+        { "kyazdani42/nvim-web-devicons" },
+      },
+    })
 
-		-- Nicer status line
-		use({ "hoob3rt/lualine.nvim" })
+    -- Nicer status line
+    use({ "hoob3rt/lualine.nvim" })
 
-		-- Better rust integration
-		use({ "simrat39/rust-tools.nvim" })
+    -- Better rust integration
+    use({ "simrat39/rust-tools.nvim" })
 
-		-- Tet runner integration
-		use({ "vim-test/vim-test" })
-	end
+    -- Tet runner integration
+    use({ "vim-test/vim-test" })
+  end
 end
 
 return M
