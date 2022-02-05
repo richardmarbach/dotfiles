@@ -102,6 +102,9 @@ function M.plugins()
       },
     })
 
+    -- Ruby refactorings and helpers
+    use({ "richardmarbach/extract-ruby-constant" })
+
     -- Fuzzy finder
     use({
       "nvim-telescope/telescope.nvim",
