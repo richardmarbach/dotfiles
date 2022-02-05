@@ -73,6 +73,7 @@ function M.plugins()
 
     -- AST awareness
     use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+    use({ "nvim-treesitter/playground" })
     use({ "nvim-treesitter/nvim-treesitter-textobjects" })
 
     -- Easier lsp configuration
