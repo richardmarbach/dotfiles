@@ -1,1 +1,1 @@
-nnoremap <leader>yc :lua require('extract-ruby-class').yank()<cr>
+nnoremap <leader>yc :lua require('extract-ruby-constant').yank()<cr>
