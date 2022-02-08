@@ -37,10 +37,10 @@ function M.setup()
 		},
 		sources = {
 			{ name = "github" },
-			-- { name = "nvim_lsp" },
-			-- { name = "buffer", max_item_count = 10 },
-			-- { name = "snippy" },
-			-- { name = "path" },
+			{ name = "nvim_lsp" },
+			{ name = "buffer", max_item_count = 10 },
+			{ name = "snippy" },
+			{ name = "path" },
 		},
 		experimental = {
 			ghost_text = true,
