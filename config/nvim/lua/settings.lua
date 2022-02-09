@@ -88,5 +88,7 @@ u.nvim_create_augroups({
 		{ "BufRead,BufNewFile *.sass setfiletype sass" },
 		{ "BufRead,BufNewFile *.fish setfiletype fish" },
 		{ "BufRead,BufNewFile * call v:lua.select_fish()" },
+
+		{ "BufNewFile,BufRead *.rbi set filetype=ruby" },
 	},
 })
