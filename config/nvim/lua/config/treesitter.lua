@@ -39,22 +39,22 @@ function M.setup()
 				enable = true,
 				set_jumps = true, -- whether to set jumps in the jumplist
 				goto_next_start = {
-					["]m"] = "@function.outer",
+					["]m"] = "@method.outer",
 					["]b"] = "@block.outer",
 					["]]"] = "@class.outer",
 				},
 				goto_next_end = {
-					["]M"] = "@function.outer",
+					["]M"] = "@method.outer",
 					["]B"] = "@block.outer",
 					["]["] = "@class.outer",
 				},
 				goto_previous_start = {
-					["[m"] = "@function.outer",
+					["[m"] = "@method.outer",
 					["[B"] = "@block.outer",
 					["[["] = "@class.outer",
 				},
 				goto_previous_end = {
-					["[M"] = "@function.outer",
+					["[M"] = "@method.outer",
 					["[B"] = "@block.outer",
 					["[]"] = "@class.outer",
 				},
@@ -64,7 +64,7 @@ function M.setup()
 				border = "none",
 				peek_definition_code = {
 					["<leader>df"] = "@function.outer",
-					["<leader>"] = "dF@class.outer",
+					["<leader>dF"] = "@class.outer",
 				},
 			},
 		},
