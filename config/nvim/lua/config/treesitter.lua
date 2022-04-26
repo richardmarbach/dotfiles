@@ -4,7 +4,7 @@ function M.setup()
 	local ts = require("nvim-treesitter.configs")
 
 	ts.setup({
-		ensure_installed = "maintained",
+		ensure_installed = "all",
 		highlight = {
 			enable = true,
 			additional_vim_regex_highlighting = { "markdown" },
@@ -20,6 +20,8 @@ function M.setup()
 				keymaps = {
 					["af"] = "@function.outer",
 					["if"] = "@function.inner",
+					["am"] = "@method.outer",
+					["im"] = "@method.inner",
 					["ac"] = "@class.outer",
 					["ic"] = "@class.inner",
 					["ab"] = "@block.outer",

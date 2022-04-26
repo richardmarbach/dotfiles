@@ -50,6 +50,7 @@
   diffFilter = delta --color-only
 [merge]
   tool = vimdiff
+  conflictStyle = zdiff3
 [mergetool]
   prompt = true
 	keepBackup = false

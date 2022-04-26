@@ -18,7 +18,7 @@ function M.setup()
 
 	cmp.setup({
 		completion = {
-			autocomplete = false,
+			-- autocomplete = false,
 			completeopt = "menu,menuone,noselect",
 		},
 		snippet = {

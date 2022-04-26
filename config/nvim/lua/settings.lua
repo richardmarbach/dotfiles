@@ -1,5 +1,4 @@
 local fn = vim.fn
-local cmd = vim.cmd
 local u = require("utils")
 
 -- Tabs are spaces!
@@ -31,7 +30,7 @@ vim.o.wildmode = "longest,list"
 vim.o.writebackup = false
 
 -- We don't need to gutter
-vim.o.signcolumn = "no"
+vim.o.signcolumn = "yes:1"
 
 -- Write the file bafter commands are executed on it
 vim.o.autowrite = true
