@@ -45,13 +45,13 @@ local keymappings = {
 		["<leader>gw"] = "<cmd>lua require('telescope.builtin').grep_string()<CR>",
 		["<leader>ge"] = "<cmd>lua require('telescope.builtin').live_grep({cwd = require('telescope.utils').buffer_dir()})<CR>",
 		["<leader>ga"] = "<cmd>lua require('telescope.builtin').live_grep({search_dirs = {'parts/', 'app/', 'lib/'}})<cr>",
-		["<leader>gs"] = "<cmd>lua require('telescope.builtin').live_grep({search_dirs = {'spec/'}})<cr>",
+		["<leader>gs"] = "<cmd>lua require('telescope.builtin').live_grep({search_dirs = {'spec/', 'test/'}})<cr>",
 		["<leader>gc"] = "<cmd>lua require('telescope.builtin').live_grep({search_dirs = {'config/'}})<cr>",
 		["<leader>gd"] = "<cmd>lua require('telescope.builtin').live_grep({search_dirs = {vim.fn.input('Enter the directory to search: ', '', 'file')}})<cr>",
 
 		["<leader>ff"] = "<cmd>lua require('telescope.builtin').find_files()<CR>",
 		["<leader>fe"] = "<cmd>lua require('telescope.builtin').find_files({cwd = require('telescope.utils').buffer_dir()})<CR>",
-		["<leader>fs"] = "<cmd>lua require('telescope.builtin').find_files({search_dirs = {'spec/'}})<CR>",
+		["<leader>fs"] = "<cmd>lua require('telescope.builtin').find_files({search_dirs = {'spec/', 'test/'}})<CR>",
 		["<leader>fa"] = "<cmd>lua require('telescope.builtin').find_files({search_dirs = {'parts/', 'app/', 'lib/'}})<CR>",
 		["<leader>fc"] = "<cmd>lua require('telescope.builtin').find_files({search_dirs = {'config/'}})<CR>",
 
