@@ -43,6 +43,9 @@ local lsp_configs = {
   ["rust_analyzer"] = {
     on_attach = format_on_save(on_attach),
   },
+  ["tsserver"] = {
+    on_attach = disable_format(on_attach),
+  },
 }
 
 local function setup_lsp_config(provider)
@@ -86,9 +89,9 @@ function M.setup()
     sources = {
       null_ls.builtins.formatting.stylua,
       null_ls.builtins.formatting.standardrb,
-      null_ls.builtins.formatting.eslint_d.with({ extra_filetypes = { "svelte" } }),
-      null_ls.builtins.diagnostics.eslint_d.with({ extra_filetypes = { "svelte" } }),
-      null_ls.builtins.code_actions.eslint_d.with({ extra_filetypes = { "svelte" } }),
+      null_ls.builtins.formatting.eslint.with({ extra_filetypes = { "svelte" } }),
+      null_ls.builtins.diagnostics.eslint.with({ extra_filetypes = { "svelte" } }),
+      null_ls.builtins.code_actions.eslint.with({ extra_filetypes = { "svelte" } }),
       null_ls.builtins.code_actions.gitsigns,
       null_ls.builtins.completion.spell,
 
