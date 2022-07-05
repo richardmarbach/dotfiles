@@ -1,5 +1,5 @@
 local fn = vim.fn
-local u = require("utils")
+local api = vim.api
 
 -- Tabs are spaces!
 vim.o.expandtab = true
@@ -60,34 +60,52 @@ vim.o.updatetime = 200
 -- Put our undo history into a temp file
 local undo_dir = "/tmp/.vim-undo-dir"
 if fn.isdirectory(undo_dir) == 0 then
-	vim.fn.mkdir(undo_dir, "p", 0700)
+  vim.fn.mkdir(undo_dir, "p", 0700)
 end
 vim.o.undodir = undo_dir
 vim.o.undofile = true
 
 local shebang = vim.regex("^#!.*/bin/\\%(env\\s\\+\\)\\?fish\\>\\C")
 function _G.select_fish()
-	if shebang:match_line(0, 0) then
-		vim.bo.filetype = "fish"
-	end
+  if shebang:match_line(0, 0) then
+    vim.bo.filetype = "fish"
+  end
 end
 
-u.nvim_create_augroups({
-	vimrcEx = {
-		{ "FileType text setlocal textwidth=79" },
-		{ "FileType markdown setlocal textwidth=80 linebreak" },
+local vimrcEx = api.nvim_create_augroup("vimrcEx", { clear = true })
 
-		-- When editing a file, always jump to the last cursor position
-		{
-			[[BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'gitcommit' | exe "normal! g`\"" | endif]],
-		},
-		{ "FileType ruby,haml,eruby,yml,yaml,html,sass,cucumber set ai sw=2 sts=2 et" },
-		{ "FileType c,python set sw=4 sts=4 et" },
-		{ "FileType make set noexpandtab" },
-		{ "BufRead,BufNewFile *.sass setfiletype sass" },
-		{ "BufRead,BufNewFile *.fish setfiletype fish" },
-		{ "BufRead,BufNewFile * call v:lua.select_fish()" },
+api.nvim_create_autocmd("FileType", { pattern = { "text" }, command = [[setlocal textwidth=79]], group = vimrcEx })
+api.nvim_create_autocmd(
+  "FileType",
+  { pattern = { "markdown" }, command = [[setlocal textwidth=80 linebreak]], group = vimrcEx }
+)
 
-		{ "BufNewFile,BufRead *.rbi set filetype=ruby" },
-	},
-})
+-- When editing a file, always jump to the last cursor position
+api.nvim_create_autocmd(
+  "BufReadPost",
+  { command = [[if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g`\"" | endif]], group = vimrcEx }
+)
+
+api.nvim_create_autocmd(
+  "FileType",
+  { pattern = { "ruby,haml,eruby,yml,yaml,html,sass,cucumber" }, command = [[ set ai sw=2 sts=2 et ]], group = vimrcEx }
+)
+api.nvim_create_autocmd("FileType", { pattern = { "c", "python" }, command = [[ set sw=4 sts=4 et]], group = vimrcEx })
+api.nvim_create_autocmd("FileType", { pattern = { "make" }, command = [[set noexpandtab]], group = vimrcEx })
+
+api.nvim_create_autocmd(
+  { "BufRead", "BufNewFile" },
+  { pattern = { "*.sass" }, command = [[ setfiletype sass ]], group = vimrcEx }
+)
+api.nvim_create_autocmd(
+  { "BufRead", "BufNewFile" },
+  { pattern = { "*.fish" }, command = [[ setfiletype fish ]], group = vimrcEx }
+)
+api.nvim_create_autocmd(
+  { "BufRead", "BufNewFile" },
+  { pattern = { "*" }, command = [[ call v:lua.select_fish() ]], group = vimrcEx }
+)
+api.nvim_create_autocmd(
+  { "BufNewFile", "BufRead" },
+  { pattern = { "*.rbi" }, command = [[ set filetype=ruby ]], group = vimrcEx }
+)
