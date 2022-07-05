@@ -95,17 +95,5 @@ api.nvim_create_autocmd("FileType", { pattern = { "make" }, command = [[set noex
 
 api.nvim_create_autocmd(
   { "BufRead", "BufNewFile" },
-  { pattern = { "*.sass" }, command = [[ setfiletype sass ]], group = vimrcEx }
-)
-api.nvim_create_autocmd(
-  { "BufRead", "BufNewFile" },
-  { pattern = { "*.fish" }, command = [[ setfiletype fish ]], group = vimrcEx }
-)
-api.nvim_create_autocmd(
-  { "BufRead", "BufNewFile" },
   { pattern = { "*" }, command = [[ call v:lua.select_fish() ]], group = vimrcEx }
-)
-api.nvim_create_autocmd(
-  { "BufNewFile", "BufRead" },
-  { pattern = { "*.rbi" }, command = [[ set filetype=ruby ]], group = vimrcEx }
 )
