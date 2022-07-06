@@ -65,13 +65,6 @@ end
 vim.o.undodir = undo_dir
 vim.o.undofile = true
 
-local shebang = vim.regex("^#!.*/bin/\\%(env\\s\\+\\)\\?fish\\>\\C")
-function _G.select_fish()
-  if shebang:match_line(0, 0) then
-    vim.bo.filetype = "fish"
-  end
-end
-
 local vimrcEx = api.nvim_create_augroup("vimrcEx", { clear = true })
 
 api.nvim_create_autocmd("FileType", { pattern = { "text" }, command = [[setlocal textwidth=79]], group = vimrcEx })
@@ -92,8 +85,3 @@ api.nvim_create_autocmd(
 )
 api.nvim_create_autocmd("FileType", { pattern = { "c", "python" }, command = [[ set sw=4 sts=4 et]], group = vimrcEx })
 api.nvim_create_autocmd("FileType", { pattern = { "make" }, command = [[set noexpandtab]], group = vimrcEx })
-
-api.nvim_create_autocmd(
-  { "BufRead", "BufNewFile" },
-  { pattern = { "*" }, command = [[ call v:lua.select_fish() ]], group = vimrcEx }
-)
