@@ -42,21 +42,32 @@ font:
     family: 'Hack Nerd Font Mono'
 key_bindings:
   - { key: Q, mods: Control, chars: "\x11" }
-  - { key: Q, mods: Alt, chars: "\x1bq" }
-  - { key: F, mods: Alt, chars: "\x1bf" }
-  - { key: B, mods: Alt, chars: "\x1bb" }
-  - { key: E, mods: Alt, chars: "\x1be" }
-  - { key: D, mods: Alt, chars: "\x1bd" }
-  - { key: H, mods: Alt, chars: "\x1bh" }
-  - { key: L, mods: Alt, chars: "\x1bl" }
-  - { key: O, mods: Alt, chars: "\x1bo" }
-  - { key: P, mods: Alt, chars: "\x1bp" }
-  - { key: W, mods: Alt, chars: "\x1bw" }
-  - { key: V, mods: Alt, chars: "\x1bv" }
-  - { key: S, mods: Alt, chars: "\x1bs" }
-  - { key: C, mods: Alt, chars: "\x1bc" }
-  - { key: U, mods: Alt, chars: "\x1bu" }
-  - { key: T, mods: Alt, chars: "\x1bt" }
-  - { key: M, mods: Alt, chars: "\x1bm" }
   - { key: Slash, mods: Control, chars: "\x1f" }
-  - { key: Slash, mods: Alt, chars: "\x1b/" }
+
+  - { mods: Alt, key: A, chars: "\x1ba" }
+  - { mods: Alt, key: B, chars: "\x1bb" }
+  - { mods: Alt, key: C, chars: "\x1bc" }
+  - { mods: Alt, key: D, chars: "\x1bd" }
+  - { mods: Alt, key: E, chars: "\x1be" }
+  - { mods: Alt, key: F, chars: "\x1bf" }
+  - { mods: Alt, key: G, chars: "\x1bg" }
+  - { mods: Alt, key: H, chars: "\x1bh" }
+  - { mods: Alt, key: I, chars: "\x1bi" }
+  - { mods: Alt, key: J, chars: "\x1bj" }
+  - { mods: Alt, key: K, chars: "\x1bK" }
+  - { mods: Alt, key: L, chars: "\x1bl" }
+  - { mods: Alt, key: M, chars: "\x1bm" }
+  - { mods: Alt, key: N, chars: "\x1bn" }
+  - { mods: Alt, key: O, chars: "\x1bo" }
+  - { mods: Alt, key: P, chars: "\x1bp" }
+  - { mods: Alt, key: Q, chars: "\x1bq" }
+  - { mods: Alt, key: R, chars: "\x1br" }
+  - { mods: Alt, key: S, chars: "\x1bs" }
+  - { mods: Alt, key: T, chars: "\x1bt" }
+  - { mods: Alt, key: U, chars: "\x1bu" }
+  - { mods: Alt, key: V, chars: "\x1bv" }
+  - { mods: Alt, key: W, chars: "\x1bw" }
+  - { mods: Alt, key: X, chars: "\x1bx" }
+  - { mods: Alt, key: Y, chars: "\x1by" }
+  - { mods: Alt, key: Z, chars: "\x1bz" }
+  - { mods: Alt, key: Slash, chars: "\x1b/" }
