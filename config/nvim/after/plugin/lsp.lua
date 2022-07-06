@@ -1,5 +1,3 @@
-local M = {}
-
 local function get_capabilities()
   return require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 end
@@ -64,44 +62,42 @@ local function setup_lsp_config(provider)
   return config
 end
 
-function M.setup()
-  local lsp_installer = require("nvim-lsp-installer")
+local lsp_installer = require("nvim-lsp-installer")
+lsp_installer.setup({})
 
-  lsp_installer.on_server_ready(function(server)
-    server:setup(setup_lsp_config(server.name))
-  end)
-
-  local null_ls = require("null-ls")
-  null_ls.setup({
-    on_attach = function(client, bufnr)
-      local keymaps = require("keymaps")
-      if client.resolved_capabilities.document_formatting then
-        keymaps.set_buf_keymap(bufnr, "n", "<space>=", "<cmd>lua vim.lsp.buf.formatting()<CR>")
-      end
-      if client.resolved_capabilities.document_range_formatting then
-        keymaps.set_buf_keymap(bufnr, "n", "<space>=", "<cmd>lua vim.lsp.buf.formatting()<CR>")
-      end
-    end,
-    flags = {
-      debounce_text_changes = 50,
-    },
-    capabilities = get_capabilities(),
-    sources = {
-      null_ls.builtins.formatting.stylua,
-      null_ls.builtins.formatting.standardrb,
-      null_ls.builtins.formatting.prettier.with({ extra_filetypes = { "svelte" } }),
-      null_ls.builtins.diagnostics.eslint.with({ extra_filetypes = { "svelte" } }),
-      null_ls.builtins.code_actions.eslint.with({ extra_filetypes = { "svelte" } }),
-      null_ls.builtins.code_actions.gitsigns,
-      null_ls.builtins.completion.spell,
-
-      null_ls.builtins.diagnostics.shellcheck,
-      null_ls.builtins.formatting.shellharden,
-      null_ls.builtins.formatting.shfmt,
-
-      null_ls.builtins.formatting.pg_format,
-    },
-  })
+local lsp = require("lspconfig")
+for _, provider in ipairs(lsp_configs) do
+  lsp[provider].setup(setup_lsp_config(provider))
 end
 
-return M
+local null_ls = require("null-ls")
+null_ls.setup({
+  on_attach = function(client, bufnr)
+    local keymaps = require("keymaps")
+    if client.resolved_capabilities.document_formatting then
+      keymaps.set_buf_keymap(bufnr, "n", "<space>=", "<cmd>lua vim.lsp.buf.formatting()<CR>")
+    end
+    if client.resolved_capabilities.document_range_formatting then
+      keymaps.set_buf_keymap(bufnr, "n", "<space>=", "<cmd>lua vim.lsp.buf.formatting()<CR>")
+    end
+  end,
+  flags = {
+    debounce_text_changes = 50,
+  },
+  capabilities = get_capabilities(),
+  sources = {
+    null_ls.builtins.formatting.stylua,
+    null_ls.builtins.formatting.standardrb,
+    null_ls.builtins.formatting.prettier.with({ extra_filetypes = { "svelte" } }),
+    null_ls.builtins.diagnostics.eslint.with({ extra_filetypes = { "svelte" } }),
+    null_ls.builtins.code_actions.eslint.with({ extra_filetypes = { "svelte" } }),
+    null_ls.builtins.code_actions.gitsigns,
+    null_ls.builtins.completion.spell,
+
+    null_ls.builtins.diagnostics.shellcheck,
+    null_ls.builtins.formatting.shellharden,
+    null_ls.builtins.formatting.shfmt,
+
+    null_ls.builtins.formatting.pg_format,
+  },
+})
