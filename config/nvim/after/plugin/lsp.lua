@@ -4,7 +4,26 @@ end
 
 local function on_attach(_, bufnr)
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-  require("keymaps").setup_lsp_mappings(bufnr)
+
+  local bufopts = { buffer = bufnr, noremap = true, silent = true }
+  vim.keymap.set("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", bufopts)
+  vim.keymap.set("n", "gd", "<Cmd>Telescope lsp_definitions<CR>", bufopts)
+  vim.keymap.set("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", bufopts)
+  vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", bufopts)
+  vim.keymap.set("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", bufopts)
+  vim.keymap.set("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", bufopts)
+  vim.keymap.set("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", bufopts)
+  vim.keymap.set("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", bufopts)
+  vim.keymap.set("n", "<space>D", "<cmd>Telescope lsp_type_definitions<CR>", bufopts)
+  vim.keymap.set("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", bufopts)
+  vim.keymap.set("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", bufopts)
+  vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", bufopts)
+  vim.keymap.set("n", "<space>e", "<cmd>lua vim.diagnostic.open_float()<CR>", bufopts)
+  vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", bufopts)
+  vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", bufopts)
+  vim.keymap.set("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", bufopts)
+  vim.keymap.set("n", "<space>dd", "<cmd>Telescope diagnostics bufnr=0<CR>", bufopts)
+  vim.keymap.set("n", "<space>dD", "<cmd>Telescope diagnostics<CR>", bufopts)
 end
 
 local function disable_format(next)
@@ -18,15 +37,22 @@ end
 local function format_on_save(next)
   return function(client, bufnr)
     next(client, bufnr)
-    vim.api.nvim_command([[augroup Format]])
-    vim.api.nvim_command([[autocmd! * <buffer>]])
-    vim.api.nvim_command([[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]])
-    vim.api.nvim_command([[augroup END]])
+
+    local format = vim.api.nvim_create_augroup("Format", { clear = false })
+    vim.api.nvim_clear_autocmds({ buffer = bufnr, group = format })
+    vim.api.nvim_create_autocmd(
+      "BufWritePre",
+      { callback = vim.lsp.buf.formatting_seq_sync, group = format, buffer = bufnr }
+    )
   end
 end
 
 local lsp_configs = {
-  ["sumneko_lua"] = require("lua-dev").setup(),
+  ["sumneko_lua"] = require("lua-dev").setup({
+    lspconfig = {
+      on_attach = format_on_save(on_attach),
+    },
+  }),
   ["solargraph"] = {
     on_attach = disable_format(on_attach),
     init_options = {
@@ -46,7 +72,7 @@ local lsp_configs = {
   },
 }
 
-local function setup_lsp_config(provider)
+local function setup_lsp_config(opts)
   local config = {
     on_attach = on_attach,
     flags = {
@@ -55,30 +81,35 @@ local function setup_lsp_config(provider)
     capabilities = get_capabilities(),
   }
 
-  if lsp_configs[provider] then
-    config = vim.tbl_extend("force", config, lsp_configs[provider])
-  end
-
-  return config
+  return vim.tbl_extend("force", config, opts or {})
 end
 
 local lsp_installer = require("nvim-lsp-installer")
 lsp_installer.setup({})
 
 local lsp = require("lspconfig")
-for _, provider in ipairs(lsp_configs) do
-  lsp[provider].setup(setup_lsp_config(provider))
+for provider, config in pairs(lsp_configs) do
+  lsp[provider].setup(setup_lsp_config(config))
 end
 
 local null_ls = require("null-ls")
 null_ls.setup({
   on_attach = function(client, bufnr)
-    local keymaps = require("keymaps")
     if client.resolved_capabilities.document_formatting then
-      keymaps.set_buf_keymap(bufnr, "n", "<space>=", "<cmd>lua vim.lsp.buf.formatting()<CR>")
+      vim.keymap.set(
+        "n",
+        "<space>=",
+        "<cmd>lua vim.lsp.buf.formatting()<CR>",
+        { buffer = bufnr, silent = true, noremap = true }
+      )
     end
     if client.resolved_capabilities.document_range_formatting then
-      keymaps.set_buf_keymap(bufnr, "n", "<space>=", "<cmd>lua vim.lsp.buf.formatting()<CR>")
+      vim.keymap.set(
+        "n",
+        "<space>=",
+        "<cmd>lua vim.lsp.buf.formatting()<CR>",
+        { buffer = bufnr, silent = true, noremap = true }
+      )
     end
   end,
   flags = {

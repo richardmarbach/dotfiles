@@ -89,29 +89,6 @@ local keymappings = {
 	},
 }
 
-local lsp_keymappings = {
-	normal_mode = {
-		["gD"] = "<Cmd>lua vim.lsp.buf.declaration()<CR>",
-		["gd"] = "<Cmd>Telescope lsp_definitions<CR>",
-		["K"] = "<Cmd>lua vim.lsp.buf.hover()<CR>",
-		["gi"] = "<cmd>Telescope lsp_implementations<CR>",
-		["<C-k>"] = "<cmd>lua vim.lsp.buf.signature_help()<CR>",
-		["<space>wa"] = "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>",
-		["<space>wr"] = "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>",
-		["<space>wl"] = "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>",
-		["<space>D"] = "<cmd>Telescope lsp_type_definitions<CR>",
-		["<space>rn"] = "<cmd>lua vim.lsp.buf.rename()<CR>",
-		["<space>ca"] = "<cmd>lua vim.lsp.buf.code_action()<CR>",
-		["gr"] = "<cmd>Telescope lsp_references<CR>",
-		["<space>e"] = "<cmd>lua vim.diagnostic.open_float()<CR>",
-		["[d"] = "<cmd>lua vim.diagnostic.goto_prev()<CR>",
-		["]d"] = "<cmd>lua vim.diagnostic.goto_next()<CR>",
-		["<space>q"] = "<cmd>lua vim.diagnostic.setloclist()<CR>",
-		["<space>dd"] = "<cmd>Telescope diagnostics bufnr=0<CR>",
-		["<space>dD"] = "<cmd>Telescope diagnostics<CR>",
-	},
-}
-
 function M.set_keymap(mode, lhs, rhs)
 	local opt = generic_opts[mode] and generic_opts[mode] or opts
 	if type(rhs) == "table" then
@@ -147,12 +124,6 @@ end
 function M.setup()
 	for mode, mapping in pairs(keymappings) do
 		M.map(mode, mapping)
-	end
-end
-
-function M.setup_lsp_mappings(bufnr)
-	for mode, mapping in pairs(lsp_keymappings) do
-		M.buf_map(bufnr, mode, mapping)
 	end
 end
 
