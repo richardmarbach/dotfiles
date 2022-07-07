@@ -70,6 +70,7 @@ local lsp_configs = {
   ["tsserver"] = {
     on_attach = disable_format(on_attach),
   },
+  ["jsonls"] = {}
 }
 
 local function setup_lsp_config(opts)
