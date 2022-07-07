@@ -35,6 +35,14 @@ function M.plugins()
     -- Helpers
     use({ "nvim-lua/plenary.nvim" })
 
+    -- Case changing library
+    use({
+      "johmsalas/text-case.nvim",
+      config = function()
+        require("textcase").setup({})
+      end,
+    })
+
     -- Personal wiki integration
     -- use { 'vimwiki/vimwiki' }
     use({ "mickael-menu/zk-nvim" })

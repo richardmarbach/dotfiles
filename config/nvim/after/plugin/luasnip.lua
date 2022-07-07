@@ -28,4 +28,9 @@ ls.config.setup({
 
 vim.keymap.set("n", "<leader>ss", "<cmd>source ~/.config/nvim/after/plugin/luasnip.lua<CR>")
 
+vim.keymap.set("n", "<leader>se", function()
+  local ft = vim.bo.filetype
+  vim.cmd("tabnew ~/.config/nvim/snippets/" .. ft .. ".lua")
+end)
+
 require("luasnip.loaders.from_lua").lazy_load({ paths = "./snippets" })
