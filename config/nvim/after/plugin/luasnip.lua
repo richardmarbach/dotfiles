@@ -7,6 +7,7 @@ ls.config.setup({
   history = true,
   -- This one is cool cause if you have dynamic snippets, it updates as you type!
   updateevents = "TextChanged,TextChangedI",
+  delete_check_events = "TextChanged",
 
   -- Autosnippets:
   enable_autosnippets = true,
@@ -25,27 +26,6 @@ ls.config.setup({
   },
 })
 
-vim.keymap.set({ "i", "s" }, "<Tab>", function()
-  print(vim.inspect(ls.expand_or_jumpable()))
-  if ls.expand_or_jumpable() then
-    ls.expand_or_jump()
-  end
-end, { silent = true })
-
-vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
-  if ls.jumpable(-1) then
-    ls.jump(-1)
-  end
-end, { silent = true })
-
-vim.keymap.set("i", "<c-E>", function()
-  if ls.choice_active() then
-    ls.change_choice(1)
-  end
-end)
-
 vim.keymap.set("n", "<leader>ss", "<cmd>source ~/.config/nvim/after/plugin/luasnip.lua<CR>")
 
--- Load Existing snippet plugin
-require("luasnip.loaders.from_vscode").lazy_load()
-ls.filetype_extend("ruby", { "rails" })
+require("luasnip.loaders.from_lua").lazy_load({ paths = "./snippets" })
