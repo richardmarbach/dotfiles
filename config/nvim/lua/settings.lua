@@ -65,23 +65,8 @@ end
 vim.o.undodir = undo_dir
 vim.o.undofile = true
 
-local vimrcEx = api.nvim_create_augroup("vimrcEx", { clear = true })
-
-api.nvim_create_autocmd("FileType", { pattern = { "text" }, command = [[setlocal textwidth=79]], group = vimrcEx })
-api.nvim_create_autocmd(
-  "FileType",
-  { pattern = { "markdown" }, command = [[setlocal textwidth=80 linebreak]], group = vimrcEx }
-)
-
 -- When editing a file, always jump to the last cursor position
 api.nvim_create_autocmd(
   "BufReadPost",
-  { command = [[if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g`\"" | endif]], group = vimrcEx }
+  { command = [[if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g`\"" | endif]] }
 )
-
-api.nvim_create_autocmd(
-  "FileType",
-  { pattern = { "ruby,haml,eruby,yml,yaml,html,sass,cucumber" }, command = [[ set ai sw=2 sts=2 et ]], group = vimrcEx }
-)
-api.nvim_create_autocmd("FileType", { pattern = { "c", "python" }, command = [[ set sw=4 sts=4 et]], group = vimrcEx })
-api.nvim_create_autocmd("FileType", { pattern = { "make" }, command = [[set noexpandtab]], group = vimrcEx })
