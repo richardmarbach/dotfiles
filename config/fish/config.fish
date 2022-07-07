@@ -13,3 +13,5 @@ if test (uname) = "Darwin"
 end
 
 set fish_function_path $fish_function_path ~/.config/fish/plugins/plugin-foreign-env/functions
+
+set -x -g RIPGREP_CONFIG_PATH ~/.config/rg/config
