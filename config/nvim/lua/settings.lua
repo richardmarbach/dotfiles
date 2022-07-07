@@ -1,3 +1,7 @@
+-- Use filetype.lua: Can be removed in neovim 0.8
+vim.g.do_filetype_lua = 1
+vim.g.did_load_filetype = 0
+
 local fn = vim.fn
 local api = vim.api
 
