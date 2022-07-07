@@ -1,4 +1,4 @@
-tmap <C-o> <C-\\><C-n>
+tmap <C-o> <C-\><C-n>
 
 imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' 
 inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
@@ -35,8 +35,8 @@ nnoremap <silent> <leader>gs <cmd>lua require('telescope.builtin').live_grep({se
 nnoremap <silent> <leader>gc <cmd>lua require('telescope.builtin').live_grep({search_dirs = {'config/'}})<cr>
 nnoremap <silent> <leader>gd <cmd>lua require('telescope.builtin').live_grep({search_dirs = {vim.fn.input('Enter the directory to search: ', '', 'file')}})<cr>
 
-nnoremap <silent> <leader>ff <cmd>lua require('telescope.builtin').find_files()<CR>
-nnoremap <silent> <leader>fe <cmd>lua require('telescope.builtin').find_files({cwd = require('telescope.utils').buffer_dir()})<CR>
+nnoremap <silent> <leader>ff <cmd>lua require('telescope.builtin').find_files({hidden = true})<CR>
+nnoremap <silent> <leader>fe <cmd>lua require('telescope.builtin').find_files({cwd = require('telescope.utils').buffer_dir(), follow = true})<CR>
 nnoremap <silent> <leader>fs <cmd>lua require('telescope.builtin').find_files({search_dirs = {'spec/', 'test/'}})<CR>
 nnoremap <silent> <leader>fa <cmd>lua require('telescope.builtin').find_files({search_dirs = {'parts/', 'app/', 'lib/'}})<CR>
 nnoremap <silent> <leader>fc <cmd>lua require('telescope.builtin').find_files({search_dirs = {'config/'}})<CR>
@@ -53,3 +53,6 @@ nnoremap <silent> <leader>zo <Cmd>ZkNotes<CR>
 nnoremap <silent> <leader>zt <Cmd>ZkTags<CR>
 nnoremap <silent> <leader>zf <Cmd>ZkNotes { match = vim.fn.input('Search: ') }<CR>
 " nnoremap <silent> <leader>zf <Cmd>Telescope zk notes<CR>
+
+
+nnoremap <leader>sk :tabnew ~/.config/nvim/plugin/keymaps.lua<cr>

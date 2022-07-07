@@ -7,7 +7,8 @@ ls.config.setup({
   history = true,
   -- This one is cool cause if you have dynamic snippets, it updates as you type!
   updateevents = "TextChanged,TextChangedI",
-  delete_check_events = "TextChanged",
+  delete_check_events = "TextChanged,InsertLeave",
+  region_check_events = "InsertEnter",
 
   -- Autosnippets:
   enable_autosnippets = true,
