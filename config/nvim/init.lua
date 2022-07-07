@@ -8,9 +8,3 @@ require("settings")
 require("colorscheme")
 
 require("keymaps").setup()
-
-vim.g["test#strategy"] = "neovim"
-vim.g["test#neovim#term_position"] = "botright 14"
-
-require("zk").setup()
-require("gitsigns").setup()

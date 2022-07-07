@@ -9,7 +9,7 @@ vim.o.tabstop = indent
 vim.o.shiftwidth = indent
 vim.o.softtabstop = indent
 
--- ALways show statusline
+-- Always show statusline
 vim.o.laststatus = 2
 
 -- Smart search options
