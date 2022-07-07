@@ -41,9 +41,8 @@ font:
   normal:
     family: 'Hack Nerd Font Mono'
 key_bindings:
-  - { key: Q, mods: Control, chars: "\x11" }
-  - { key: Slash, mods: Control, chars: "\x1f" }
-
+  - { mods: Control, key: Q, chars: "\x11" }
+  - { mods: Control, key: Slash, chars: "\x1f" }
   - { mods: Alt, key: A, chars: "\x1ba" }
   - { mods: Alt, key: B, chars: "\x1bb" }
   - { mods: Alt, key: C, chars: "\x1bc" }

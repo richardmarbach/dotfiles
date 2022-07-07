@@ -1,26 +1,14 @@
-local snippy = require("snippy")
+local luasnip = require("luasnip")
 local cmp = require("cmp")
-
-snippy.setup({
-  mappings = {
-    is = {
-      ["<Tab>"] = "expand_or_advance",
-      ["<S-Tab>"] = "previous",
-    },
-    nx = {
-      ["<leader>x"] = "cut_text",
-    },
-  },
-})
 
 cmp.setup({
   completion = {
-    -- autocomplete = false,
+    autocomplete = true,
     completeopt = "menu,menuone,noselect",
   },
   snippet = {
     expand = function(args)
-      snippy.expand_snippet(args.body)
+      luasnip.lsp_expand(args.body)
     end,
   },
   mapping = {
@@ -36,7 +24,7 @@ cmp.setup({
     { name = "github" },
     { name = "nvim_lsp" },
     { name = "buffer", max_item_count = 10 },
-    { name = "snippy" },
+    { name = "luasnip" },
     { name = "path" },
   },
   experimental = {
@@ -44,15 +32,15 @@ cmp.setup({
   },
 })
 
-vim.keymap.set("i", "<C-x><C-o", function()
+vim.keymap.set("i", "<C-x><C-o>", function()
   cmp.complete()
 end, { noremap = true })
 
-vim.keymap.set("i", "<C-x><C-s", function()
+vim.keymap.set("i", "<C-x><C-s>", function()
   cmp.complete({
     config = {
       sources = {
-        { name = "snippy" },
+        { name = "luasnip" },
       },
     },
   })

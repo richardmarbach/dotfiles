@@ -28,7 +28,7 @@ function M.setup(bootstrap)
 end
 
 function M.plugins()
-  return function()
+  return function(use)
     -- Packer can manage itself
     use("wbthomason/packer.nvim")
 
@@ -69,7 +69,7 @@ function M.plugins()
     use({ "tpope/vim-repeat" })
 
     -- Autocomplete html
-    use({ "mattn/emmet-vim" })
+    -- use({ "mattn/emmet-vim" })
 
     -- AST awareness
     use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
@@ -85,12 +85,9 @@ function M.plugins()
     use({ "mhartington/formatter.nvim" })
 
     -- Snippets
-    use({
-      "honza/vim-snippets",
-      requires = {
-        { "dcampos/nvim-snippy" },
-      },
-    })
+    use({ "L3MON4D3/LuaSnip" })
+    use({ "rafamadriz/friendly-snippets" })
+
     -- Autocompletion
     use({
       "hrsh7th/nvim-cmp",
@@ -98,7 +95,7 @@ function M.plugins()
         { "hrsh7th/cmp-nvim-lsp" },
         { "hrsh7th/cmp-buffer" },
         { "hrsh7th/cmp-path" },
-        { "dcampos/cmp-snippy" },
+        { "saadparwaiz1/cmp_luasnip" },
         { "richardmarbach/cmp-github" },
       },
     })
