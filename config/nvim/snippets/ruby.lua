@@ -128,6 +128,14 @@ return {
     i(0),
   }),
 
+  s("when", {
+    t("when "),
+    i(1, "true"),
+    t({ "", "\t" }),
+    i(2),
+    d(3, when_else_choice, {}),
+  }),
+
   s("priv", { t({ "private", "", "" }) }),
 }, {
   s("irb", { t("binding.irb") }, { type = "autosnippets" }),
