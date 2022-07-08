@@ -23,6 +23,17 @@ local function choice_block(position)
   })
 end
 
+local function when_else_choice()
+  return sn(
+    nil,
+    c(1, {
+      t(""),
+      sn(nil, { t({ "", "when " }), i(1, "true"), t({ "", "\t" }), i(2), d(3, when_else_choice, {}) }),
+      sn(nil, { t({ "", "else", "\t" }), i(1) }),
+    })
+  )
+end
+
 return {
   s("mod", {
     t("module "),
@@ -56,13 +67,12 @@ return {
 
   s("def", {
     t("def "),
-    i(1, "method"),
-    c(2, {
-      t(""),
-      sn(nil, { t("("), i(1), t(")") }),
+    c(1, {
+      sn(nil, { r(1, "method", i(1, "method")) }),
+      sn(nil, { r(1, "method", i(1, "method")), t("("), i(2), t(")") }),
     }),
     t({ "", "\t" }),
-    i(3),
+    i(2),
     t({ "", "end" }),
     i(0),
   }),
@@ -109,6 +119,16 @@ return {
     block(2),
     i(0),
   }),
+
+  s("case", {
+    t("case "),
+    i(1, "type"),
+    d(2, when_else_choice, {}),
+    t({ "", "end" }),
+    i(0),
+  }),
+
+  s("priv", { t({ "private", "", "" }) }),
 }, {
   s("irb", { t("binding.irb") }, { type = "autosnippets" }),
 }
