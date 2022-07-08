@@ -1,5 +1,6 @@
+--- @diagnostic disable: undefined-global
+
 local textcase = require("textcase").api
-local ls = require("luasnip")
 
 local function get_current_class(position)
   return d(position, function()
