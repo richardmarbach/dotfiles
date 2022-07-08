@@ -67,12 +67,7 @@ function M.plugins()
     -- Better splitting and joining
     use({ "AndrewRadev/splitjoin.vim" })
     -- Surround text objects with stuff
-    use({
-      "kylechui/nvim-surround",
-      config = function()
-        require("nvim-surround").setup({})
-      end,
-    })
+    use({ "kylechui/nvim-surround" })
 
     -- Alternate file configuration
     use({ "tpope/vim-projectionist" })

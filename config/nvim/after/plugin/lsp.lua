@@ -50,7 +50,7 @@ end
 local lsp_configs = {
   ["sumneko_lua"] = require("lua-dev").setup({
     lspconfig = {
-      on_attach = disable_format(on_attach),
+      on_attach = format_on_save(on_attach),
     },
   }),
   ["solargraph"] = {
