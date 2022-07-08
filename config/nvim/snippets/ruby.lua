@@ -22,13 +22,6 @@ local function choice_block(position)
   })
 end
 
-ls.add_snippets("ruby", {
-  s("irb", { t("binding.irb") }, { type = "autosnippets" }),
-}, {
-  key = "auto-ruby",
-  type = "autosnippets",
-})
-
 return {
   s("mod", {
     t("module "),
@@ -115,4 +108,6 @@ return {
     block(2),
     i(0),
   }),
+}, {
+  s("irb", { t("binding.irb") }, { type = "autosnippets" }),
 }

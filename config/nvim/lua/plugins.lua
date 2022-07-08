@@ -58,7 +58,7 @@ function M.plugins()
     use({ "folke/lua-dev.nvim" })
 
     -- Color scheme
-    use({ "lifepillar/vim-gruvbox8" })
+    use({ "ellisonleao/gruvbox.nvim" })
 
     -- Better splitting and joining
     use({ "AndrewRadev/splitjoin.vim" })
