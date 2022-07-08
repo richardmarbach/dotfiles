@@ -33,4 +33,4 @@ vim.keymap.set("n", "<leader>se", function()
   require("luasnip.loaders").edit_snippet_files({ source_name = "lua" })
 end)
 
-require("luasnip.loaders.from_lua").lazy_load({})
+require("luasnip.loaders.from_lua").lazy_load({ paths = "./snippets" })
