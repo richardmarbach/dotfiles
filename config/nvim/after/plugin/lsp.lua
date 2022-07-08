@@ -34,15 +34,15 @@ local function disable_format(next)
   end
 end
 
+local lspFormatting = vim.api.nvim_create_augroup("LspFormat", {})
 local function format_on_save(next)
   return function(client, bufnr)
     next(client, bufnr)
 
-    local format = vim.api.nvim_create_augroup("Format", { clear = false })
-    vim.api.nvim_clear_autocmds({ buffer = bufnr, group = format })
+    vim.api.nvim_clear_autocmds({ buffer = bufnr, group = lspFormatting })
     vim.api.nvim_create_autocmd(
       "BufWritePre",
-      { callback = vim.lsp.buf.formatting_seq_sync, group = format, buffer = bufnr }
+      { callback = vim.lsp.buf.formatting_seq_sync, group = lspFormatting, buffer = bufnr }
     )
   end
 end
@@ -50,7 +50,7 @@ end
 local lsp_configs = {
   ["sumneko_lua"] = require("lua-dev").setup({
     lspconfig = {
-      on_attach = format_on_save(on_attach),
+      on_attach = disable_format(on_attach),
     },
   }),
   ["solargraph"] = {
@@ -70,7 +70,7 @@ local lsp_configs = {
   ["tsserver"] = {
     on_attach = disable_format(on_attach),
   },
-  ["jsonls"] = {}
+  ["jsonls"] = {},
 }
 
 local function setup_lsp_config(opts)

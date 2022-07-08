@@ -67,7 +67,12 @@ function M.plugins()
     -- Better splitting and joining
     use({ "AndrewRadev/splitjoin.vim" })
     -- Surround text objects with stuff
-    use({ "tpope/vim-surround" })
+    use({
+      "kylechui/nvim-surround",
+      config = function()
+        require("nvim-surround").setup({})
+      end,
+    })
 
     -- Alternate file configuration
     use({ "tpope/vim-projectionist" })
@@ -76,9 +81,6 @@ function M.plugins()
     use({ "numToStr/Comment.nvim" })
     -- Context aware commenting
     use({ "JoosepAlviste/nvim-ts-context-commentstring" })
-
-    -- More powerful dot operator
-    use({ "tpope/vim-repeat" })
 
     -- Autocomplete html
     -- use({ "mattn/emmet-vim" })
