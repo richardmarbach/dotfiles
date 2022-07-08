@@ -57,6 +57,10 @@ function M.plugins()
     -- Neovim lua dev
     use({ "folke/lua-dev.nvim" })
 
+    -- Lua Docs
+    use({ "milisims/nvim-luaref" })
+    use({ "nanotee/luv-vimdocs" })
+
     -- Color scheme
     use({ "ellisonleao/gruvbox.nvim" })
 
