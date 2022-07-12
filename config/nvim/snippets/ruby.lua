@@ -23,6 +23,21 @@ local function choice_block(position)
   })
 end
 
+local function inverted_choice_block(position)
+  return c(position, {
+    block(position),
+    inline_block(position),
+  })
+end
+
+local function quoted_string(position)
+  return sn(position, {
+    t('"'),
+    i(1),
+    t('"'),
+  })
+end
+
 local function when_else_choice()
   return sn(
     nil,
@@ -118,6 +133,19 @@ return {
     t('" '),
     block(2),
     i(0),
+  }),
+
+  s("it", {
+    t("it "),
+    c(1, {
+      sn(nil, { quoted_string(1), t(" "), inverted_choice_block(2) }),
+      sn(nil, { choice_block(1) }),
+    }),
+  }),
+
+  s("before", {
+    t("before "),
+    inverted_choice_block(1),
   }),
 
   s("case", {
