@@ -1,11 +1,9 @@
 local luasnip = require("luasnip")
 local cmp = require("cmp")
 
+vim.o.completeopt = "menuone,noselect"
+
 cmp.setup({
-  completion = {
-    autocomplete = true,
-    completeopt = "menu,menuone,noselect",
-  },
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
@@ -23,8 +21,8 @@ cmp.setup({
   sources = {
     { name = "github" },
     { name = "nvim_lsp" },
-    { name = "buffer", max_item_count = 10 },
     { name = "luasnip" },
+    { name = "buffer", max_item_count = 10 },
     { name = "path" },
   },
   experimental = {
