@@ -1,3 +1,8 @@
+local status_ok, lsp = pcall(require, "lspconfig")
+if not status_ok then
+  return
+end
+
 local function get_capabilities()
   return require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 end
@@ -88,12 +93,15 @@ end
 local lsp_installer = require("nvim-lsp-installer")
 lsp_installer.setup({})
 
-local lsp = require("lspconfig")
 for provider, config in pairs(lsp_configs) do
   lsp[provider].setup(setup_lsp_config(config))
 end
 
-local null_ls = require("null-ls")
+local null_status_ok, null_ls = pcall(require, "null-ls")
+if not null_status_ok then
+  return
+end
+
 null_ls.setup({
   on_attach = function(client, bufnr)
     if client.resolved_capabilities.document_formatting then

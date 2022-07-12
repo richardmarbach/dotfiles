@@ -1,136 +1,128 @@
-local M = {}
-
 local fn = vim.fn
 local exec = vim.api.nvim_command
 
-function M.init()
-  local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-  local bootstrap = false
-  if fn.empty(fn.glob(install_path)) == 1 then
-    exec("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
-    bootstrap = true
-  end
+local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+if fn.empty(fn.glob(install_path)) > 0 then
+  PACKER_BOOTSTRAP = fn.system({
+    "git",
+    "clone",
+    "--depth",
+    "1",
+    "https://github.com/wbthomason/packer.nvim",
+    install_path,
+  })
+  print("Installing packer close and reopen Neovim...")
   vim.cmd([[packadd packer.nvim]])
-  vim.cmd("autocmd BufWritePost plugins.lua source $MYVIMRC | PackerCompile")
-
-  M.setup(bootstrap)
 end
 
-function M.setup(bootstrap)
-  local packer = require("packer")
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerSync
+  augroup end
+]])
 
-  packer.init()
-  packer.startup(M.plugins())
-
-  if bootstrap then
-    packer.sync()
-  end
+local status_ok, packer = pcall(require, "packer")
+if not status_ok then
+  return
 end
 
-function M.plugins()
-  return function(use)
-    -- Packer can manage itself
-    use("wbthomason/packer.nvim")
+packer.init()
 
-    -- Helpers
-    use({ "nvim-lua/plenary.nvim" })
+return packer.startup(function(use)
+  -- Packer can manage itself
+  use("wbthomason/packer.nvim")
 
-    -- Case changing library
-    use({
-      "johmsalas/text-case.nvim",
-      config = function()
-        require("textcase").setup({})
-      end,
-    })
+  -- Helpers
+  use({ "nvim-lua/plenary.nvim" })
 
-    -- Personal wiki integration
-    -- use { 'vimwiki/vimwiki' }
-    use({ "mickael-menu/zk-nvim" })
+  -- Case changing library
+  use({ "johmsalas/text-case.nvim" })
 
-    -- Debug protocol
-    use({ "mfussenegger/nvim-dap" })
+  -- Personal wiki integration
+  use({ "mickael-menu/zk-nvim" })
 
-    -- Git integration
-    use({ "sindrets/diffview.nvim" })
-    use({ "lewis6991/gitsigns.nvim" })
+  -- Debug protocol
+  use({ "mfussenegger/nvim-dap" })
 
-    -- Neovim lua dev
-    use({ "folke/lua-dev.nvim" })
+  -- Git integration
+  use({ "sindrets/diffview.nvim" })
+  use({ "lewis6991/gitsigns.nvim" })
 
-    -- Lua Docs
-    use({ "milisims/nvim-luaref" })
-    use({ "nanotee/luv-vimdocs" })
+  -- Neovim lua dev
+  use({ "folke/lua-dev.nvim" })
 
-    -- Color scheme
-    use({ "ellisonleao/gruvbox.nvim" })
+  -- Lua Docs
+  use({ "milisims/nvim-luaref" })
+  use({ "nanotee/luv-vimdocs" })
 
-    -- Better splitting and joining
-    use({ "AndrewRadev/splitjoin.vim" })
-    -- Surround text objects with stuff
-    use({ "kylechui/nvim-surround" })
+  -- Color scheme
+  use({ "ellisonleao/gruvbox.nvim" })
 
-    -- Alternate file configuration
-    use({ "tpope/vim-projectionist" })
+  -- Better splitting and joining
+  use({ "AndrewRadev/splitjoin.vim" })
+  -- Surround text objects with stuff
+  use({ "kylechui/nvim-surround" })
 
-    -- Comment lines
-    use({ "numToStr/Comment.nvim" })
-    -- Context aware commenting
-    use({ "JoosepAlviste/nvim-ts-context-commentstring" })
+  -- Alternate file configuration
+  -- use({ "tpope/vim-projectionist" })
 
-    -- Autocomplete html
-    -- use({ "mattn/emmet-vim" })
+  -- Comment lines
+  use({ "numToStr/Comment.nvim" })
+  -- Context aware commenting
+  use({ "JoosepAlviste/nvim-ts-context-commentstring" })
 
-    -- AST awareness
-    use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
-    use({ "nvim-treesitter/playground" })
-    use({ "nvim-treesitter/nvim-treesitter-textobjects" })
+  -- Autocomplete html
+  -- use({ "mattn/emmet-vim" })
 
-    -- Easier lsp configuration
-    use({ "neovim/nvim-lspconfig" })
-    use({ "williamboman/nvim-lsp-installer" })
-    use({ "jose-elias-alvarez/null-ls.nvim" })
+  -- AST awareness
+  use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+  use({ "nvim-treesitter/playground" })
+  use({ "nvim-treesitter/nvim-treesitter-textobjects" })
 
-    -- Better formatting support
-    use({ "mhartington/formatter.nvim" })
+  -- Easier lsp configuration
+  use({ "neovim/nvim-lspconfig" })
+  use({ "williamboman/nvim-lsp-installer" })
+  use({ "jose-elias-alvarez/null-ls.nvim" })
 
-    -- Snippets
-    use({ "L3MON4D3/LuaSnip" })
+  -- Better formatting support
+  use({ "mhartington/formatter.nvim" })
 
-    -- Autocompletion
-    use({
-      "hrsh7th/nvim-cmp",
-      requires = {
-        { "hrsh7th/cmp-nvim-lsp" },
-        { "hrsh7th/cmp-buffer" },
-        { "hrsh7th/cmp-path" },
-        { "saadparwaiz1/cmp_luasnip" },
-        { "richardmarbach/cmp-github" },
-      },
-    })
+  -- Snippets
+  use({ "L3MON4D3/LuaSnip" })
 
-    -- Ruby refactorings and helpers
-    use({ "richardmarbach/extract-ruby-constant" })
+  -- Autocompletion
+  use({
+    "hrsh7th/nvim-cmp",
+    requires = {
+      { "hrsh7th/cmp-nvim-lsp" },
+      { "hrsh7th/cmp-buffer" },
+      { "hrsh7th/cmp-path" },
+      { "saadparwaiz1/cmp_luasnip" },
+      { "richardmarbach/cmp-github" },
+    },
+  })
 
-    -- Fuzzy finder
-    use({
-      "nvim-telescope/telescope.nvim",
-      requires = {
-        { "nvim-lua/plenary.nvim" },
-        { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-        { "nvim-telescope/telescope-file-browser.nvim" },
-        { "kyazdani42/nvim-web-devicons" },
-      },
-    })
+  -- Ruby refactorings and helpers
+  use({ "richardmarbach/extract-ruby-constant" })
 
-    -- Nicer status line
-    use({ "hoob3rt/lualine.nvim" })
+  -- Fuzzy finder
+  use({
+    "nvim-telescope/telescope.nvim",
+    requires = {
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+      { "nvim-telescope/telescope-file-browser.nvim" },
+      { "kyazdani42/nvim-web-devicons" },
+    },
+  })
 
-    -- Better rust integration
-    use({ "simrat39/rust-tools.nvim" })
+  -- Nicer status line
+  use({ "hoob3rt/lualine.nvim" })
 
-    -- Tet runner integration
-    use({ "vim-test/vim-test" })
-  end
-end
+  -- Better rust integration
+  use({ "simrat39/rust-tools.nvim" })
 
-return M
+  -- Test runner integration
+  use({ "vim-test/vim-test" })
+end)

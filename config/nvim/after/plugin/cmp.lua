@@ -1,11 +1,17 @@
-local luasnip = require("luasnip")
-local cmp = require("cmp")
+local status_ok, cmp = pcall(require, "cmp")
+if not status_ok then
+  return
+end
 
 vim.o.completeopt = "menuone,noselect"
 
 cmp.setup({
   snippet = {
     expand = function(args)
+      local snip_status_ok, luasnip = pcall(require, "luasnip")
+      if not snip_status_ok then
+        return
+      end
       luasnip.lsp_expand(args.body)
     end,
   },

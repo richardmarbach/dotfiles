@@ -1,4 +1,7 @@
-local ls = require("luasnip")
+local ls_status_ok, ls = pcall(require, "luasnip")
+if not ls_status_ok then
+  return
+end
 local types = require("luasnip.util.types")
 
 ls.config.setup({
