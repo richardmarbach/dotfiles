@@ -125,4 +125,8 @@ return packer.startup(function(use)
 
   -- Test runner integration
   use({ "vim-test/vim-test" })
+
+  if PACKER_BOOTSTRAP then
+    require("packer").sync()
+  end
 end)
