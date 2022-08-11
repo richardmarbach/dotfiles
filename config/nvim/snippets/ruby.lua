@@ -71,13 +71,13 @@ return {
   s("do", {
     t("do"),
     c(1, {
-      t(""),
-      sn(nil, { t(" |"), i(1), t("|") }),
+      sn(nil, {
+        t({ "", "\t" }),
+        r(1, "body"),
+      }),
+      sn(nil, { t(" |"), i(1), t("|"), t({ "", "\t" }), r(2, "body") }),
     }),
-    t({ "", "\t" }),
-    i(2),
     t({ "", "end" }),
-    i(0),
   }),
 
   s("def", {
@@ -107,6 +107,18 @@ return {
     choice_block(2),
     i(0),
   }),
+
+  s(
+    "if",
+    fmt(
+      [[
+    if {}
+      {}
+    end
+    ]] ,
+      { i(1, false), i(2) }
+    )
+  ),
 
   s("subj", {
     t("subject"),
