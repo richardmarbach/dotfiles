@@ -64,3 +64,5 @@
   defaultBranch = main
 [pull]
 	rebase = true
+[rerere]
+  enabled = true

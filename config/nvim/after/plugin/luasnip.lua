@@ -5,10 +5,7 @@ end
 local types = require("luasnip.util.types")
 
 ls.config.setup({
-  -- This tells LuaSnip to remember to keep around the last snippet.
-  -- You can jump back into it even if you move outside of the selection
-  history = true,
-  -- This one is cool cause if you have dynamic snippets, it updates as you type!
+  -- history = true,
   updateevents = "TextChanged,TextChangedI",
   delete_check_events = "TextChanged,InsertLeave",
   region_check_events = "InsertEnter",

@@ -1,5 +1,11 @@
 --- @diagnostic disable: undefined-global
 
+local function same(index)
+  return f(function(args)
+    return args[1]
+  end, { index })
+end
+
 local function derive()
   return sn(nil, {
     t("#[derive("),
@@ -10,26 +16,36 @@ end
 
 return {
   s("struct", {
-    c(2, {
-      derive(),
-      t(""),
-    }),
-    t({ "", "struct " }),
+    t({ "struct " }),
     i(1, "Struct"),
     t({ " {", "\t" }),
-    i(3),
+    i(2),
+    t({ "", "}" }),
+  }),
+
+  s("enum", {
+    t({ "enum " }),
+    i(1, "Enum"),
+    t({ " {", "\t" }),
+    i(2),
     t({ "", "}" }),
   }),
 
   s("impl", {
-    t("impl "),
-    i(1),
-    c(2, {
+    t("impl"),
+    c(1, {
+      sn(nil, { t("") }),
+      sn(nil, { t("<"), i(1, "'a"), t(">") }),
+    }),
+    t(" "),
+    i(2),
+    same(1),
+    c(3, {
       t(""),
       sn(nil, { t(" for "), i(1) }),
     }),
     t({ " {", "\t" }),
-    i(3),
+    i(4),
     t({ "", "}" }),
   }),
 
@@ -65,17 +81,37 @@ return {
     )
   ),
 
+  s("p", { t("pub ") }),
+
   s("fn", {
     t("fn "),
     i(1),
     t("("),
     i(2),
     t(")"),
-    i(3),
+    c(3, {
+      t(""),
+      sn(nil, { t(" -> "), i(1), t(" ") }),
+    }),
     t({ " {", "\t" }),
     i(4),
     t({ "", "}" }),
   }),
+
+  s(
+    "if",
+    fmt(
+      [[
+      if {} {{
+        {}
+      }}
+    ]] ,
+      {
+        i(1),
+        i(2),
+      }
+    )
+  ),
 
   s("ifl", {
     t("if let "),
