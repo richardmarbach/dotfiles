@@ -1,1 +1,3 @@
-pulumi gen-completion fish  | source
+if type -q pulumi
+  pulumi gen-completion fish  | source
+end
