@@ -2,6 +2,11 @@ local status_ok, cmp = pcall(require, "cmp")
 if not status_ok then
   return
 end
+local autopairs_status, cmp_autopairs = pcall(require, "nvim-autopairs.completion.cmp")
+if not autopairs_status then
+  return
+end
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 vim.o.completeopt = "menuone,noselect"
 

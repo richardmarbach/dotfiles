@@ -68,17 +68,17 @@ return {
     i(0),
   }),
 
-  s("do", {
-    t("do"),
-    c(1, {
-      sn(nil, {
-        t({ "", "\t" }),
-        r(1, "body"),
-      }),
-      sn(nil, { t(" |"), i(1), t("|"), t({ "", "\t" }), r(2, "body") }),
-    }),
-    t({ "", "end" }),
-  }),
+  -- s("do", {
+  --   t("do"),
+  --   c(1, {
+  --     sn(nil, {
+  --       t({ "", "\t" }),
+  --       r(1, "body"),
+  --     }),
+  --     sn(nil, { t(" |"), i(1), t("|"), t({ "", "\t" }), r(2, "body") }),
+  --   }),
+  --   t({ "", "end" }),
+  -- }),
 
   s("def", {
     t("def "),
@@ -115,7 +115,7 @@ return {
     if {}
       {}
     end
-    ]] ,
+    ]],
       { i(1, false), i(2) }
     )
   ),
@@ -177,6 +177,7 @@ return {
   }),
 
   s("priv", { t({ "private", "", "" }) }),
-}, {
-  s("irb", { t("binding.irb") }, { type = "autosnippets" }),
-}
+},
+  {
+    s("irb", { t("binding.irb") }, { type = "autosnippets" }),
+  }
