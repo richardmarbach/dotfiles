@@ -89,6 +89,8 @@ return packer.startup(function(use)
   use({ "williamboman/nvim-lsp-installer" })
   use({ "glepnir/lspsaga.nvim" })
   use({ "jose-elias-alvarez/null-ls.nvim" })
+  use({ "williamboman/mason.nvim" })
+  use({ "williamboman/mason-lspconfig.nvim" })
 
   -- Better formatting support
   use({ "mhartington/formatter.nvim" })
