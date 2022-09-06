@@ -15,7 +15,6 @@ vnoremap <silent> <leader>zf :'<,'>ZkMatch<CR>
 cnoremap <expr> %% expand('%:h').'/'
 
 nnoremap <silent> <leader>v <cmd>tabnew $MYVIMRC<CR>
-nnoremap <silent> <leader><leader> <C-^>
 
 nnoremap <silent> <leader>tT <cmd>TestNearest<CR>
 nnoremap <silent> <leader>tt <cmd>TestFile<CR>
