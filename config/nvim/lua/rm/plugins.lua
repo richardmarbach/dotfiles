@@ -86,7 +86,6 @@ return packer.startup(function(use)
 
   -- Easier lsp configuration
   use({ "neovim/nvim-lspconfig" })
-  use({ "williamboman/nvim-lsp-installer" })
   use({ "glepnir/lspsaga.nvim" })
   use({ "jose-elias-alvarez/null-ls.nvim" })
   use({ "williamboman/mason.nvim" })

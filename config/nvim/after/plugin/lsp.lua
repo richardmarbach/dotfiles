@@ -109,9 +109,6 @@ local function setup_lsp_config(opts)
   return vim.tbl_extend("force", config, opts or {})
 end
 
-local lsp_installer = require("nvim-lsp-installer")
-lsp_installer.setup({})
-
 for provider, config in pairs(lsp_configs) do
   lsp[provider].setup(setup_lsp_config(config))
 end
