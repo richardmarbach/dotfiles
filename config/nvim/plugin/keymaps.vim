@@ -23,7 +23,7 @@ nnoremap <silent> <leader>ta <cmd>TestSuite<CR>
 nnoremap <silent> <leader>tl <cmd>TestLast<CR>
 nnoremap <silent> <leader>tg <cmd>TestVisit<CR>
 
-nnoremap <silent> <leader>n <cmd>lua require('utils.file').rename()<cr>
+nnoremap <silent> <leader>n <cmd>lua require('rm.file').rename()<cr>
 
 nnoremap <silent> <leader>gg <cmd>lua require('telescope.builtin').live_grep()<CR>
 nnoremap <silent> <leader>gw <cmd>lua require('telescope.builtin').grep_string()<CR>

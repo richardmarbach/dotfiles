@@ -4,9 +4,9 @@
 
 - clean: 
     ~/: {}
-    ~/config:
+    ~/.config/:
       recursive: true
-    ~/.tmux:
+    ~/.tmux/:
       recursive: true
 
 - link:

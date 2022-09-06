@@ -1,4 +1,5 @@
-require("plugins")
+require("rm.settings")
 
-require("settings")
-require("colorscheme")
+require("rm.plugins")
+
+require("rm.colorscheme")
