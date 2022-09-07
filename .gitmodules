@@ -11,3 +11,4 @@
 [submodule "notes"]
 	path = notes
 	url = git@github.com:richardmarbach/wiki.git
+	branch = main
