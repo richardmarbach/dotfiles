@@ -61,6 +61,10 @@ vim.opt.isk:remove(".")
 -- Update swp file every 200 ms
 vim.o.updatetime = 200
 
+-- Setup relative line numbers
+vim.o.number = true
+vim.o.relativenumber = true
+
 -- Put our undo history into a temp file
 local undo_dir = "/tmp/.vim-undo-dir"
 if fn.isdirectory(undo_dir) == 0 then
