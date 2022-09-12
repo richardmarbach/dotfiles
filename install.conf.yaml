@@ -27,6 +27,3 @@
     ~/projects:
     ~/.ssh:
       mode: 0700
-
-- shell:
-  - [git submodule update --init --recursive, Installing submodules]
