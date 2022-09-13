@@ -10,5 +10,5 @@
 	url = https://github.com/oh-my-fish/plugin-foreign-env
 [submodule "notes"]
 	path = notes
-	url = git@github.com:richardmarbach/wiki.git
+	url = git@github.com:richardmarbach/notes.git
 	branch = main
