@@ -70,8 +70,12 @@ end
 vim.o.undodir = undo_dir
 vim.o.undofile = true
 
+local jumpToLastLocation = function()
+  if not vim.tbl_contains({ "gitcommit" }, vim.o.filetype) then
+    vim.cmd([[if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g`\"" | endif]])
+  end
+end
+
+api.nvim_create_augroup("vimrc", {})
 -- When editing a file, always jump to the last cursor position
-api.nvim_create_autocmd(
-  "BufReadPost",
-  { command = [[if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g`\"" | endif]] }
-)
+api.nvim_create_autocmd("BufReadPost", { group = "vimrc", callback = jumpToLastLocation })
