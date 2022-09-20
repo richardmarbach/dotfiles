@@ -34,6 +34,7 @@ local function on_attach(_, bufnr)
   vim.keymap.set("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", bufopts)
   vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", bufopts)
   vim.keymap.set("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", bufopts)
+  vim.keymap.set("i", "<C-g>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", bufopts)
   vim.keymap.set("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", bufopts)
   vim.keymap.set("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", bufopts)
   vim.keymap.set("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", bufopts)
@@ -152,6 +153,7 @@ null_ls.setup({
     null_ls.builtins.diagnostics.shellcheck,
     null_ls.builtins.formatting.shellharden,
     null_ls.builtins.formatting.shfmt,
+    null_ls.builtins.formatting.xmllint,
 
     null_ls.builtins.formatting.pg_format,
   },
