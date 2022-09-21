@@ -65,7 +65,7 @@ vim.o.relativenumber = true
 -- Put our undo history into a temp file
 local undo_dir = "/tmp/.vim-undo-dir"
 if fn.isdirectory(undo_dir) == 0 then
-  vim.fn.mkdir(undo_dir, "p", 0700)
+  vim.fn.mkdir(undo_dir, "p")
 end
 vim.o.undodir = undo_dir
 vim.o.undofile = true
