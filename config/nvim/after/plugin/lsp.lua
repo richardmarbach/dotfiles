@@ -53,8 +53,8 @@ end
 local function disable_format(next)
   return function(client, bufnr)
     next(client, bufnr)
-    client.resolved_capabilities.document_formatting = false
-    client.resolved_capabilities.document_range_formatting = false
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
   end
 end
 
@@ -64,10 +64,11 @@ local function format_on_save(next)
     next(client, bufnr)
 
     vim.api.nvim_clear_autocmds({ buffer = bufnr, group = lspFormatting })
-    vim.api.nvim_create_autocmd(
-      "BufWritePre",
-      { callback = vim.lsp.buf.formatting_seq_sync, group = lspFormatting, buffer = bufnr }
-    )
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      callback = vim.lsp.buf.format,
+      group = lspFormatting,
+      buffer = bufnr,
+    })
   end
 end
 
@@ -120,19 +121,19 @@ end
 
 null_ls.setup({
   on_attach = function(client, bufnr)
-    if client.resolved_capabilities.document_formatting then
+    if client.server_capabilities.documentFormattingProvider then
       vim.keymap.set(
         "n",
         "<space>=",
-        "<cmd>lua vim.lsp.buf.formatting()<CR>",
+        "<cmd>lua vim.lsp.buf.format { async = true }<CR>",
         { buffer = bufnr, silent = true, noremap = true }
       )
     end
-    if client.resolved_capabilities.document_range_formatting then
+    if client.server_capabilities.documentRangeFormattingProvider then
       vim.keymap.set(
         "n",
         "<space>=",
-        "<cmd>lua vim.lsp.buf.formatting()<CR>",
+        "<cmd>lua vim.lsp.buf.format { async = true }<CR>",
         { buffer = bufnr, silent = true, noremap = true }
       )
     end
