@@ -8,7 +8,7 @@ if not autopairs_status then
 end
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
-vim.o.completeopt = "menuone,noselect"
+vim.o.completeopt = "menu,menuone,noselect"
 
 cmp.setup({
   snippet = {
@@ -40,17 +40,3 @@ cmp.setup({
     ghost_text = true,
   },
 })
-
-vim.keymap.set("i", "<C-x><C-o>", function()
-  cmp.complete()
-end, { noremap = true })
-
-vim.keymap.set("i", "<C-x><C-s>", function()
-  cmp.complete({
-    config = {
-      sources = {
-        { name = "luasnip" },
-      },
-    },
-  })
-end, { noremap = true })

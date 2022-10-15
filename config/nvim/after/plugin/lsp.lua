@@ -16,38 +16,52 @@ mason_lspconfig.setup({
   },
 })
 
+local neodev_status_ok, neodev = pcall(require, "neodev")
+if not neodev_status_ok then
+  return
+end
+neodev.setup({})
+
 local status_ok, lsp = pcall(require, "lspconfig")
 if not status_ok then
   return
 end
 
+local keymap = vim.keymap.set
+
 local function get_capabilities()
-  return require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  return require("cmp_nvim_lsp").default_capabilities()
 end
 
 local function on_attach(_, bufnr)
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
   local bufopts = { buffer = bufnr, noremap = true, silent = true }
-  vim.keymap.set("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", bufopts)
-  vim.keymap.set("n", "gd", "<Cmd>Telescope lsp_definitions<CR>", bufopts)
-  vim.keymap.set("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", bufopts)
-  vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", bufopts)
-  vim.keymap.set("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", bufopts)
-  vim.keymap.set("i", "<C-g>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", bufopts)
-  vim.keymap.set("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", bufopts)
-  vim.keymap.set("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", bufopts)
-  vim.keymap.set("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", bufopts)
-  vim.keymap.set("n", "<space>D", "<cmd>Telescope lsp_type_definitions<CR>", bufopts)
-  vim.keymap.set("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", bufopts)
-  vim.keymap.set("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", bufopts)
-  vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", bufopts)
-  vim.keymap.set("n", "<space>e", "<cmd>lua vim.diagnostic.open_float()<CR>", bufopts)
-  vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", bufopts)
-  vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", bufopts)
-  vim.keymap.set("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", bufopts)
-  vim.keymap.set("n", "<space>dd", "<cmd>Telescope diagnostics bufnr=0<CR>", bufopts)
-  vim.keymap.set("n", "<space>dD", "<cmd>Telescope diagnostics<CR>", bufopts)
+  keymap("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", bufopts)
+  keymap("n", "gd", "<Cmd>Telescope lsp_definitions<CR>", bufopts)
+  keymap("n", "K", "<Cmd>Lspsaga hover_doc<cr>", bufopts)
+  keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", bufopts)
+  keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", bufopts)
+  keymap("i", "<C-g>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", bufopts)
+  keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", bufopts)
+  keymap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", bufopts)
+  keymap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", bufopts)
+  keymap("n", "<space>D", "<cmd>Telescope lsp_type_definitions<CR>", bufopts)
+  keymap("n", "<space>rn", "<cmd>Lspsaga rename<CR>", bufopts)
+  keymap({ "n", "v" }, "<space>ca", "<cmd>Lspsaga code_action<cr>", bufopts)
+  keymap("n", "gr", "<cmd>Telescope lsp_references<CR>", bufopts)
+  keymap("n", "<space>e", "<cmd>Lspsaga show_cursor_diagnostic<CR>", bufopts)
+  keymap("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<cr>", bufopts)
+  keymap("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<cr>", bufopts)
+  keymap("n", "[E", function()
+    require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
+  end, { silent = true })
+  keymap("n", "]E", function()
+    require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
+  end, { silent = true })
+  keymap("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", bufopts)
+  keymap("n", "<space>dd", "<cmd>Telescope diagnostics bufnr=0<CR>", bufopts)
+  keymap("n", "<space>dD", "<cmd>Telescope diagnostics<CR>", bufopts)
 end
 
 local function disable_format(next)
@@ -65,7 +79,9 @@ local function format_on_save(next)
 
     vim.api.nvim_clear_autocmds({ buffer = bufnr, group = lspFormatting })
     vim.api.nvim_create_autocmd("BufWritePre", {
-      callback = vim.lsp.buf.format,
+      callback = function()
+        vim.lsp.buf.format()
+      end,
       group = lspFormatting,
       buffer = bufnr,
     })
@@ -73,11 +89,9 @@ local function format_on_save(next)
 end
 
 local lsp_configs = {
-  ["sumneko_lua"] = require("lua-dev").setup({
-    lspconfig = {
-      on_attach = format_on_save(on_attach),
-    },
-  }),
+  ["sumneko_lua"] = {
+    on_attach = format_on_save(on_attach),
+  },
   ["solargraph"] = {
     on_attach = disable_format(on_attach),
     init_options = {
@@ -122,7 +136,7 @@ end
 null_ls.setup({
   on_attach = function(client, bufnr)
     if client.server_capabilities.documentFormattingProvider then
-      vim.keymap.set(
+      keymap(
         "n",
         "<space>=",
         "<cmd>lua vim.lsp.buf.format { async = true }<CR>",
@@ -130,7 +144,7 @@ null_ls.setup({
       )
     end
     if client.server_capabilities.documentRangeFormattingProvider then
-      vim.keymap.set(
+      keymap(
         "n",
         "<space>=",
         "<cmd>lua vim.lsp.buf.format { async = true }<CR>",

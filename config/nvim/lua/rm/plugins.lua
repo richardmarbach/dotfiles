@@ -54,7 +54,7 @@ return packer.startup(function(use)
   use({ "lewis6991/gitsigns.nvim" })
 
   -- Neovim lua dev
-  use({ "folke/lua-dev.nvim" })
+  use({ "folke/neodev.nvim" })
 
   -- Lua Docs
   use({ "milisims/nvim-luaref" })
