@@ -27,6 +27,13 @@ if not status_ok then
   return
 end
 
+local saga_status_ok, lspsaga = pcall(require, "lspsaga")
+if not saga_status_ok then
+  return
+end
+
+lspsaga.init_lsp_saga({})
+
 local keymap = vim.keymap.set
 
 local function get_capabilities()
