@@ -20,7 +20,7 @@ vim.o.smartcase = true
 vim.wo.cursorline = true
 vim.wo.scrolloff = 3
 
--- Atleast 80 chars!
+-- At least 80 chars!
 vim.o.winwidth = 79
 
 -- Pick longest options first and show all options
@@ -29,7 +29,7 @@ vim.o.wildmode = "longest,list"
 -- Say no to bak files!
 vim.o.writebackup = false
 
--- Write the file bafter commands are executed on it
+-- Write the file after commands are executed on it
 vim.o.autowrite = true
 
 -- Vertical splits for diffs
@@ -57,6 +57,9 @@ vim.o.updatetime = 200
 -- Setup relative line numbers
 vim.o.number = true
 vim.o.relativenumber = true
+
+-- Spell checking is only for comments with Treesitter!
+vim.o.spell = true
 
 -- Put our undo history into a temp file
 local undo_dir = "/tmp/.vim-undo-dir"
