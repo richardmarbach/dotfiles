@@ -32,7 +32,12 @@ if not saga_status_ok then
   return
 end
 
-lspsaga.init_lsp_saga({})
+lspsaga.init_lsp_saga({
+  code_action_lightbulb = {
+    virtual_text = false,
+  },
+  finder_request_timeout = 10000,
+})
 
 local keymap = vim.keymap.set
 
