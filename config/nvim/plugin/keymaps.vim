@@ -1,5 +1,7 @@
 tmap <C-o> <C-\><C-n>
 
+map <Bs> <Leader>
+
 imap <silent><expr> <C-H> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<C-H>' 
 inoremap <silent> <C-J> <cmd>lua require'luasnip'.jump(-1)<Cr>
 
