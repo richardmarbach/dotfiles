@@ -16,6 +16,12 @@ vnoremap <silent> <leader>zf :'<,'>ZkMatch<CR>
 
 cnoremap <expr> %% expand('%:h').'/'
 
+" Let me use my keyboards nav layer to do stuff
+noremap <Up> k
+noremap <Down> j
+noremap <Left> h
+noremap <Right> l
+
 nnoremap <silent> <leader>v <cmd>tabnew $MYVIMRC<CR>
 
 nnoremap <silent> <leader>tT <cmd>TestNearest<CR>
