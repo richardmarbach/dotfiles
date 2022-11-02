@@ -1,5 +1,5 @@
 if test (uname) = "Darwin" 
-  source /opt/homebrew/asdf/bin/asdf
+  source $(HOMEBREW_PREFIX)/opt/bin/asdf
 else 
   source ~/.asdf/asdf.fish
 
