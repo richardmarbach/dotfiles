@@ -41,25 +41,8 @@ function p() {
 
     if [[ -n "$proj" ]]; then
         cd ~/projects/"$proj"
-
-        if [[ -e "Gemfile" ]]; then
-            gem_home .
-        fi
-
-        if [[ -e ".ruby-version" ]]; then
-            chruby $(cat .ruby-version)
-        fi
     fi
 }
-
-source /usr/local/share/chruby/chruby.sh
-source /usr/local/share/gem_home/gem_home.sh
-
-if [[ -d '.gem' ]]; then
-    gem_home .
-else
-    gem_home "$HOME"
-fi
 
 # Screen life
 

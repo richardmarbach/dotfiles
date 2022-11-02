@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+brew tap homebrew/cask-fonts
+
 brew install angle-grinder
 brew install asdf
 brew install awscli
@@ -46,6 +48,7 @@ brew install tmux
 brew install tree
 brew install units
 brew install vagrant
+brew install fzf
 brew install virtualbox
 brew install watchman
 brew install whois
@@ -61,3 +64,4 @@ brew install font-inconsolata-nerd-font --cask
 brew install mailmate --cask
 brew install vagrant --cask
 brew install virtualbox --cask
+brew install --cask font-hack-nerd-font
