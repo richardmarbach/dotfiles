@@ -13,9 +13,17 @@
     ~/.tmux/plugins/tpm:
         path: tmux/plugins/tpm
         create: true
-    ~/.config/:
+    ~/.config/nvim: config/nvim
+    ~/.config/alacritty: config/alacritty
+    ~/.config/gh: config/gh/config.yml
+    ~/.config/git: config/git
+    ~/.config/rg: config/rg
+    ~/.config/rubocop: config/rubocop
+    ~/.config/solargraph: config/solargraph
+    ~/.config/tmux: config/tmux
+    ~/.config/fish:
       glob: true
-      path: config/**
+      path: config/fish/**
       relink: true
       create: true
     ~/.zshrc: .zshrc

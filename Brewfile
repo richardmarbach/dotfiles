@@ -34,6 +34,7 @@ brew install neovim
 brew install openssl
 brew install pgp
 brew install postgresql
+brew install pgformatter
 brew install pulumi
 brew install qemu
 brew install redis
