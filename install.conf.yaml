@@ -15,7 +15,10 @@
         create: true
     ~/.config/nvim: config/nvim
     ~/.config/alacritty: config/alacritty
-    ~/.config/gh: config/gh/config.yml
+    ~/.config/gh/config.yml: 
+      path: config/gh/config.yml
+      relink: true
+      create: true
     ~/.config/git: config/git
     ~/.config/rg: config/rg
     ~/.config/rubocop: config/rubocop
@@ -31,6 +34,7 @@
     ~/notes: notes
 
 - create:
+    ~/.config/gh:
     ~/.local/bin:
     ~/projects:
     ~/.ssh:
