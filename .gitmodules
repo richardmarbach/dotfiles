@@ -2,9 +2,6 @@
 	path = dotbot
 	url = https://github.com/anishathalye/dotbot
 	ignore = dirty
-[submodule "tmux/plugins/tpm"]
-	path = tmux/plugins/tpm
-	url = https://github.com/tmux-plugins/tpm
 [submodule "config/fish/plugins/plugin-foreign-env"]
 	path = config/fish/plugins/plugin-foreign-env
 	url = https://github.com/oh-my-fish/plugin-foreign-env
@@ -12,3 +9,6 @@
 	path = notes
 	url = git@github.com:richardmarbach/notes.git
 	branch = main
+[submodule "tmux/plugins/tpm"]
+	path = tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
