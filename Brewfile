@@ -29,7 +29,7 @@ brew install lazygit
 brew install libpq
 brew install miller
 brew install minikube
-brew install neomutt
+brew install ag
 brew install neovim
 brew install openssl
 brew install pgp
@@ -41,8 +41,6 @@ brew install redis
 brew install redis-cli
 brew install redis-client
 brew install rg
-brew install rust-analyzer
-brew install sup
 brew install tealdear
 brew install tidy-html5
 brew install tmux
@@ -66,3 +64,4 @@ brew install mailmate --cask
 brew install vagrant --cask
 brew install virtualbox --cask
 brew install --cask font-hack-nerd-font
+brew install --cask alfred

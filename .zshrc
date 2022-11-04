@@ -71,4 +71,4 @@ function notify() {
   /usr/bin/osascript -e "display notification \"$*\"" 
 }
 
-. /usr/local/opt/asdf/asdf.sh
+. $(brew --prefix)/opt/asdf/libexec/asdf.sh
