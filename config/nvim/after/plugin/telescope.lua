@@ -12,6 +12,9 @@ telescope.setup({
       override_generic_sorter = false,
       override_file_sorter = true,
     },
+    file_browser = {
+      hijack_netrw = true,
+    },
   },
 })
 
