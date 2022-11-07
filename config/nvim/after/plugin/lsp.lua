@@ -168,7 +168,9 @@ null_ls.setup({
   capabilities = get_capabilities(),
   sources = {
     null_ls.builtins.formatting.stylua,
-    null_ls.builtins.formatting.standardrb,
+    null_ls.builtins.formatting.standardrb.with({
+      prefer_local = "bin",
+    }),
     null_ls.builtins.formatting.prettier.with({ extra_filetypes = { "svelte" } }),
     null_ls.builtins.diagnostics.eslint.with({ extra_filetypes = { "svelte" } }),
     null_ls.builtins.code_actions.eslint.with({ extra_filetypes = { "svelte" } }),
