@@ -30,10 +30,10 @@ cmp.setup({
     ["<C-Space>"] = cmp.mapping.confirm(),
   },
   sources = {
-    { name = "nvim_lsp" },
-    { name = "luasnip" },
-    { name = "buffer", max_item_count = 10 },
     { name = "path" },
+    { name = "nvim_lsp", keyword_length = 3 },
+    { name = "luasnip", keyword_length = 3 },
+    { name = "buffer", max_item_count = 10, keyword_length = 3 },
   },
   experimental = {
     ghost_text = true,
@@ -48,16 +48,6 @@ cmp.setup.filetype("gitcommit", {
   },
 })
 
--- vim.keymap.set("i", "<C-x><C-o>", function()
---   cmp.complete()
--- end, { noremap = true })
---
--- vim.keymap.set("i", "<C-x><C-s>", function()
---   cmp.complete({
---     config = {
---       sources = {
---         { name = "luasnip" },
---       },
---     },
---   })
--- end, { noremap = true })
+vim.keymap.set("i", "<C-x><C-o>", function()
+  cmp.complete()
+end, { noremap = true })
