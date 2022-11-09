@@ -6,13 +6,8 @@
     ~/: {}
     ~/.config/:
       recursive: true
-    ~/.tmux/:
-      recursive: true
 
 - link:
-    ~/.tmux/plugins/tpm:
-        path: tmux/plugins/tpm
-        create: true
     ~/.config/nvim: config/nvim
     ~/.config/alacritty: config/alacritty
     ~/.config/gh/config.yml: 

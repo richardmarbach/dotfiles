@@ -9,6 +9,3 @@
 	path = notes
 	url = git@github.com:richardmarbach/notes.git
 	branch = main
-[submodule "tmux/plugins/tpm"]
-	path = tmux/plugins/tpm
-	url = https://github.com/tmux-plugins/tpm

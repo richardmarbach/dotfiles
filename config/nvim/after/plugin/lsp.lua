@@ -102,6 +102,20 @@ local lsp_configs = {
   ["sumneko_lua"] = {
     on_attach = format_on_save(on_attach),
   },
+  ["tailwindcss"] = {
+    settings = {
+      tailwindCSS = {
+        experimental = {
+          classRegex = { -- for haml :D
+            "%\\w+([^\\s]*)",
+            "\\.([^\\.]*)",
+            ':class\\s*=>\\s*"([^"]*)',
+            'class:\\s+"([^"]*)',
+          },
+        },
+      },
+    },
+  },
   ["solargraph"] = {
     on_attach = disable_format(on_attach),
     init_options = {
@@ -110,6 +124,7 @@ local lsp_configs = {
     settings = {
       solargraph = {
         diagnostics = true,
+        useBundler = true,
       },
     },
   },
