@@ -22,6 +22,8 @@ noremap <Down> j
 noremap <Left> h
 noremap <Right> l
 
+nnoremap <silent> <leader>go :LazyGit<CR>
+
 nnoremap <silent> <leader>v <cmd>tabnew $MYVIMRC<CR>
 
 nnoremap <silent> <leader>tT <cmd>TestNearest<CR>
