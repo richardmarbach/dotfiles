@@ -52,7 +52,11 @@ return packer.startup(function(use)
   use({ "sindrets/diffview.nvim" })
   use({ "dinhhuy258/git.nvim" })
   use({ "lewis6991/gitsigns.nvim" })
-  use({ "kdheepak/lazygit.nvim" })
+  use("voldikss/vim-floaterm")
+
+  -- Structured replace
+  -- use({ "cshuaimin/ssr.nvim", module = "ssr" })
+  use({ "vigoux/architext.nvim" })
 
   -- Neovim lua dev
   use({ "folke/neodev.nvim" })
@@ -91,9 +95,6 @@ return packer.startup(function(use)
   use({ "jose-elias-alvarez/null-ls.nvim" })
   use({ "williamboman/mason.nvim" })
   use({ "williamboman/mason-lspconfig.nvim" })
-
-  -- Better formatting support
-  use({ "mhartington/formatter.nvim" })
 
   -- Snippets
   use({ "L3MON4D3/LuaSnip" })

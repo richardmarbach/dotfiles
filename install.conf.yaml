@@ -19,6 +19,7 @@
     ~/.config/rubocop: config/rubocop
     ~/.config/solargraph: config/solargraph
     ~/.config/tmux: config/tmux
+    ~/.config/lazygit: config/lazygit
     ~/.config/fish:
       glob: true
       path: config/fish/**
