@@ -69,7 +69,8 @@ return packer.startup(function(use)
   use({ "ellisonleao/gruvbox.nvim" })
 
   -- Better splitting and joining
-  use({ "AndrewRadev/splitjoin.vim" })
+  -- use({ "AndrewRadev/splitjoin.vim" })
+  use({ "Wansmer/treesj" })
   -- Surround text objects with stuff
   use({ "kylechui/nvim-surround" })
 
