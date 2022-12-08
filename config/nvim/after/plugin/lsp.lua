@@ -135,6 +135,9 @@ local lsp_configs = {
     on_attach = disable_format(on_attach),
   },
   ["jsonls"] = {},
+  ["elixirls"] = {
+    on_attach = format_on_save(on_attach),
+  },
 }
 
 local function setup_lsp_config(opts)
