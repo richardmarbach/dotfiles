@@ -59,7 +59,7 @@ key_bindings:
   - { key: M, mods: Control, chars: "\x1b[109;5u" }
 
   # Control + Shift + <letter> ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-
+  
   # Control + B ⇒ SearchBackward
   # Control + C ⇒ Copy
   # Control + F ⇒ SearchForward

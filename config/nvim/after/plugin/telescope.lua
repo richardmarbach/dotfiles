@@ -1,83 +1,45 @@
-local status_ok, telescope = pcall(require, "telescope")
-if not status_ok then
-  return
-end
-
-telescope.setup({
+-- [[ Configure Telescope ]]
+-- See `:help telescope` and `:help telescope.setup()`
+require("telescope").setup({
   defaults = {
-    layout_strategy = "bottom_pane",
-  },
-  extensions = {
-    fzf = {
-      override_generic_sorter = false,
-      override_file_sorter = true,
-    },
-    file_browser = {
-      hijack_netrw = true,
+    extensions = {
+      file_browser = {
+        hijack_netrw = true,
+      },
     },
   },
 })
 
-telescope.load_extension("fzf")
-telescope.load_extension("file_browser")
+-- Enable telescope fzf native, if installed
+pcall(require("telescope").load_extension, "fzf")
 
-local keymap = vim.keymap
-local builtin = require("telescope.builtin")
-local utils = require("telescope.utils")
+-- Enable filebrowser
+pcall(require("telescope").load_extension, "file_browser")
 
-keymap.set("n", "<leader>gg", function()
-  builtin.live_grep()
-end, { silent = true })
-keymap.set("n", "<leader>gw", function()
-  builtin.grep_string()
-end, { silent = true })
-keymap.set("n", "<leader>ge", function()
-  builtin.live_grep({ cwd = utils.buffer_dir() })
-end, { silent = true })
-keymap.set("n", "<leader>ga", function()
-  builtin.live_grep({ search_dirs = { "parts/", "app/", "lib/", "src/" } })
-end, { silent = true })
-keymap.set("n", "<leader>gs", function()
-  builtin.live_grep({ search_dirs = { "spec/", "test/" } })
-end, { silent = true })
-keymap.set("n", "<leader>gc", function()
-  builtin.live_grep({ search_dirs = { "config/" } })
-end, { silent = true })
-keymap.set("n", "<leader>gd", function()
-  builtin.live_grep({ search_dirs = { vim.fn.input("Enter the directory to search: ", "", "file") } })
-end, { silent = true })
+-- See `:help telescope.builtin`
+vim.keymap.set("n", "<leader>?", require("telescope.builtin").oldfiles, { desc = "[?] Find recently opened files" })
+vim.keymap.set("n", "<leader><space>", require("telescope.builtin").buffers, { desc = "[ ] Find existing buffers" })
+vim.keymap.set("n", "<leader>/", function()
+  -- You can pass additional configuration to telescope to change theme, layout, etc.
+  require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+    winblend = 10,
+    previewer = false,
+  }))
+end, { desc = "[/] Fuzzily search in current buffer]" })
 
-keymap.set("n", "<leader>ff", function()
-  builtin.find_files({ hidden = true })
-end, { silent = true })
-keymap.set("n", "<leader>fe", function()
-  builtin.find_files({ cwd = utils.buffer_dir(), follow = true })
-end, { silent = true })
-keymap.set("n", "<leader>fs", function()
-  builtin.find_files({ search_dirs = { "spec/", "test/" } })
-end, { silent = true })
-keymap.set("n", "<leader>fa", function()
-  builtin.find_files({ search_dirs = { "parts/", "app/", "lib/", "src/" } })
-end, { silent = true })
-keymap.set("n", "<leader>fb", function()
-  builtin.buffers()
-end, { silent = true })
-keymap.set("n", "<leader>fc", function()
-  builtin.git_commits()
-end, { silent = true })
-keymap.set("n", "<leader>fh", function()
-  builtin.help_tags()
-end, { silent = true })
-keymap.set("n", "<leader>fd", function()
-  builtin.git_bcommits()
-end, { silent = true })
-keymap.set("n", "<leader>fr", function()
-  builtin.resume()
-end, { silent = true })
+vim.keymap.set("n", "<leader>sp", require("telescope.builtin").find_files, { desc = "[S]earch [P]roject Files" })
+vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc = "[S]earch [H]elp" })
+vim.keymap.set("n", "<leader>sr", require("telescope.builtin").resume, { desc = "[S]earch [R]esume" })
+vim.keymap.set("n", "<leader>sw", require("telescope.builtin").grep_string, { desc = "[S]earch current [W]ord" })
+vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
+vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { desc = "[S]earch [D]iagnostics" })
+vim.keymap.set("n", "<leader>sf", function()
+  require("telescope").extensions.file_browser.file_browser({ hidden = true, files = false })
+end, { desc = "[S]earch [F]olders" })
 
-keymap.set("n", "<leader>bb", function()
-  telescope.extensions.file_browser.file_browser({ hidden = true })
-end, { silent = true })
-keymap.set("n", "<leader>be", function()
-  telescope.extensions.file_browser.file_browser({ hidden = true, cwd = utils.buffer_dir() })
-end, { silent = true })
+vim.keymap.set("n", "<leader>se", function()
+  require("telescope").extensions.file_browser.file_browser({
+    hidden = true,
+    cwd = require("telescope.utils").buffer_dir(),
+  })
+end, { desc = "Netrw in current folder" })

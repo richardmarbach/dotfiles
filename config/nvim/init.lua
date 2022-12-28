@@ -1,11 +1,5 @@
-require("rm.settings")
+require("richard")
 
-require("rm.plugins")
-
-require("rm.colorscheme")
-
-local is_mac = vim.fn.has("macunix") == 1
-
-if is_mac then
-  require("rm.macos")
+function R(name)
+    require("plenary.reload").reload_module(name)
 end

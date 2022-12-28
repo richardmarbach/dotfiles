@@ -1,26 +1,10 @@
-local status_ok, lualine = pcall(require, "lualine")
-if not status_ok then
-  return
-end
-
-lualine.setup({
+-- Set lualine as statusline
+-- See `:help lualine.txt`
+require('lualine').setup {
   options = {
-    icons_enabled = true,
+    icons_enabled = false,
+    theme = 'gruvbox',
+    component_separators = '|',
+    section_separators = '',
   },
-  sections = {
-    lualine_c = {
-      {
-        "filename",
-        path = 1,
-      },
-    },
-  },
-  inactive_sections = {
-    lualine_c = {
-      {
-        "filename",
-        path = 1,
-      },
-    },
-  },
-})
+}

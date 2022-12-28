@@ -49,22 +49,22 @@
 [interactive]
   diffFilter = delta --color-only
 [merge]
-  tool = vimdiff
+  tool = fugitive
   conflictStyle = zdiff3
 [mergetool]
-  prompt = true
-	keepBackup = false
-[mergetool "vimdiff"]
-  cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+  prompt = false
+  keepBackup = false
+[mergetool "fugitive"]
+  cmd = nvim -f -c "Gvdiffsplit!" "$MERGED"
 [difftool]
   prompt = false
 [diff]
-  tool = vimdiff
+  tool = fugitive
 [init]
   defaultBranch = main
 [pull]
-	rebase = true
+  rebase = true
 [rerere]
   enabled = true
 [push]
-	autoSetupRemote = true
+  autoSetupRemote = true
