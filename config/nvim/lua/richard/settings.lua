@@ -47,3 +47,6 @@ vim.o.spell = true
 
 -- Vertical splits for diffs
 vim.opt.diffopt:append("vertical")
+
+-- Prefer opening new splits on the right
+vim.opt.splitright = true

@@ -118,3 +118,5 @@ null_ls.setup({
   },
 })
 mason_nullls.setup_handlers({})
+
+require("mason-nvim-dap").setup({ automatic = true })

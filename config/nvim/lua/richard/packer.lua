@@ -52,6 +52,10 @@ require("packer").startup(function(use)
 
       -- Additional lua configuration, makes nvim stuff amazing
       "folke/neodev.nvim",
+
+      -- Debugging
+      "mfussenegger/nvim-dap",
+      "jayp0521/mason-nvim-dap.nvim",
     },
   })
 
