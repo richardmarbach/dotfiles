@@ -41,7 +41,6 @@ require("packer").startup(function(use)
       { "saadparwaiz1/cmp_luasnip" },
       { "hrsh7th/cmp-nvim-lua" },
       { "hrsh7th/cmp-nvim-lsp" },
-      { "richardmarbach/cmp-github" },
 
       -- Snippets
       { "L3MON4D3/LuaSnip" },
@@ -58,6 +57,9 @@ require("packer").startup(function(use)
       "jayp0521/mason-nvim-dap.nvim",
     },
   })
+
+  -- Rust
+  use("simrat39/rust-tools.nvim")
 
   -- Git related plugins
   use("tpope/vim-fugitive")

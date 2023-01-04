@@ -1,4 +1,6 @@
-require("nvim-test").setup()
+require("nvim-test").setup({
+
+})
 
 vim.keymap.set("n", "<leader>tt", "<cmd>TestNearest<CR>")
 vim.keymap.set("n", "<leader>tf", "<cmd>TestFile<CR>")

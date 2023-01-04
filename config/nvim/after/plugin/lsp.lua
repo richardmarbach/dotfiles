@@ -3,14 +3,15 @@ local null_ls = require("null-ls")
 
 lsp.preset("recommended")
 
-lsp.set_preferences({ set_lsp_keymaps = false })
+lsp.set_preferences({
+  suggest_lsp_servers = false,
+  set_lsp_keymaps = false,
+})
 
 -- Setup neovim lua configuration
 require("neodev").setup()
 
--- LSP settings.
---  This function gets run when an LSP connects to a particular buffer.
-lsp.on_attach(function(_, bufnr)
+local on_attach = function(_, bufnr)
   local nmap = function(keys, func, desc)
     if desc then
       desc = "LSP: " .. desc
@@ -45,7 +46,11 @@ lsp.on_attach(function(_, bufnr)
   vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
     vim.lsp.buf.format()
   end, { desc = "Format current buffer with LSP" })
-end)
+end
+
+-- LSP settings.
+--  This function gets run when an LSP connects to a particular buffer.
+lsp.on_attach(on_attach)
 
 local servers = {
   sumneko_lua = {
@@ -67,16 +72,6 @@ local servers = {
       },
     },
   },
-  ["rust_analyzer"] = {
-    on_attach = format_on_save(on_attach),
-  },
-  ["tsserver"] = {
-    on_attach = disable_format(on_attach),
-  },
-  ["jsonls"] = {},
-  ["elixirls"] = {
-    on_attach = format_on_save(on_attach),
-  },
 }
 
 for server, config in pairs(servers) do
@@ -91,20 +86,29 @@ lsp.setup_nvim_cmp({
 
 local cmp = require("cmp")
 
-cmp.setup.filetype("gitcommit", {
-  sources = {
-    { name = "github" },
-    { name = "path" },
-    { name = "nvim_lsp", keyword_length = 3 },
-    { name = "buffer", keyword_length = 3 },
-    { name = "luasnip", keyword_length = 2 },
-  },
-})
+-- TODO: write plugin to fetch assigned linear issues
+-- cmp.setup.filetype("gitcommit", {
+--   sources = {
+--     { name = "path" },
+--     { name = "nvim_lsp", keyword_length = 3 },
+--     { name = "buffer", keyword_length = 3 },
+--     { name = "luasnip", keyword_length = 2 },
+--   },
+-- })
+
 vim.keymap.set("i", "<C-x><C-o>", function()
   cmp.complete()
 end, { noremap = true })
 
 lsp.setup()
+
+local rt = require("rust-tools")
+rt.setup({
+  -- remove when merged: https://github.com/simrat39/rust-tools.nvim/pull/307
+  -- remove when merged: https://github.com/simrat39/rust-tools.nvim/pull/308
+  tools = { inlay_hints = { auto = false } },
+  server = { on_attach = on_attach },
+})
 
 local mason_nullls = require("mason-null-ls")
 mason_nullls.setup({
