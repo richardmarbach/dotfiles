@@ -1,6 +1,8 @@
 require("nvim-test").setup({
 
 })
+-- vim.g["test#strategy"] = "neovim"
+-- vim.g["test#neovim#term_position"] = "vert"
 
 vim.keymap.set("n", "<leader>tt", "<cmd>TestNearest<CR>")
 vim.keymap.set("n", "<leader>tf", "<cmd>TestFile<CR>")

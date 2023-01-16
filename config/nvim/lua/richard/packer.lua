@@ -41,6 +41,7 @@ require("packer").startup(function(use)
       { "saadparwaiz1/cmp_luasnip" },
       { "hrsh7th/cmp-nvim-lua" },
       { "hrsh7th/cmp-nvim-lsp" },
+      { "richardmarbach/cmp-via" },
 
       -- Snippets
       { "L3MON4D3/LuaSnip" },
@@ -81,7 +82,11 @@ require("packer").startup(function(use)
 
   use("danymat/neogen") -- Documentation generation
 
+  -- use({ "vim-test/vim-test" })
   use({ "klen/nvim-test" })
+
+  -- Text casing library
+  use({ "johmsalas/text-case.nvim" })
 
   -- Fuzzy Finder (files, lsp, etc)
   use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } })

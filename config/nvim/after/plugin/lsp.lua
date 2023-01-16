@@ -21,7 +21,7 @@ local on_attach = function(_, bufnr)
   end
 
   nmap("<F2>", vim.lsp.buf.rename, "[R]e[n]ame")
-  nmap("<F4>", vim.lsp.buf.code_action, "[C]ode [A]ction")
+  nmap("<F4>", vim.lsp.buf.code_ction, "[C]ode [A]ction")
 
   nmap("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
   nmap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
@@ -86,15 +86,15 @@ lsp.setup_nvim_cmp({
 
 local cmp = require("cmp")
 
--- TODO: write plugin to fetch assigned linear issues
--- cmp.setup.filetype("gitcommit", {
---   sources = {
---     { name = "path" },
---     { name = "nvim_lsp", keyword_length = 3 },
---     { name = "buffer", keyword_length = 3 },
---     { name = "luasnip", keyword_length = 2 },
---   },
--- })
+cmp.setup.filetype("gitcommit", {
+  sources = {
+    { name = "via" },
+    { name = "path" },
+    { name = "nvim_lsp", keyword_length = 3 },
+    { name = "buffer", keyword_length = 3 },
+    { name = "luasnip", keyword_length = 2 },
+  },
+})
 
 vim.keymap.set("i", "<C-x><C-o>", function()
   cmp.complete()
@@ -104,9 +104,6 @@ lsp.setup()
 
 local rt = require("rust-tools")
 rt.setup({
-  -- remove when merged: https://github.com/simrat39/rust-tools.nvim/pull/307
-  -- remove when merged: https://github.com/simrat39/rust-tools.nvim/pull/308
-  tools = { inlay_hints = { auto = false } },
   server = { on_attach = on_attach },
 })
 
@@ -124,3 +121,12 @@ null_ls.setup({
 mason_nullls.setup_handlers({})
 
 require("mason-nvim-dap").setup({ automatic = true })
+
+-- require("luasnip.loaders.from_lua").lazy_load({ paths = "./snippets" })
+vim.keymap.set({"i", "s"}, "<C-H>", function ()
+  if require("luasnip").choice_active() then
+    require("luasnip").change_choice(1)
+  else
+    return "<C-H>"
+  end
+end, {expr = true, silent = true, remap = true })
