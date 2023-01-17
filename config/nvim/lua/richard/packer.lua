@@ -82,8 +82,8 @@ require("packer").startup(function(use)
 
   use("danymat/neogen") -- Documentation generation
 
-  -- use({ "vim-test/vim-test" })
-  use({ "klen/nvim-test" })
+  use({ "vim-test/vim-test" })
+  -- use({ "klen/nvim-test" })
 
   -- Text casing library
   use({ "johmsalas/text-case.nvim" })
