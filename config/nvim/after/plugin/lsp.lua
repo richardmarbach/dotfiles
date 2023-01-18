@@ -120,8 +120,6 @@ null_ls.setup({
 })
 mason_nullls.setup_handlers({})
 
-require("mason-nvim-dap").setup({ automatic = true })
-
 -- require("luasnip.loaders.from_lua").lazy_load({ paths = "./snippets" })
 vim.keymap.set({"i", "s"}, "<C-H>", function ()
   if require("luasnip").choice_active() then

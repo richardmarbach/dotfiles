@@ -36,13 +36,6 @@ vim.opt.scrolloff = 8
 vim.o.updatetime = 50
 vim.wo.signcolumn = 'yes'
 
--- Set colorscheme
-vim.o.termguicolors = true
-require("gruvbox").setup({
-  contrast = "soft",
-})
-vim.cmd [[colorscheme gruvbox]]
-
 vim.o.spell = true
 
 -- Vertical splits for diffs
@@ -50,3 +43,14 @@ vim.opt.diffopt:append("vertical")
 
 -- Prefer opening new splits on the right
 vim.opt.splitright = true
+
+-- See `:help mapleader`
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+--  Since I use a corne split keyboard, this lets both thumbs active
+--  the leader key. That way it's much easier to hit key combinations with
+--  <leader> on opposite keyboard halves
+vim.keymap.set({ "n", "v", "o" }, "<Bs>", "<leader>", { remap = true })
+-- Keymaps for better default experience
+-- See `:help vim.keymap.set()`
+vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
