@@ -17,20 +17,110 @@ return {
 
   -- Test runner
   {
-    "vim-test/vim-test",
-    --  "klen/nvim-test",
+    "nvim-neotest/neotest",
+    dependencies = {
+      "rouge8/neotest-rust",
+      "olimorris/neotest-rspec",
+    },
     config = function()
-      vim.g["test#strategy"] = "neovim"
-      vim.g["test#neovim#term_position"] = "vert"
+      require("neotest").setup({
+        status = {
+          virtual_text = true,
+        },
+        running = {
+          concurrent = false,
+        },
+        adapters = {
+          require("neotest-rspec")({
+            rspec_cmd = function()
+              return vim.tbl_flatten({
+                "bundle",
+                "exec",
+                "rspec",
+              })
+            end,
+          }),
+        },
+      })
     end,
     keys = {
-      { "<leader>tt", "<cmd>TestNearest<CR>" },
-      { "<leader>tf", "<cmd>TestFile<CR>" },
-      { "<leader>ts", "<cmd>TestSuite<CR>" },
-      { "<leader>tl", "<cmd>TestLast<CR>" },
-      { "<leader>tg", "<cmd>TestVisit<CR>" },
+      {
+        "<leader>tf",
+        function()
+          require("neotest").run.run(vim.fn.expand("%"))
+        end,
+      },
+      {
+        "<leader>tt",
+        function()
+          require("neotest").run.run()
+        end,
+      },
+      {
+        "<leader>tl",
+        function()
+          require("neotest").run.run_last()
+        end,
+      },
+      {
+        "<leader>td",
+        function()
+          require("neotest").run.run({ strategy = "dap" })
+        end,
+      },
+      {
+        "<leader>ta",
+        function()
+          require("neotest").run.attach()
+        end,
+      },
+      {
+        "<leader>ti",
+        function()
+          require("neotest").output.open({enter = true, last_run = true, auto_close = true})
+        end,
+      },
+      {
+        "<leader>to",
+        function()
+          require("neotest").output_panel.toggle()
+        end,
+      },
+      {
+        "<leader>ts",
+        function()
+          require("neotest").summary.toggle()
+        end,
+      },
+      {
+        "[n",
+        function()
+          require("neotest").jump.prev({ status = "failed" })
+        end,
+      },
+      {
+        "]n",
+        function()
+          require("neotest").jump.next({ status = "failed" })
+        end,
+      },
     },
   },
+  -- {
+  --   "vim-test/vim-test",
+  --   --  "klen/nvim-test",
+  --   config = function()
+  --     vim.g["test#strategy"] = "neovim"
+  --     vim.g["test#neovim#term_position"] = "vert"
+  --   end,
+  --   keys = {
+  --     { "<leader>tt", "<cmd>TestNearest<CR>" },
+  --     { "<leader>tf", "<cmd>TestFile<CR>" },
+  --     { "<leader>ts", "<cmd>TestSuite<CR>" },
+  --     { "<leader>tl", "<cmd>TestLast<CR>" },
+  --     { "<leader>tg", "<cmd>TestVisit<CR>" },
+  --   },
+  -- },
 
   -- treesitter base splitjoin
   {

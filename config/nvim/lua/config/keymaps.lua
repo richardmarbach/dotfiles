@@ -26,3 +26,11 @@ end
 vim.keymap.set("n", "<leader>=", vim.lsp.buf.format)
 
 vim.keymap.set("t", "<C-o>", "<C-\\><C-n>", { desc = "Exit edit mode in integrated terminal" })
+
+-- Move Lines
+vim.keymap.set("n", "<A-Down>", ":m .+1<cr>==", { desc = "Move down" })
+vim.keymap.set("v", "<A-Down>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
+vim.keymap.set("i", "<A-Down>", "<Esc>:m .+1<cr>==gi", { desc = "Move down" })
+vim.keymap.set("n", "<A-Up>", ":m .-2<cr>==", { desc = "Move up" })
+vim.keymap.set("v", "<A-Up>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+vim.keymap.set("i", "<A-Up>", "<Esc>:m .-2<cr>==gi", { desc = "Move up" })

@@ -21,3 +21,13 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     vim.go.backupext = backup
   end,
 })
+
+-- Enable Ctrl-R pasting in the Telescope prompt
+local telescope_augroup_id = vim.api.nvim_create_augroup("telescope", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+  group = telescope_augroup_id,
+  pattern = "TelescopePrompt",
+  callback = function()
+    vim.keymap.set("i", "<C-R>", "<C-R>", { silent = true, buffer = true })
+  end,
+})

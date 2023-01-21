@@ -9,7 +9,7 @@ lsp.set_preferences({
 })
 
 -- Setup neovim lua configuration
-require("neodev").setup()
+require("neodev").setup({library = { plugins = { "neotest" }, types = true }})
 
 local on_attach = function(_, bufnr)
   local nmap = function(keys, func, desc)

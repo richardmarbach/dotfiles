@@ -6,100 +6,106 @@ return {
     build = ":TSUpdate",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
+      "JoosepAlviste/nvim-ts-context-commentstring",
     },
-    opts = {
-      -- Add languages to be installed here that you want installed for treesitter
-      ensure_installed = {
-        "c",
-        "css",
-        "diff",
-        "fish",
-        "gitignore",
-        "graphql",
-        "haml",
-        "help",
-        "html",
-        "http",
-        "javascript",
-        "json",
-        "lua",
-        "markdown",
-        "markdown_inline",
-        "python",
-        "regex",
-        "ruby",
-        "rust",
-        "scss",
-        "sql",
-        "svelte",
-        "toml",
-        "tsx",
-        "typescript",
-        "vim",
-        "yaml"
-      },
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        sync_install = false,
 
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighing = "markdown",
-      },
-      indent = { enable = true, disable = { "python" } },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "<c-space>",
-          node_incremental = "<c-space>",
-          scope_incremental = "<c-s>",
-          node_decremental = "<c-_>",
+        -- Add languages to be installed here that you want installed for treesitter
+        ensure_installed = {
+          "c",
+          "css",
+          "diff",
+          "fish",
+          "gitignore",
+          "graphql",
+          "help",
+          "html",
+          "http",
+          "javascript",
+          "json",
+          "lua",
+          "markdown",
+          "markdown_inline",
+          "python",
+          "regex",
+          "ruby",
+          "rust",
+          "scss",
+          "sql",
+          "svelte",
+          "toml",
+          "tsx",
+          "typescript",
+          "vim",
+          "yaml",
         },
-      },
-      textobjects = {
-        select = {
+        highlight = {
           enable = true,
-          lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+          additional_vim_regex_highlighing = "markdown",
+        },
+        indent = { enable = true, disable = { "python" } },
+        context_commentstring = {
+          enable = true,
+        },
+        incremental_selection = {
+          enable = true,
           keymaps = {
-            -- You can use the capture groups defined in textobjects.scm
-            ["aa"] = "@parameter.outer",
-            ["ia"] = "@parameter.inner",
-            ["af"] = "@function.outer",
-            ["if"] = "@function.inner",
-            ["ac"] = "@class.outer",
-            ["ic"] = "@class.inner",
-            ["ab"] = "@block.outer",
-            ["ib"] = "@block.inner",
+            init_selection = "<c-space>",
+            node_incremental = "<c-space>",
+            scope_incremental = "<c-s>",
+            node_decremental = "<c-_>",
           },
         },
-        move = {
-          enable = true,
-          set_jumps = true, -- whether to set jumps in the jumplist
-          goto_next_start = {
-            ["]m"] = "@function.outer",
-            ["]]"] = "@class.outer",
+        textobjects = {
+          select = {
+            enable = true,
+            lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+            keymaps = {
+              -- You can use the capture groups defined in textobjects.scm
+              ["aa"] = "@parameter.outer",
+              ["ia"] = "@parameter.inner",
+              ["af"] = "@function.outer",
+              ["if"] = "@function.inner",
+              ["ac"] = "@class.outer",
+              ["ic"] = "@class.inner",
+              ["ab"] = "@block.outer",
+              ["ib"] = "@block.inner",
+            },
           },
-          goto_next_end = {
-            ["]M"] = "@function.outer",
-            ["]["] = "@class.outer",
+          move = {
+            enable = true,
+            set_jumps = true, -- whether to set jumps in the jumplist
+            goto_next_start = {
+              ["]m"] = "@function.outer",
+              ["]]"] = "@class.outer",
+            },
+            goto_next_end = {
+              ["]M"] = "@function.outer",
+              ["]["] = "@class.outer",
+            },
+            goto_previous_start = {
+              ["[m"] = "@function.outer",
+              ["[["] = "@class.outer",
+            },
+            goto_previous_end = {
+              ["[M"] = "@function.outer",
+              ["[]"] = "@class.outer",
+            },
           },
-          goto_previous_start = {
-            ["[m"] = "@function.outer",
-            ["[["] = "@class.outer",
-          },
-          goto_previous_end = {
-            ["[M"] = "@function.outer",
-            ["[]"] = "@class.outer",
+          swap = {
+            enable = true,
+            swap_next = {
+              ["<leader>a"] = "@parameter.inner",
+            },
+            swap_previous = {
+              ["<leader>A"] = "@parameter.inner",
+            },
           },
         },
-        swap = {
-          enable = true,
-          swap_next = {
-            ["<leader>a"] = "@parameter.inner",
-          },
-          swap_previous = {
-            ["<leader>A"] = "@parameter.inner",
-          },
-        },
-      },
-    },
+      })
+    end,
   },
 
   {
@@ -107,5 +113,4 @@ return {
     event = "BufReadPre",
     config = true,
   },
-
 }
