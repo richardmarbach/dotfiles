@@ -1,6 +1,6 @@
 local M = {}
 
-M.autoformat = false
+M.autoformat = true
 
 function M.toggle()
   M.autoformat = not M.autoformat
@@ -23,7 +23,7 @@ function M.format()
 end
 
 function M.on_attach(client, buf)
-  if client.supports_method("textDocument/formatting") then
+  if client.supports_method("textDocument/formatting") and vim.bo.filetype ~= "ruby" then
     vim.api.nvim_create_autocmd("BufWritePre", {
       group = vim.api.nvim_create_augroup("LspFormat." .. buf, {}),
       buffer = buf,
