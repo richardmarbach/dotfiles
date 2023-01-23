@@ -226,4 +226,7 @@ return {
       ai.setup(opts)
     end,
   },
+
+  -- Ruby refactorings and helpers
+  { "richardmarbach/extract-ruby-constant", ft = { "ruby" } },
 }

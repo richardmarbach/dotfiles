@@ -25,11 +25,18 @@ return {
         "folke/neodev.nvim",
         opts = { library = { plugins = { "neotest" }, types = "true" }, experimental = { pathStrict = true } },
       },
-      "simrat39/rust-tools.nvim",
       "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/cmp-nvim-lsp",
       "b0o/SchemaStore.nvim",
+      {
+        "simrat39/rust-tools.nvim",
+        dependencies = { "nvim-lspconfig" },
+        opt = {},
+        config = function(_, opts)
+          require("rust-tools").setup(opts)
+        end,
+      },
     },
     ---@class PluginLspOpts
     opts = {
@@ -87,11 +94,7 @@ return {
           },
         },
       },
-      setup = {
-        rust = function()
-          require("rust-tools").setup()
-        end,
-      },
+      setup = {},
     },
     ---@param opts PluginLspOpts
     config = function(plugin, opts)
