@@ -23,16 +23,10 @@ return {
       -- Enable filebrowser
       pcall(require("telescope").load_extension, "file_browser")
     end,
+    -- stylua: ignore
     keys = {
-      -- stylua: ignore
       { "<leader>?", function() require("telescope.builtin").oldfiles() end, { desc = "[?] Find recently opened files" } },
-      {
-        "<leader><space>",
-        function()
-          require("telescope.builtin").buffers()
-        end,
-        { desc = "[ ] Find existing buffers" },
-      },
+      { "<leader><space>", function() require("telescope.builtin").buffers() end, { desc = "[ ] Find existing buffers" } },
       {
 
         "<leader>/",
@@ -45,48 +39,12 @@ return {
         end,
         { desc = "[/] Fuzzily search in current buffer]" },
       },
-      {
-        "<leader>sp",
-        function()
-          require("telescope.builtin").find_files({ hidden = true })
-        end,
-        { desc = "[S]earch [P]roject Files" },
-      },
-      {
-        "<leader>sh",
-        function()
-          require("telescope.builtin").help_tags()
-        end,
-        { desc = "[S]earch [H]elp" },
-      },
-      {
-        "<leader>sr",
-        function()
-          require("telescope.builtin").resume()
-        end,
-        { desc = "[S]earch [R]esume" },
-      },
-      {
-        "<leader>sw",
-        function()
-          require("telescope.builtin").grep_string()
-        end,
-        { desc = "[S]earch current [W]ord" },
-      },
-      {
-        "<leader>sg",
-        function()
-          require("telescope.builtin").live_grep()
-        end,
-        { desc = "[S]earch by [G]rep" },
-      },
-      {
-        "<leader>sd",
-        function()
-          require("telescope.builtin").diagnostics()
-        end,
-        { desc = "[S]earch [D]iagnostics" },
-      },
+      { "<leader>sp", function() require("telescope.builtin").find_files({ hidden = true }) end, { desc = "[S]earch [P]roject Files" } },
+      { "<leader>sh", function() require("telescope.builtin").help_tags() end, { desc = "[S]earch [H]elp" } },
+      { "<leader>sr", function() require("telescope.builtin").resume() end, { desc = "[S]earch [R]esume" } },
+      { "<leader>sw", function() require("telescope.builtin").grep_string() end, { desc = "[S]earch current [W]ord" } },
+      { "<leader>sg", function() require("telescope.builtin").live_grep() end, { desc = "[S]earch by [G]rep" } },
+      { "<leader>sd", function() require("telescope.builtin").diagnostics() end, { desc = "[S]earch [D]iagnostics" } },
       {
 
         "<leader>sf",
