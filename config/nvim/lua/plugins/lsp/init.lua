@@ -90,8 +90,8 @@ return {
       setup = {
         rust = function()
           require("rust-tools").setup()
-        end
-      }
+        end,
+      },
     },
     ---@param opts PluginLspOpts
     config = function(plugin, opts)
@@ -159,7 +159,6 @@ return {
           nls.builtins.formatting.standardrb,
           nls.builtins.formatting.stylua,
           nls.builtins.formatting.prettierd,
-          nls.builtins.formatting.prettierd,
         },
       }
     end,
@@ -174,7 +173,7 @@ return {
       ensure_installed = {},
     },
     ---@param opts MasonSettings | {ensure_installed: string[]}
-    config = function(plugin, opts)
+    config = function(_, opts)
       require("mason").setup(opts)
       local mr = require("mason-registry")
       for _, tool in ipairs(opts.ensure_installed) do
