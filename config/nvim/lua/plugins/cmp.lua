@@ -8,6 +8,7 @@ return {
       { "hrsh7th/cmp-nvim-lua" },
       { "hrsh7th/cmp-nvim-lsp" },
       { "richardmarbach/cmp-via" },
+      { "saadparwaiz1/cmp_luasnip" },
     },
     keys = {
       {
@@ -34,20 +35,19 @@ return {
         mode = { "i" },
       },
     },
-    config = function()
-      local luasnip = require("luasnip")
+    opts = function()
       local cmp = require("cmp")
       vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
       local cmp_select_opts = { behavior = cmp.SelectBehavior.Select }
 
-      cmp.setup({
+      return {
         completion = {
           completeopt = "menu,menuone,noinsert",
         },
         snippet = {
           expand = function(args)
-            luasnip.lsp_expand(args.body)
+            require("luasnip").lsp_expand(args.body)
           end,
         },
         sources = {
@@ -143,6 +143,25 @@ return {
               fallback()
             end
           end, { "i", "s" }),
+        },
+        experimental = {
+          ghost_text = {
+            hl_group = "LspCodeLens",
+          },
+        },
+      }
+    end,
+    config = function(_, opts)
+      local cmp = require("cmp")
+      cmp.setup(opts)
+
+      cmp.setup.filetype("gitcommit", {
+        sources = {
+          { name = "via" },
+          { name = "path" },
+          { name = "nvim_lsp", keyword_length = 3 },
+          { name = "buffer", keyword_length = 3 },
+          { name = "luasnip", keyword_length = 2 },
         },
       })
     end,

@@ -1,9 +1,3 @@
--- Diagnostic keymaps
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
-
 -- Better cursor position when jumping screens
 vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
@@ -23,14 +17,4 @@ else
   vim.keymap.set("n", "<leader>Y", [["+Y]])
 end
 
-vim.keymap.set("n", "<leader>=", vim.lsp.buf.format)
-
 vim.keymap.set("t", "<C-o>", "<C-\\><C-n>", { desc = "Exit edit mode in integrated terminal" })
-
--- Move Lines
-vim.keymap.set("n", "<A-Down>", ":m .+1<cr>==", { desc = "Move down" })
-vim.keymap.set("v", "<A-Down>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
-vim.keymap.set("i", "<A-Down>", "<Esc>:m .+1<cr>==gi", { desc = "Move down" })
-vim.keymap.set("n", "<A-Up>", ":m .-2<cr>==", { desc = "Move up" })
-vim.keymap.set("v", "<A-Up>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
-vim.keymap.set("i", "<A-Up>", "<Esc>:m .-2<cr>==gi", { desc = "Move up" })

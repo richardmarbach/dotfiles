@@ -24,8 +24,6 @@ return {
       { "L3MON4D3/LuaSnip" },
       { "rafamadriz/friendly-snippets" },
 
-      -- Useful status updates for LSP
-      { "j-hui/fidget.nvim", config = true },
 
       -- Additional lua configuration, makes nvim stuff amazing
       "folke/neodev.nvim",
@@ -35,14 +33,17 @@ return {
   -- Rust
   "simrat39/rust-tools.nvim",
 
-  { "numToStr/Comment.nvim", config = true }, -- "gc" to comment visual regions/lines
+  -- { "numToStr/Comment.nvim", config = true }, -- "gc" to comment visual regions/lines
   "tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
 
-  { "kylechui/nvim-surround", config = true }, -- Surround text objects
+  -- { "kylechui/nvim-surround", config = true }, -- Surround text objects
 
   -- Text casing library
   "johmsalas/text-case.nvim",
 
   -- Ruby refactorings and helpers
   { "richardmarbach/extract-ruby-constant", ft = { "ruby" } },
+
+  -- library used by other plugins
+  { "nvim-lua/plenary.nvim", lazy = true },
 }
