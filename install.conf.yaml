@@ -9,6 +9,7 @@
 
 - link:
     ~/.config/nvim: config/nvim
+    ~/.config/wezterm: config/wezterm
     ~/.config/alacritty: config/alacritty
     ~/.config/gh/config.yml: 
       path: config/gh/config.yml
