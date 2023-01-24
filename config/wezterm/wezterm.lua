@@ -1,5 +1,4 @@
 local wezterm = require("wezterm")
-
 return {
   color_scheme = "Gruvbox dark, soft (base16)",
   font = wezterm.font_with_fallback({
@@ -7,7 +6,8 @@ return {
     "Noto Color Emoji",
   }),
   font_size = 11,
-  enable_tab_bar = false,
+  -- enable_tab_bar = false,
+  tab_bar_at_bottom = true,
   enable_kitty_keyboard = true,
   window_decorations = "NONE",
   window_padding = {
