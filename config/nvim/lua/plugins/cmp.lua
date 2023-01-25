@@ -10,30 +10,9 @@ return {
       { "richardmarbach/cmp-via" },
       { "saadparwaiz1/cmp_luasnip" },
     },
+    -- stylua: ignore
     keys = {
-      {
-        "<C-H>",
-        function()
-          if require("luasnip").choice_active() then
-            require("luasnip").change_choice(1)
-          else
-            return "<C-H>"
-          end
-        end,
-        mode = { "i", "s" },
-        expr = true,
-        silent = true,
-        remap = true,
-      },
-
-      {
-        "<C-x><C-o>",
-        function()
-          require("cmp").complete()
-        end,
-        noremap = true,
-        mode = { "i" },
-      },
+      { "<C-x><C-o>", function() require("cmp").complete() end, mode = "i", },
     },
     opts = function()
       local cmp = require("cmp")
@@ -115,6 +94,15 @@ return {
           ["<C-b>"] = cmp.mapping(function(fallback)
             if luasnip.jumpable(-1) then
               luasnip.jump(-1)
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
+
+          -- cycle through luasnip choices
+          ["<C-H>"] = cmp.mapping(function(fallback)
+            if luasnip.choice_active() then
+              luasnip.change_choice(1)
             else
               fallback()
             end

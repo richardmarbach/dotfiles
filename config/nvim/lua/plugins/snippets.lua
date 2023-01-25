@@ -11,18 +11,7 @@ return {
       enable_autosnippets = true,
       region_check_events = "InsertEnter",
       delete_check_events = "InsertLeave",
-    },
-    -- stylua: ignore
-    keys = {
-      {
-        "<C-d>",
-        function()
-          return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
-        end,
-        expr = true, silent = true, mode = "i",
-      },
-      { "<tab>", function() require("luasnip").jump(1) end, mode = "s" },
-      { "<c-b>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
+      store_selection_keys = "<C-D>",
     },
   },
 }
