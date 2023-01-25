@@ -1,10 +1,3 @@
-local diagnostic_signs = {
-  Error = "✘",
-  Warn = "▲",
-  Hint = "⚑",
-  Info = "",
-}
-
 ---@param on_attach fun(client, buffer)
 local function setup_on_attach(on_attach)
   vim.api.nvim_create_autocmd("LspAttach", {
@@ -105,7 +98,8 @@ return {
       end)
 
       -- diagnostics
-      for name, icon in pairs(diagnostic_signs) do
+      -- for name, icon in pairs(diagnostic_signs) do
+      for name, icon in pairs(require("config.icons").diagnostics) do
         name = "DiagnosticSign" .. name
         vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
       end
