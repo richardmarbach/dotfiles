@@ -6,13 +6,14 @@ return {
 
       return {
         enable_autosnippets = true,
-        region_check_events = "InsertEnter",
-        delete_check_events = "InsertLeave",
+        history = true,
+        region_check_events = "CursorHold,InsertLeave,InsertEnter",
+        delete_check_events = "TextChanged,InsertEnter",
         store_selection_keys = "<C-D>",
         ext_opts = {
           [types.choiceNode] = {
             active = {
-              virt_text = { { "", "GruvboxOrange" } },
+              virt_text = { { "~", "GruvboxOrange" } },
             },
           },
         },
