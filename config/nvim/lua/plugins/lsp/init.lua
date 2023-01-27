@@ -151,6 +151,7 @@ return {
     opts = function()
       local nls = require("null-ls")
       return {
+        timeout_ms = 5000,
         sources = {
           nls.builtins.formatting.pg_format,
           nls.builtins.formatting.standardrb,

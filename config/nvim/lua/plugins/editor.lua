@@ -1,4 +1,7 @@
 return {
+  -- Detect tabstop and shiftwidth automatically
+  { "NMAC427/guess-indent.nvim", event = "BufReadPre", opts = {} },
+
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
@@ -23,6 +26,7 @@ return {
       -- Enable filebrowser
       pcall(require("telescope").load_extension, "file_browser")
     end,
+    cmd = { "Telescope" },
     -- stylua: ignore
     keys = {
       { "<leader>?", function() require("telescope.builtin").oldfiles() end, { desc = "[?] Find recently opened files" } },
@@ -45,6 +49,7 @@ return {
       { "<leader>sw", function() require("telescope.builtin").grep_string() end, { desc = "[S]earch current [W]ord" } },
       { "<leader>sg", function() require("telescope.builtin").live_grep() end, { desc = "[S]earch by [G]rep" } },
       { "<leader>sd", function() require("telescope.builtin").diagnostics() end, { desc = "[S]earch [D]iagnostics" } },
+      { "<leader>sb", function() require("telescope.builtin").git_branches() end, { desc = "[S]earch [B]ranches" } },
       {
 
         "<leader>sf",
