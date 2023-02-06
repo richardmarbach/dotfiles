@@ -13,6 +13,7 @@
   aci = !git aa && git ci
 
   delete-branches = "!fish -c 'git-delete-branches'"
+  ch-branch = "!fish -c 'git-ch-branch'"
 
   unstage = reset --
 
