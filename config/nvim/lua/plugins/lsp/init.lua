@@ -51,7 +51,7 @@ return {
       },
       ---@type lspconfig.options
       servers = {
-        sumneko_lua = {
+        lua_ls = {
           settings = {
             Lua = {
               workspace = { checkThirdParty = false },
