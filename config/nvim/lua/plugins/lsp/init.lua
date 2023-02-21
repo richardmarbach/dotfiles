@@ -91,6 +91,8 @@ return {
     },
     ---@param opts PluginLspOpts
     config = function(plugin, opts)
+      require("plugins.lsp.format").setup()
+
       -- setup formatting and keymaps
       setup_on_attach(function(client, buffer)
         require("plugins.lsp.format").on_attach(client, buffer)
@@ -152,7 +154,7 @@ return {
       local nls = require("null-ls")
       return {
         sources = {
-          nls.builtins.formatting.pg_format,
+          nls.builtins.formatting.sql_formatter,
           nls.builtins.formatting.standardrb,
           nls.builtins.formatting.stylua,
           nls.builtins.formatting.prettierd,

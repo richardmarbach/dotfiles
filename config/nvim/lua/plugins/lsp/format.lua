@@ -2,6 +2,12 @@ local M = {}
 
 M.autoformat = true
 
+function M.setup()
+  vim.api.nvim_create_user_command("ToggleAutoFormat", function()
+    M.toggle()
+  end, {})
+end
+
 function M.toggle()
   M.autoformat = not M.autoformat
 end
