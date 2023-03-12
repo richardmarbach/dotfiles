@@ -81,6 +81,13 @@ return {
     lazy = false,
   },
 
+  {
+    "sindrets/diffview.nvim",
+    -- Don't lazy load so that we call it on startup for e.g. mergetool
+    lazy = false,
+    dependencies = { "plenary.nvim" },
+  },
+
   -- Git gutter
   {
     "lewis6991/gitsigns.nvim",
