@@ -3,14 +3,16 @@ return {
   "mfussenegger/nvim-dap",
   dependencies = {
     { "jayp0521/mason-nvim-dap.nvim", config = { automatic = true } },
+    { "suketa/nvim-dap-ruby", config = true },
+    { "theHamsta/nvim-dap-virtual-text", config = true },
   },
   -- stylua: ignore
   keys = {
-    { "<F8>", function() require("dap").continue() end, { silent = true } },
-    { "<F4>", function() require("dap").step_over() end, { silent = true } },
-    { "<F5>", function() require("dap").step_into() end, { silent = true } },
-    { "<F6>", function() require("dap").step_out() end, { silent = true } },
-    { "<Leader>dt", function() require("dap").toggle_breakpoint() end, { silent = true, desc = "[D]ebug [T]oggle Breakpoint" } },
+    { "<F12>", function() require("dap").continue() end, { silent = true } },
+    { "<F7>", function() require("dap").step_over() end, { silent = true } },
+    { "<F8>", function() require("dap").step_into() end, { silent = true } },
+    { "<F9>", function() require("dap").step_out() end, { silent = true } },
+    { "<F6>", function() require("dap").toggle_breakpoint() end, { silent = true, desc = "[D]ebug [T]oggle Breakpoint" } },
     { "<Leader>dc",
       function()
         require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))

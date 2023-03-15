@@ -30,9 +30,6 @@ return {
     },
     opts = function()
       return {
-        status = {
-          virtual_text = true,
-        },
         adapters = {
           require("neotest-rspec")({
             rspec_cmd = function()
@@ -52,6 +49,7 @@ return {
       { "<leader>tt", function() require("neotest").run.run() end },
       { "<leader>tl", function() require("neotest").run.run_last() end },
       { "<leader>td", function() require("neotest").run.run({ strategy = "dap" }) end },
+      { "<leader>ta", function() require("neotest").run.attach() end },
       { "<leader>ti", function() require("neotest").output.open({ enter = true, last_run = true, auto_close = true }) end },
       { "<leader>to", function() require("neotest").output_panel.toggle() end },
       { "<leader>ts", function() require("neotest").summary.toggle() end },
