@@ -38,7 +38,7 @@
   bs = "!. ~/.config/git/helpers && pretty_git_branch_sorted"
 [core]
   editor = nvim
-  pager = delta
+  pager = bat
   log = delta
   reflow = delta
   show = delta
