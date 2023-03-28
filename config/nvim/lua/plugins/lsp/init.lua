@@ -12,11 +12,11 @@ end
 return {
   {
     "neovim/nvim-lspconfig",
-    event = "BufReadPre",
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       {
         "folke/neodev.nvim",
-        opts = { library = { plugins = { "neotest" }, types = "true" }, experimental = { pathStrict = true } },
+        opts = { experimental = { pathStrict = true } },
       },
       "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
@@ -148,16 +148,19 @@ return {
 
   {
     "jose-elias-alvarez/null-ls.nvim",
-    event = "BufReadPre",
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = { "mason.nvim" },
     opts = function()
       local nls = require("null-ls")
+      local formatting = nls.builtins.formatting
+
       return {
+        debug = false,
         sources = {
-          nls.builtins.formatting.sql_formatter,
-          nls.builtins.formatting.standardrb,
-          nls.builtins.formatting.stylua,
-          nls.builtins.formatting.prettierd,
+          formatting.sql_formatter,
+          formatting.standardrb,
+          formatting.stylua,
+          formatting.prettierd,
         },
       }
     end,
