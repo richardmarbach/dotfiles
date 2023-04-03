@@ -9,6 +9,18 @@ return {
       { "hrsh7th/cmp-nvim-lsp" },
       { "richardmarbach/cmp-via" },
       { "saadparwaiz1/cmp_luasnip" },
+      {
+        "zbirenbaum/copilot.lua",
+        config = function()
+          require("copilot").setup()
+        end,
+      },
+      {
+        "zbirenbaum/copilot-cmp",
+        config = function()
+          require("copilot_cmp").setup()
+        end,
+      },
     },
     -- stylua: ignore
     keys = {
@@ -31,6 +43,7 @@ return {
           end,
         },
         sources = {
+          { name = "copilot" },
           { name = "path" },
           { name = "nvim_lsp", keyword_length = 3 },
           { name = "buffer", keyword_length = 3 },
