@@ -13,7 +13,7 @@ vim.wo.number = true
 vim.wo.relativenumber = true
 
 -- Enable mouse mode
-vim.o.mouse = 'a'
+vim.o.mouse = "a"
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -29,12 +29,17 @@ vim.opt.backup = false
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
+-- Set default tab width and use spaces
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true
+
 -- Always leave some room at the bottom
 vim.opt.scrolloff = 8
 
 -- Decrease update time
 vim.o.updatetime = 50
-vim.wo.signcolumn = 'yes'
+vim.wo.signcolumn = "yes"
 
 vim.o.spell = true
 

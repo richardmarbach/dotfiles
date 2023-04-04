@@ -1,6 +1,6 @@
 return {
   -- Detect tabstop and shiftwidth automatically
-  { "NMAC427/guess-indent.nvim", event = "BufReadPre", opts = {} },
+  { "NMAC427/guess-indent.nvim", event = "VeryLazy", opts = {} },
 
   {
     "nvim-telescope/telescope.nvim",
