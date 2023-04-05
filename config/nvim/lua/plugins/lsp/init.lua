@@ -65,6 +65,7 @@ return {
         solargraph = {
           mason = false,
           force_setup = true,
+          cmd = { "bin/solargraph", "stdio" },
           init_options = {
             formatting = false,
           },
