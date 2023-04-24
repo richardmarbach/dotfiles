@@ -62,16 +62,19 @@ return {
             },
           },
         },
-        solargraph = {
+        standardrb = {
           mason = false,
-          force_setup = true,
-          cmd = { "bin/solargraph", "stdio" },
+        },
+        solargraph = {
+          -- mason = false,
+          -- force_setup = true,
+          -- cmd = { "bundle", "exec", "solargraph", "stdio" },
           init_options = {
             formatting = false,
           },
           settings = {
             solargraph = {
-              useBundler = true,
+              diagnostics = false,
             },
           },
         },

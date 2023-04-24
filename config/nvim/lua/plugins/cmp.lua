@@ -43,9 +43,9 @@ return {
           end,
         },
         sources = {
-          { name = "copilot" },
           { name = "path" },
-          { name = "nvim_lsp", keyword_length = 3 },
+          { name = "nvim_lsp", keyword_length = 2 },
+          { name = "copilot" },
           { name = "buffer", keyword_length = 3 },
           { name = "luasnip", keyword_length = 2 },
         },
@@ -71,8 +71,8 @@ return {
         },
         mapping = {
           -- confirm selection
-          ["<CR>"] = cmp.mapping.confirm({ select = false }),
-          ["<C-y>"] = cmp.mapping.confirm({ select = false }),
+          ["<CR>"] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace }),
+          ["<C-y>"] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace }),
 
           -- navigate items on the list
           ["<Up>"] = cmp.mapping.select_prev_item(cmp_select_opts),

@@ -1,7 +1,7 @@
-plugins:
-  - solargraph-standardrb
-  - solargraph-rails
-reporters:
-  - standardrb
+# plugins:
+#   - solargraph-standardrb
+#   - solargraph-rails
+# reporters:
+#   - standardrb
 
 max_files: 50000

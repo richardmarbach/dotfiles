@@ -64,6 +64,8 @@
   tool = fugitive
 [init]
   defaultBranch = main
+[checkout]
+  overwriteIgnore = false
 [pull]
   rebase = true
 [rerere]
