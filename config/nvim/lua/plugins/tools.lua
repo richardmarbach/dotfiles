@@ -100,15 +100,17 @@ return {
 
       -- Open notes.
       { "<leader>zo", "<Cmd>ZkNotes { sort = { 'modified' } }<CR>" },
+      -- Search for the notes matching the current visual selection.
+      { "<leader>zo", ":'<,'>ZkMatch<CR>", {mode = "v"} },
+
+      -- Open todos
+      { "<leader>zl", "<Cmd>ZkNew { title = 'TODO', dir = 'todo' }<CR>" },
+
       -- Open notes associated with the selected tags.
       { "<leader>zt", "<Cmd>ZkTags<CR>" },
 
       { "<leader>zj", [[<Cmd>ZkNew { dir = "$ZK_NOTEBOOK_DIR/journal" }<CR>]] },
 
-      -- Search for the notes matching a given query.
-      { "<leader>zf", "<Cmd>ZkNotes { sort = { 'modified' }, match = { vim.fn.input('Search: ') } }<CR>" },
-      -- Search for the notes matching the current visual selection.
-      { "<leader>zf", ":'<,'>ZkMatch<CR>" },
     },
   },
 
