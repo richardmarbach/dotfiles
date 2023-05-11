@@ -17,3 +17,5 @@ abbr -a rdbmr "bin/rails db:migrate:redo"
 
 abbr -a v "viaeurope"
 abbr -a vp "viaeurope production"
+
+abbr -a ts "tmux-sessionizer"
