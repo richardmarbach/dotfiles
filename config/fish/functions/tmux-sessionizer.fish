@@ -6,7 +6,7 @@ function tmux-sessionizer
     end
 
     if test -z $selected
-        exit 0
+        return 0
     end
 
     set selected_name (basename $selected | tr . _)
@@ -15,7 +15,7 @@ function tmux-sessionizer
     if test -z $TMUX 
         and test -z $tmux_running
         tmux new-session -s $selected_name -c $selected
-        exit 0
+        return 0
     end
 
     if ! tmux has-session -t=$selected_name 2> /dev/null
@@ -24,7 +24,7 @@ function tmux-sessionizer
 
     if test -z $TMUX
         tmux attach-session -t $selected_name
-        exit 0
+        return 0
     end
 
     tmux switch-client -t $selected_name
