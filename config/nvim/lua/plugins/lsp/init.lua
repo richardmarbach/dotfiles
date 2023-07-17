@@ -164,10 +164,27 @@ return {
       return {
         debug = false,
         sources = {
-          formatting.sql_formatter,
+          formatting.sqlfmt,
           formatting.standardrb,
           formatting.stylua,
-          formatting.prettierd,
+          formatting.prettierd.with({
+            filetypes = {
+              "javascript",
+              "javascriptreact",
+              "typescript",
+              "typescriptreact",
+              "vue",
+              "css",
+              "scss",
+              "less",
+              "html",
+              "json",
+              "jsonc",
+              "yaml",
+              "graphql",
+              "handlebars",
+            },
+          }),
         },
       }
     end,

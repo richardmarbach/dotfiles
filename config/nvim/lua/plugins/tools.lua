@@ -101,7 +101,7 @@ return {
       -- Open notes.
       { "<leader>zo", "<Cmd>ZkNotes { sort = { 'modified' } }<CR>" },
       -- Search for the notes matching the current visual selection.
-      { "<leader>zo", ":'<,'>ZkMatch<CR>", {mode = "v"} },
+      -- { "<leader>zo", ":'<,'>ZkMatch<CR>", {mode = "v"} },
 
       -- Open todos
       { "<leader>zl", "<Cmd>ZkNew { title = 'TODO', dir = 'todo' }<CR>" },
