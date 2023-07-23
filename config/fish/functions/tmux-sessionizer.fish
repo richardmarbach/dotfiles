@@ -2,7 +2,7 @@ function tmux-sessionizer
     if test (count $argv) -eq 1
         set selected $argv[1]
     else
-        set selected (find ~/projects -mindepth 1 -maxdepth 1 -type d | fzf)
+        set selected (fd --type d --type symlink --max-depth 1  . ~/projects ~/ | fzf)
     end
 
     if test -z $selected
