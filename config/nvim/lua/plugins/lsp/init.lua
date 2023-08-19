@@ -62,21 +62,10 @@ return {
             },
           },
         },
-        -- rubocop = {
-        --   mason = false,
-        -- },
         solargraph = {
-          -- mason = false,
-          -- force_setup = true,
-          -- cmd = { "bundle", "exec", "solargraph", "stdio" },
           init_options = {
             formatting = false,
           },
-          -- settings = {
-          --   solargraph = {
-          --     diagnostics = false,
-          --   },
-          -- },
         },
         jsonls = {
           -- lazy-load schemastore when needed
@@ -102,7 +91,6 @@ return {
 
       -- setup formatting and keymaps
       setup_on_attach(function(client, buffer)
-        require("plugins.lsp.format").on_attach(client, buffer)
         require("plugins.lsp.keymaps").on_attach(client, buffer)
       end)
 
@@ -154,41 +142,24 @@ return {
   },
 
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = { "mason.nvim" },
-    opts = function()
-      local nls = require("null-ls")
-      local formatting = nls.builtins.formatting
-      local linting = nls.builtins.diagnostics
-
-      return {
-        debug = false,
-        sources = {
-          linting.rubocop,
-          formatting.sqlfmt,
-          formatting.rubocop,
-          formatting.stylua,
-          formatting.prettierd.with({
-            filetypes = {
-              "javascript",
-              "javascriptreact",
-              "typescript",
-              "typescriptreact",
-              "vue",
-              "css",
-              "scss",
-              "less",
-              "html",
-              "json",
-              "jsonc",
-              "yaml",
-              "graphql",
-              "handlebars",
-            },
-          }),
+    "mhartington/formatter.nvim",
+    config = function()
+      require("formatter").setup({
+        filetype = {
+          lua = { require("formatter.filetypes.lua").stylua },
+          ruby = { require("formatter.filetypes.ruby").rubocop },
+          sql = { require("formatter.filetypes.sql").pgformat },
+          javascript = { require("formatter.filetypes.javascript").prettierd },
+          javascriptreact = { require("formatter.filetypes.javascriptreact").prettierd },
+          typescript = { require("formatter.filetypes.typescript").prettierd },
+          typescriptreact = { require("formatter.filetypes.typescriptreact").prettierd },
+          yaml = { require("formatter.filetypes.yaml").prettierd },
+          json = { require("formatter.filetypes.json").prettierd },
+          jsonc = { require("formatter.filetypes.json").prettierd },
+          css = { require("formatter.filetypes.css").prettierd },
+          scss = { require("formatter.filetypes.css").prettierd },
         },
-      }
+      })
     end,
   },
 
