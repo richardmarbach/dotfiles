@@ -109,7 +109,7 @@ return {
       -- Open notes associated with the selected tags.
       { "<leader>zt", "<Cmd>ZkTags<CR>" },
 
-      { "<leader>zj", [[<Cmd>ZkNew { dir = "$ZK_NOTEBOOK_DIR/journal" }<CR>]] },
+      { "<leader>zj", [[<Cmd>ZkNew { dir = "journal/daily" }<CR>]] },
 
     },
   },

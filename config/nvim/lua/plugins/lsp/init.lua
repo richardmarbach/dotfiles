@@ -62,9 +62,9 @@ return {
             },
           },
         },
-        standardrb = {
-          mason = false,
-        },
+        -- rubocop = {
+        --   mason = false,
+        -- },
         solargraph = {
           -- mason = false,
           -- force_setup = true,
@@ -72,11 +72,11 @@ return {
           init_options = {
             formatting = false,
           },
-          settings = {
-            solargraph = {
-              diagnostics = false,
-            },
-          },
+          -- settings = {
+          --   solargraph = {
+          --     diagnostics = false,
+          --   },
+          -- },
         },
         jsonls = {
           -- lazy-load schemastore when needed
@@ -160,12 +160,14 @@ return {
     opts = function()
       local nls = require("null-ls")
       local formatting = nls.builtins.formatting
+      local linting = nls.builtins.diagnostics
 
       return {
         debug = false,
         sources = {
+          linting.rubocop,
           formatting.sqlfmt,
-          formatting.standardrb,
+          formatting.rubocop,
           formatting.stylua,
           formatting.prettierd.with({
             filetypes = {
