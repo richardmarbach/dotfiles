@@ -19,8 +19,6 @@ end
 
 function M.toggle()
   M.autoformat = not M.autoformat
-
-
 end
 
 function M.format()
