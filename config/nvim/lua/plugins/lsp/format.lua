@@ -28,7 +28,7 @@ function M.format()
 
   if have_formatter then
     vim.cmd([[Format]])
-  else
+  elseif #vim.lsp.get_active_clients({ bufnr = buf }) > 0 then
     vim.lsp.buf.format({
       bufnr = buf,
       timeout_ms = 5000,
