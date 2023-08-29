@@ -62,9 +62,15 @@ return {
             },
           },
         },
+        rubocop = { mason = false },
         solargraph = {
           init_options = {
             formatting = false,
+          },
+          settings = {
+            solargraph = {
+              diagnostics = false,
+            },
           },
         },
         jsonls = {
@@ -142,25 +148,22 @@ return {
   },
 
   {
-    "mhartington/formatter.nvim",
-    config = function()
-      require("formatter").setup({
-        filetype = {
-          lua = { require("formatter.filetypes.lua").stylua },
-          ruby = { require("formatter.filetypes.ruby").rubocop },
-          sql = { require("formatter.filetypes.sql").pgformat },
-          javascript = { require("formatter.filetypes.javascript").prettierd },
-          javascriptreact = { require("formatter.filetypes.javascriptreact").prettierd },
-          typescript = { require("formatter.filetypes.typescript").prettierd },
-          typescriptreact = { require("formatter.filetypes.typescriptreact").prettierd },
-          yaml = { require("formatter.filetypes.yaml").prettierd },
-          json = { require("formatter.filetypes.json").prettierd },
-          jsonc = { require("formatter.filetypes.json").prettierd },
-          css = { require("formatter.filetypes.css").prettierd },
-          scss = { require("formatter.filetypes.css").prettierd },
-        },
-      })
-    end,
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+        sql = { "pg_format" },
+        javascript = { "prettierd" },
+        javascriptreact = { "prettierd" },
+        typescript = { "prettierd" },
+        typescriptreact = { "prettierd" },
+        yaml = { "prettierd" },
+        json = { "prettierd" },
+        jsonc = { "prettierd" },
+        css = { "prettierd" },
+        scss = { "prettierd" },
+      },
+    },
   },
 
   -- cmdline tools and lsp servers
