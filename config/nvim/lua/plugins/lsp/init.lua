@@ -168,11 +168,56 @@ return {
 
   {
     "mfussenegger/nvim-lint",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPost", "BufWritePost" },
     config = function()
-      require("lint").linters_by_ft = {
+      local lint = require("lint")
+
+      local severity_map = {
+        ["fatal"] = vim.diagnostic.severity.ERROR,
+        ["error"] = vim.diagnostic.severity.ERROR,
+        ["warning"] = vim.diagnostic.severity.WARN,
+        ["convention"] = vim.diagnostic.severity.HINT,
+        ["refactor"] = vim.diagnostic.severity.INFO,
+        ["info"] = vim.diagnostic.severity.INFO,
+      }
+
+      ---@diagnostic disable-next-line: missing-fields
+      lint.linters["haml-lint"] = {
+        cmd = "bundle",
+        stdin = false,
+        ignore_exitcode = true,
+        args = { "exec", "haml-lint", "--reporter", "json" },
+        parser = function(output)
+          local diagnostics = {}
+          local decoded = vim.json.decode(output)
+
+          if not decoded or not decoded.files or not decoded.files[1] then
+            return diagnostics
+          end
+
+          local offences = decoded.files[1].offenses
+
+          for _, off in pairs(offences) do
+            table.insert(diagnostics, {
+              source = "haml-lint",
+              lnum = off.location.line - 1,
+              col = 0,
+              end_lnum = off.location.line - 1,
+              end_col = 0,
+              severity = severity_map[off.severity],
+              message = off.message,
+              code = off.linter_name,
+            })
+          end
+
+          return diagnostics
+        end,
+      }
+
+      lint.linters_by_ft = {
         sh = { "shellcheck" },
         bash = { "shellcheck" },
+        haml = { "haml-lint" },
       }
       vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
         group = vim.api.nvim_create_augroup("AutoLint", {}),
