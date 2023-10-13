@@ -87,11 +87,11 @@ return {
   -- Add indentation guides even on blank lines
   {
     "lukas-reineke/indent-blankline.nvim",
-    event = "BufReadPre",
+    main = "ibl",
     opts = {
-      char = "┊",
-      show_trailing_blankline_indent = false,
-      filetype_exclude = { "help", "lazy" },
+      indent = { char = "┊" },
+      whitespace = { remove_blankline_trail = true },
+      scope = { exclude = { language = { "help", "lazy" } } },
     },
   },
 

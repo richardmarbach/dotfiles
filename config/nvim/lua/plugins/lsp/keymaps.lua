@@ -5,14 +5,15 @@ M._keys = nil
 
 ---@return (LazyKeys|{has?:string})[]
 function M.get()
-  local format = require("plugins.lsp.format").format
+  -- local format = require("plugins.lsp.format").format
   ---@class PluginLspKeys
   -- stylua: ignore
   M._keys = M._keys or {
-    { "gd", require("telescope.builtin").lsp_definitions, desc = "Goto Definition" },
+    { "gd", function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end, desc = "Goto Definition" },
     { "gr", require("telescope.builtin").lsp_references, desc = "References" },
     { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
-    { "gI", require("telescope.builtin").lsp_implementations, desc = "Goto Implementation" },
+    { "gI", function() require("telescope.builtin").lsp_implementations({ reuse_win = true }) end, desc = "Goto Implementation" },
+    { "gy", function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, desc = "Goto T[y]pe Definition" },
     { "<leader>D", require("telescope.builtin").lsp_type_definitions, desc = "Goto Type Definition" },
 
     { "K", vim.lsp.buf.hover, desc = "Hover" },
@@ -28,8 +29,8 @@ function M.get()
     { "]w", M.diagnostic_goto(true, "WARNING"), desc = "Next Warning" },
     { "[w", M.diagnostic_goto(false, "WARNING"), desc = "Prev Warning" },
 
-    { "<leader>=", format, desc = "Format Document", has = "documentFormatting" },
-    { "<leader>=", format, desc = "Format Range", mode = "v", has = "documentRangeFormatting" },
+    -- { "<leader>=", format, desc = "Format Document", has = "documentFormatting" },
+    -- { "<leader>=", format, desc = "Format Range", mode = "v", has = "documentRangeFormatting" },
     { "<F2>", vim.lsp.buf.rename, expr = true, desc = "Rename", has = "rename" },
     { "<F4>", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" },
   }
@@ -56,7 +57,7 @@ function M.on_attach(client, buffer)
       opts.has = nil
       opts.silent = true
       opts.buffer = buffer
-      vim.keymap.set(keys.mode or "n", keys[1], keys[2], opts)
+      vim.keymap.set(keys.mode or "n", keys.lhs, keys.rhs, opts)
     end
   end
 end

@@ -5,8 +5,14 @@ return {
   config = function()
     -- Set colorscheme
     vim.o.termguicolors = true
+
+    -- local colors = require("gruvbox").palette
     require("gruvbox").setup({
       contrast = "soft",
+      -- overrides = {
+      --   DiffDelete = { bg = colors.faded_red },
+      --   DiffAdd = { bg = colors.faded_green },
+      -- },
     })
     vim.cmd([[colorscheme gruvbox]])
   end,

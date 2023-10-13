@@ -74,6 +74,14 @@ return {
     -- Don't lazy load so that we call it on startup for e.g. mergetool
     lazy = false,
     dependencies = { "plenary.nvim" },
+    keys = {
+      { "<leader>hf", "<cmd>DiffviewFileHistory %<cr>", { desc = "Git history for current file" } },
+      { "<leader>ho", "<cmd>DiffviewOpen<cr>", { desc = "Open Diffview" } },
+      { "<leader>hc", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" } },
+    },
+    opts = {
+      enhanced_diff_hl = true,
+    },
   },
 
   -- Git gutter

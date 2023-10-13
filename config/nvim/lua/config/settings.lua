@@ -46,6 +46,9 @@ vim.o.spell = true
 -- Vertical splits for diffs
 vim.opt.diffopt:append("vertical")
 
+-- More clear diff removed character
+vim.opt.fillchars:append({ diff = "╱" })
+
 -- Prefer opening new splits on the right
 vim.opt.splitright = true
 
