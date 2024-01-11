@@ -15,6 +15,7 @@
 
   delete-branches = "!fish -c 'git-delete-branches'"
   ch-branch = "!fish -c 'git-ch-branch'"
+  chb = ch-branch
 
   unstage = reset --
 

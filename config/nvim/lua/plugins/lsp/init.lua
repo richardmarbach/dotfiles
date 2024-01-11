@@ -162,6 +162,7 @@ return {
         jsonc = { "prettierd" },
         css = { "prettierd" },
         scss = { "prettierd" },
+        html = { "prettierd" },
       },
     },
   },
