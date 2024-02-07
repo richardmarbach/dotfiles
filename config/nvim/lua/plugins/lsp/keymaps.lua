@@ -11,6 +11,7 @@ function M.get()
   M._keys = M._keys or {
     { "gd", function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end, desc = "Goto Definition" },
     { "gr", require("telescope.builtin").lsp_references, desc = "References" },
+    { "gR", function() require("trouble").toggle("lsp_references") end, desc = "Trouble References" },
     { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
     { "gI", function() require("telescope.builtin").lsp_implementations({ reuse_win = true }) end, desc = "Goto Implementation" },
     { "gy", function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, desc = "Goto T[y]pe Definition" },

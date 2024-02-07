@@ -16,7 +16,6 @@ return {
         "fish",
         "gitignore",
         "graphql",
-        "help",
         "html",
         "http",
         "javascript",
