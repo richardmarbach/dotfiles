@@ -1,10 +1,8 @@
 return {
-  { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
-
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    event = "BufReadPost",
+    event = "VeryLazy",
     opts = {
       sync_install = false,
 
