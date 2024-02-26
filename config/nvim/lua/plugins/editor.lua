@@ -17,6 +17,7 @@ return {
             file_browser = {
               hijack_netrw = true,
             },
+            ["ui-select"] = {},
           },
         },
       })
@@ -26,6 +27,7 @@ return {
 
       -- Enable filebrowser
       pcall(require("telescope").load_extension, "file_browser")
+      pcall(require("telescope").load_extension, "ui-select")
     end,
     cmd = { "Telescope" },
     -- stylua: ignore
