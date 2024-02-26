@@ -34,6 +34,7 @@ return {
       local cmp_select_opts = { behavior = cmp.SelectBehavior.Select }
 
       return {
+        preselect = cmp.PreselectMode.None,
         completion = {
           completeopt = "menu,menuone,noinsert",
         },
@@ -72,7 +73,7 @@ return {
         mapping = {
           -- confirm selection
           ["<CR>"] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace }),
-          ["<C-y>"] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace }),
+          ["<C-y>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
 
           -- navigate items on the list
           ["<Up>"] = cmp.mapping.select_prev_item(cmp_select_opts),

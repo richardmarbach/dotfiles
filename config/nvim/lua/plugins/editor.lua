@@ -8,6 +8,7 @@ return {
       "nvim-telescope/telescope-file-browser.nvim",
       -- Fuzzy Finder Algorithm which dependencies local dependencies to be built. Only load if `make` is available
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make", cond = vim.fn.executable("make") == 1 },
+      { "nvim-telescope/telescope-ui-select.nvim" },
     },
     config = function()
       require("telescope").setup({
