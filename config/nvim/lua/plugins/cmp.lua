@@ -96,7 +96,7 @@ return {
           end),
 
           -- go to next placeholder in the snippet
-          ["<C-d>"] = cmp.mapping(function(fallback)
+          ["<C-l>"] = cmp.mapping(function(fallback)
             if luasnip.expand_or_jumpable() then
               luasnip.expand_or_jump()
             else
@@ -105,7 +105,7 @@ return {
           end, { "i", "s" }),
 
           -- go to previous placeholder in the snippet
-          ["<C-b>"] = cmp.mapping(function(fallback)
+          ["<C-h>"] = cmp.mapping(function(fallback)
             if luasnip.jumpable(-1) then
               luasnip.jump(-1)
             else
@@ -114,7 +114,7 @@ return {
           end, { "i", "s" }),
 
           -- cycle through luasnip choices
-          ["<C-H>"] = cmp.mapping(function(fallback)
+          ["<C-,>"] = cmp.mapping(function(fallback)
             if luasnip.choice_active() then
               luasnip.change_choice(1)
             else
