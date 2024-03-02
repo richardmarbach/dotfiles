@@ -11,13 +11,21 @@ return {
       { "nvim-telescope/telescope-ui-select.nvim" },
     },
     config = function()
+      local trouble = require("trouble.providers.telescope")
+
       require("telescope").setup({
         defaults = {
+          mappings = {
+            i = { ["<c-o>"] = trouble.open_with_trouble },
+            n = { ["<c-o>"] = trouble.open_with_trouble },
+          },
           extensions = {
             file_browser = {
               hijack_netrw = true,
             },
-            ["ui-select"] = {},
+            ["ui-select"] = {
+              require("telescope.themes").get_dropdown(),
+            },
           },
         },
       })
@@ -32,15 +40,7 @@ return {
     cmd = { "Telescope" },
     -- stylua: ignore
     keys = {
-      { "<leader>?", function() require("telescope.builtin").oldfiles() end, { desc = "[?] Find recently opened files" } },
-      { "<leader><space>", function() require("telescope.builtin").buffers() end, { desc = "[ ] Find existing buffers" } },
-      { "<leader>/", function()
-          -- You can pass additional configuration to telescope to change theme, layout, etc.
-          require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-            winblend = 10,
-            previewer = false,
-          }))
-        end, { desc = "[/] Fuzzily search in current buffer]" }, },
+      { "<leader><leader>", function() require("telescope.builtin").buffers() end, { desc = "[ ] Find existing buffers" } },
       { "<leader>sp", function() require("telescope.builtin").find_files({ hidden = true }) end, { desc = "[S]earch [P]roject Files" } },
       { "<leader>sh", function() require("telescope.builtin").help_tags() end, { desc = "[S]earch [H]elp" } },
       { "<leader>sr", function() require("telescope.builtin").resume() end, { desc = "[S]earch [R]esume" } },
@@ -52,6 +52,8 @@ return {
       }) end, { desc = "[S]earch by Grep in current [L]ocation" } },
       { "<leader>sd", function() require("telescope.builtin").diagnostics() end, { desc = "[S]earch [D]iagnostics" } },
       { "<leader>sb", function() require("telescope.builtin").git_branches() end, { desc = "[S]earch [B]ranches" } },
+      { '<leader>sk', function() require("telescope.builtin").keymaps() end, { desc = '[S]earch [K]eymaps' }},
+      { '<leader>ss', function() require("telescope.builtin").builtin() end, { desc = '[S]earch [K]eymaps' }},
       { "<leader>sf", function() require("telescope").extensions.file_browser.file_browser({
         hidden = true, files = false
       }) end, { desc = "[S]earch [F]olders" } },
@@ -59,6 +61,30 @@ return {
         hidden = true,
         cwd = require("telescope.utils").buffer_dir(),
       }) end, { desc = "Browse files in current folder" } },
+      { '<leader>s.', function() require("telescope.builtin").oldfiles() end, { desc = '[S]earch Recent Files ("." for repeat)' }},
+      { "<leader>/", function()
+          -- You can pass additional configuration to telescope to change theme, layout, etc.
+          require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+            winblend = 10,
+            previewer = false,
+          }))
+        end, { desc = "[/] Fuzzily search in current buffer]" },
+      },
+      { '<leader>s/',
+        function()
+          require("telescope.builtin").live_grep {
+            grep_open_files = true,
+            prompt_title = 'Live Grep in Open Files',
+          }
+        end,
+        { desc = '[S]earch [/] in Open Files' }
+      },
+      { '<leader>sn',
+        function()
+          require("telescope.builtin").find_files { cwd = vim.fn.stdpath 'config' }
+        end,
+        { desc = '[S]earch [N]eovim files' }
+      }
     },
   },
 
