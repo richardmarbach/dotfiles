@@ -34,6 +34,7 @@ return {
         "typescript",
         "vim",
         "yaml",
+        "zig",
       },
       highlight = {
         enable = true,
