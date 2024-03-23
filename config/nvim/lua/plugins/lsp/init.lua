@@ -62,14 +62,14 @@ return {
             },
           },
         },
-        rubocop = { mason = false },
+        -- rubocop = { mason = false },
         solargraph = {
           init_options = {
             formatting = false,
           },
           settings = {
             solargraph = {
-              diagnostics = false,
+              diagnostics = true,
             },
           },
         },
@@ -163,6 +163,7 @@ return {
         css = { "prettierd" },
         scss = { "prettierd" },
         html = { "prettierd" },
+        ruby = { "rubocop" },
       },
     },
   },
