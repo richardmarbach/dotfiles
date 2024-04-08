@@ -73,6 +73,7 @@ return {
             },
           },
         },
+        biome = {},
         jsonls = {
           -- lazy-load schemastore when needed
           on_new_config = function(new_config)
@@ -153,13 +154,13 @@ return {
       formatters_by_ft = {
         lua = { "stylua" },
         sql = { "pg_format" },
-        javascript = { "prettierd" },
-        javascriptreact = { "prettierd" },
-        typescript = { "prettierd" },
-        typescriptreact = { "prettierd" },
+        -- javascript = { "prettierd" },
+        -- javascriptreact = { "prettierd" },
+        -- typescript = { "prettierd" },
+        -- typescriptreact = { "prettierd" },
         yaml = { "prettierd" },
-        json = { "prettierd" },
-        jsonc = { "prettierd" },
+        -- json = { "prettierd" },
+        -- jsonc = { "prettierd" },
         css = { "prettierd" },
         scss = { "prettierd" },
         html = { "prettierd" },

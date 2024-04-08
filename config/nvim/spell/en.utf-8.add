@@ -4,3 +4,4 @@ RFID
 deduplicate
 shortcode
 select
+previous_location_id
