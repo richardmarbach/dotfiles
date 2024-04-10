@@ -165,6 +165,7 @@ return {
         scss = { "prettierd" },
         html = { "prettierd" },
         ruby = { "rubocop" },
+        python = { "black" },
       },
     },
   },
