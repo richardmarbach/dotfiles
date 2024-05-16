@@ -21,7 +21,7 @@ return {
           },
           extensions = {
             file_browser = {
-              hijack_netrw = true,
+              -- hijack_netrw = true,
             },
             ["ui-select"] = {
               require("telescope.themes").get_dropdown(),
@@ -57,10 +57,10 @@ return {
       { "<leader>sf", function() require("telescope").extensions.file_browser.file_browser({
         hidden = true, files = false
       }) end, { desc = "[S]earch [F]olders" } },
-      { "<leader>se", function() require("telescope").extensions.file_browser.file_browser({
-        hidden = true,
-        cwd = require("telescope.utils").buffer_dir(),
-      }) end, { desc = "Browse files in current folder" } },
+      -- { "<leader>se", function() require("telescope").extensions.file_browser.file_browser({
+      --   hidden = true,
+      --   cwd = require("telescope.utils").buffer_dir(),
+      -- }) end, { desc = "Browse files in current folder" } },
       { '<leader>s.', function() require("telescope.builtin").oldfiles() end, { desc = '[S]earch Recent Files ("." for repeat)' }},
       { "<leader>/", function()
           -- You can pass additional configuration to telescope to change theme, layout, etc.
@@ -85,6 +85,17 @@ return {
         end,
         { desc = '[S]earch [N]eovim files' }
       }
+    },
+  },
+
+  {
+    "stevearc/oil.nvim",
+    cmd = { "Oil" },
+    keys = {
+      { "<leader>se", "<cmd>Oil<cr>", { desc = "Open Oil" } },
+    },
+    opts = {
+      default_file_explorer = true,
     },
   },
 
