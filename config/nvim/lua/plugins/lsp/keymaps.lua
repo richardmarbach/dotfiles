@@ -32,8 +32,8 @@ function M.get()
 
     -- { "<leader>=", format, desc = "Format Document", has = "documentFormatting" },
     -- { "<leader>=", format, desc = "Format Range", mode = "v", has = "documentRangeFormatting" },
-    { "<F2>", vim.lsp.buf.rename, expr = true, desc = "Rename", has = "rename" },
-    { "<F4>", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" },
+    { "<F4>", vim.lsp.buf.rename, expr = true, desc = "Rename", has = "rename" },
+    { "<F5>", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" },
   }
   return M._keys
 end

@@ -62,3 +62,5 @@ vim.keymap.set({ "n", "v", "o" }, "<Bs>", "<leader>", { remap = true })
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+
+vim.o.shell = "/bin/bash"
