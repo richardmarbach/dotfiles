@@ -19,6 +19,7 @@ return {
       "nvim-neotest/nvim-nio",
       "williamboman/mason.nvim",
       "julianolf/nvim-dap-lldb",
+      "suketa/nvim-dap-ruby",
     },
     config = function()
       local dap = require("dap")
@@ -41,6 +42,7 @@ return {
           },
         },
       })
+      require("dap-ruby").setup()
 
       require("nvim-dap-virtual-text").setup({
         -- This just tries to mitigate the chance that I leak tokens here. Probably won't stop it from happening...
