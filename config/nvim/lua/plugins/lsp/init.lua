@@ -62,22 +62,24 @@ return {
             },
           },
         },
-        ruby_lsp = {
-          init_options = {
-            semanticHighlighting = false,
-          },
-        },
-        -- rubocop = { mason = false },
-        -- solargraph = {
-        -- init_options = {
-        --   formatting = false,
-        -- },
-        --   settings = {
-        --     solargraph = {
-        --       diagnostics = true,
+        -- ruby_lsp = {
+        --   init_options = {
+        --     enabledFeatures = {
+        --       semanticHighlighting = false,
         --     },
         --   },
         -- },
+        -- rubocop = { mason = false },
+        solargraph = {
+          init_options = {
+            formatting = false,
+          },
+          settings = {
+            solargraph = {
+              diagnostics = true,
+            },
+          },
+        },
         biome = {},
         jsonls = {
           -- lazy-load schemastore when needed
@@ -169,7 +171,7 @@ return {
         css = { "prettierd" },
         scss = { "prettierd" },
         html = { "prettierd" },
-        -- ruby = { "rubocop" },
+        ruby = { "rubocop" },
         python = { "black" },
       },
     },

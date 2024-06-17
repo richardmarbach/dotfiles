@@ -103,7 +103,7 @@ return {
   {
     "tpope/vim-fugitive",
     dependencies = {
-      { "tpope/vim-rhubarb", cmd = "GBrowse" },
+      { "tpope/vim-rhubarb", cmd = "Browse" },
     },
     config = false,
     lazy = false,
