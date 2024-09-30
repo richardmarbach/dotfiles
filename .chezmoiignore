@@ -1,7 +1,5 @@
 .luarc.json
 stylua.toml
 
-Brewfile
-
 .gitignore
 .gitmodules
