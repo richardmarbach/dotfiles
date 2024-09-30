@@ -2,3 +2,8 @@
   type = "git-repo"
   url = "git@github.com:oh-my-fish/plugin-foreign-env.git"
   refreshPeriod = "168h"
+
+["notes"]
+  type = "git-repo"
+  url = "git@github.com:richardmarbach/notes.git"
+  refreshPeriod = "24h"
