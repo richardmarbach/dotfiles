@@ -2,59 +2,52 @@
 #!/bin/bash
 
 brew bundle --no-lock --file=/dev/stdin <<EOF
-    tap homebrew/cask-fonts
+tap "homebrew/cask-fonts"
 
-    brew  angle-grinder
-    brew  awscli
-    brew  aws-iam-authenticator
-    brew  --HEAD colima
-    brew  docker
-    brew  docker-compose
-    brew  exa
-    brew  fd
-    brew  fish
-    brew  ftp
-    brew  gh
-    brew  ghostscript
-    brew  gnu-units
-    brew  gpg
-    brew  gpg2
-    brew  htmlq
-    brew  htop
-    brew  imagemagick
-    brew  inetutils
-    brew  jq
-    brew  kubectl
-    brew  lazygit
-    brew  libpq
-    brew  miller
-    brew  minikube
-    brew  mise
-    brew  neovim
-    brew  openssl
-    brew  pgp
-    brew  postgresql
-    brew  pgformatter
-    brew  pulumi
-    brew  qemu
-    brew  redis
-    brew  redis-cli
-    brew  redis-client
-    brew  rg
-    brew  tealdear
-    brew  tidy-html5
-    brew  tmux
-    brew  tree
-    brew  units
-    brew  fzf
-    brew  virtualbox
-    brew  watchman
-    brew  whois
-    brew  yafc
-    brew  zint
-    brew  zk
+brew "angle-grinder"
+brew "awscli"
+brew "aws-iam-authenticator"
+brew "colima", args: { head: true }
+brew "docker"
+brew "docker-compose"
+brew "exa"
+brew "fd"
+brew "fish"
+brew "gh"
+brew "ghostscript"
+brew "gnu-units"
+brew "gpg"
+brew "gpg2"
+brew "htmlq"
+brew "htop"
+brew "imagemagick"
+brew "inetutils"
+brew "jq"
+brew "kubectl"
+brew "lazygit"
+brew "libpq"
+brew "miller"
+brew "minikube"
+brew "mise"
+brew "neovim"
+brew "openssl"
+brew "pgformatter"
+brew "pulumi"
+brew "qemu"
+brew "redis"
+brew "rg"
+brew "tealdeer"
+brew "tidy-html5"
+brew "tmux"
+brew "tree"
+brew "fzf"
+brew "watchman"
+brew "whois"
+brew "yafc"
+brew "zint"
+brew "zk"
 
-    cask font-hack-nerd-font
-    cask alfred
+cask "font-hack-nerd-font"
+cask "alfred"
 EOF
 {{ end -}}
