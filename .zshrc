@@ -44,31 +44,7 @@ function p() {
     fi
 }
 
-# Screen life
-
-function screen-list() {
-    screen -list | sed 1d | sed '$ d' | sed -e 's/^[[:space:]]*//'
-}
-
-function screen-resume() {
-  local active=$(screen-list | gwc -l)
-  if [[ "$active" -gt 1 ]]; then
-    local id=$(screen-list | fzf | gcut -d'.' -f1)
-    if [[ -n "$id" ]]; then
-      screen -r "$id"
-    fi
-  elif [[ "$active" -eq 1 ]]; then
-    local id=$(screen-list | gcut -d'.' -f1)
-    screen -r "$id"
-  fi
-}
-
-alias screen='screen -q'
-alias sr='screen-resume'
-
 # Create notification
 function notify() {
   /usr/bin/osascript -e "display notification \"$*\"" 
 }
-
-. $(brew --prefix)/opt/asdf/libexec/asdf.sh
