@@ -81,7 +81,6 @@ return {
           },
         },
         -- biome = {},
-        typst_lsp = {},
         jsonls = {
           -- lazy-load schemastore when needed
           on_new_config = function(new_config)
