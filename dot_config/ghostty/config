@@ -1,0 +1,5 @@
+theme = "GruvboxDark"
+font-family = "Hack"
+
+window-decoration = false
+macos-titlebar-style = "hidden"
