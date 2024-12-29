@@ -1,4 +1,4 @@
-ruby       3.3.5
+ruby       3.2.2
 nodejs     22
 shellcheck 0.8.0
 yarn       1.22.19
