@@ -1,8 +1,0 @@
-ruby       3.2.2
-nodejs     22
-shellcheck 0.8.0
-yarn       1.22.19
-java       adoptopenjdk-11.0.19+7
-golang     1.23.0
-zig        0.13.0
-elixir     latest

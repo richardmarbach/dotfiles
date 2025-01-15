@@ -16,7 +16,8 @@ return {
   { "NMAC427/guess-indent.nvim", event = "VeryLazy", opts = {} },
 
   {
-    "nvim-telescope/telescope.nvim",
+    dir = "~/projects/telescope.nvim",
+    -- "nvim-telescope/telescope.nvim",
     dependencies = {
       "nvim-telescope/telescope-file-browser.nvim",
       -- Fuzzy Finder Algorithm which dependencies local dependencies to be built. Only load if `make` is available
@@ -129,6 +130,7 @@ return {
     opts = {
       default_file_explorer = true,
     },
+    lazy = false,
   },
 
   -- Git from vim!

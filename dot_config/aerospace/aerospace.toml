@@ -200,3 +200,9 @@ cmd-alt-ctrl-shift-h = ['join-with left', 'mode main']
 cmd-alt-ctrl-shift-j = ['join-with down', 'mode main']
 cmd-alt-ctrl-shift-k = ['join-with up', 'mode main']
 cmd-alt-ctrl-shift-l = ['join-with right', 'mode main']
+
+[[on-window-detected]]
+if.app-id="com.mitchellh.ghostty"
+run= [
+  "layout tiling",
+]
