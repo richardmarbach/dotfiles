@@ -11,12 +11,17 @@ return {
           env = {
             api_key = "cmd:op read 'op://Private/OpenAI CodeCompanion/password' --no-newline",
           },
+          schema = {
+            model = {
+              default = "o3-mini",
+            },
+          },
         })
       end,
     },
   },
   keys = {
-    { "<C-a>", "<cmd>CodeCompanionActions<cr>", mode = { "n", "v" } },
+    -- { "<C-a>", "<cmd>CodeCompanionActions<cr>", mode = { "n", "v" } },
     { "<LocalLeader>ca", "<cmd>CodeCompanionChat Toggle<cr>", mode = { "n", "v" } },
     { "ga", "<cmd>CodeCompanionChat Add<cr>", mode = "v" },
   },

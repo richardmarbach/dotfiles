@@ -9,7 +9,7 @@ return {
       { "hrsh7th/cmp-nvim-lsp" },
       { "richardmarbach/cmp-via" },
       { "saadparwaiz1/cmp_luasnip" },
-      { "codecompanion.nvim" },
+      -- { "codecompanion.nvim" },
       {
         "zbirenbaum/copilot.lua",
         config = function()
