@@ -3,6 +3,10 @@
   email = rmarbach@gmail.com
 [color]
   ui = auto
+[branch]
+  sort = -committerdate
+[tag]
+  sort = version:refname
 [alias]
   mergetool = "!nvim -c DiffviewOpen"
   st = status
@@ -63,6 +67,10 @@
   prompt = false
 [diff]
   tool = fugitive
+  algorithm = histogram
+  # Don't color moved rows
+  colorMoved = plain
+  renames = true
 [init]
   defaultBranch = main
 [checkout]
@@ -71,5 +79,16 @@
   rebase = true
 [rerere]
   enabled = true
+  autoupdate = true
 [push]
   autoSetupRemote = true
+  followTags = true
+  mnemonicPrefix = true
+[fetch]
+  prune = true
+  pruneTags = true
+  all = true
+[help]
+  autocorrect = prompt
+[rebase]
+  updateRefs = true
