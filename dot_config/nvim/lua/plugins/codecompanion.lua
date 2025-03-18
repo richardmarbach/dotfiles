@@ -5,7 +5,42 @@ return {
     "nvim-treesitter",
   },
   opts = {
+    opts = {
+      log_level = "DEBUG",
+    },
+    strategies = {
+      chat = {
+        adapter = "copilot",
+        keymaps = {
+          close = {
+            modes = { n = "<C-c>", i = "<C-c>" },
+          },
+        },
+      },
+      inline = {
+        adapter = "copilot",
+        keymaps = {
+          accept_change = {
+            modes = { n = "ga" },
+            description = "Accept the suggested change",
+          },
+          reject_change = {
+            modes = { n = "gr" },
+            description = "Reject the suggested change",
+          },
+        },
+      },
+    },
     adapters = {
+      copilot = function()
+        return require("codecompanion.adapters").extend("copilot", {
+          schema = {
+            model = {
+              default = "claude-3.7-sonnet",
+            },
+          },
+        })
+      end,
       openai = function()
         return require("codecompanion.adapters").extend("openai", {
           env = {
@@ -21,9 +56,8 @@ return {
     },
   },
   keys = {
-    -- { "<C-a>", "<cmd>CodeCompanionActions<cr>", mode = { "n", "v" } },
-    { "<LocalLeader>ca", "<cmd>CodeCompanionChat Toggle<cr>", mode = { "n", "v" } },
-    { "ga", "<cmd>CodeCompanionChat Add<cr>", mode = "v" },
+    { "<leader>ca", "<cmd>CodeCompanionActions<cr>", mode = { "n", "v" } },
+    { "<LocalLeader>co", "<cmd>CodeCompanionChat Toggle<cr>", mode = { "n", "v" } },
   },
   setup = function(_, opts)
     require("codecompanion").setup(opts)
