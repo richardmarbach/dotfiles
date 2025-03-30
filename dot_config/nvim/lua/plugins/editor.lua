@@ -16,7 +16,7 @@ return {
   { "NMAC427/guess-indent.nvim", event = "VeryLazy", opts = {} },
 
   {
-    dir = "~/projects/telescope.nvim",
+    "richardmarbach/telescope.nvim",
     -- "nvim-telescope/telescope.nvim",
     dependencies = {
       "nvim-telescope/telescope-file-browser.nvim",
