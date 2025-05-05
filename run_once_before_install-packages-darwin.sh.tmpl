@@ -1,16 +1,13 @@
 {{- if eq .chezmoi.os "darwin" -}}
 #!/bin/bash
 
-brew bundle --no-lock --file=/dev/stdin <<EOF
-tap "homebrew/cask-fonts"
+brew bundle --file=/dev/stdin <<EOF
 
+brew libyaml
 brew "angle-grinder"
-brew "awscli"
-brew "aws-iam-authenticator"
 brew "colima", args: { head: true }
 brew "docker"
 brew "docker-compose"
-brew "exa"
 brew "fd"
 brew "fish"
 brew "gh"
@@ -23,11 +20,9 @@ brew "htop"
 brew "imagemagick"
 brew "inetutils"
 brew "jq"
-brew "kubectl"
 brew "lazygit"
 brew "libpq"
 brew "miller"
-brew "minikube"
 brew "mise"
 brew "neovim"
 brew "openssl"
@@ -47,7 +42,7 @@ brew "yafc"
 brew "zint"
 brew "zk"
 
-cask "font-hack-nerd-font"
 cask "alfred"
+cask "nikitabobko/tap/aerospace"
 EOF
 {{ end -}}
