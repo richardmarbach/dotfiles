@@ -7,7 +7,6 @@ return {
       { "hrsh7th/cmp-path" },
       { "hrsh7th/cmp-nvim-lua" },
       { "hrsh7th/cmp-nvim-lsp" },
-      { "richardmarbach/cmp-via" },
       { "saadparwaiz1/cmp_luasnip" },
       -- { "codecompanion.nvim" },
       {
@@ -162,7 +161,6 @@ return {
 
       cmp.setup.filetype("gitcommit", {
         sources = {
-          { name = "via" },
           { name = "path" },
           { name = "nvim_lsp", keyword_length = 3 },
           { name = "buffer", keyword_length = 3 },

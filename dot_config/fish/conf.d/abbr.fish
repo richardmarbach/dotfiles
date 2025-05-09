@@ -15,7 +15,4 @@ abbr -a rdbm "bin/rails db:migrate"
 abbr -a rdbmd "bin/rails db:migrate:down STEP=1"
 abbr -a rdbmr "bin/rails db:migrate:redo"
 
-abbr -a v "viaeurope"
-abbr -a vp "viaeurope production"
-
 abbr -a ts "tmux-sessionizer"

@@ -2,9 +2,5 @@ Include /Users/richard/.colima/ssh_config
 
 Include /Users/jerb/.colima/ssh_config
 
-# SSH over Session Manager
-Host i-* mi-*
-    ProxyCommand sh -c "aws --profile viaeurope-production ssm start-session --target %h --document-name AWS-StartSSHSession --parameters 'portNumber=%p'"
-
 Host *
 	IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
