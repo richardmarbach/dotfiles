@@ -12,5 +12,5 @@ brew install 1password 1password-cli
 # Install dot file manager
 brew install chezmoi
 
-chezmoi init https://github.com/richardmarbach/dotfiles
+chezmoi init git@github.com:richardmarbach/dotfiles.git
 ```
