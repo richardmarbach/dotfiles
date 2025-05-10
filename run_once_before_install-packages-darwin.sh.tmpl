@@ -5,7 +5,7 @@ brew bundle --file=/dev/stdin <<EOF
 
 brew "libyaml"
 brew "angle-grinder"
-brew "colima", args: { head: true }
+brew "colima"
 brew "docker"
 brew "docker-compose"
 brew "fd"
@@ -43,8 +43,13 @@ brew "zint"
 brew "zk"
 brew "timewarrior"
 brew "task"
+brew "ghostty"
 
 cask "alfred"
 cask "nikitabobko/tap/aerospace"
+cask "firefox"
 EOF
 {{ end -}}
+
+which fish | sudo tee -a /etc/shells
+chsh -s $(which fish)

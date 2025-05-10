@@ -23,3 +23,5 @@ set -x -g GEM_EDITOR "nvim"
 set -x -g MANPAGER "nvim +Man!"
 
 fish_add_path -a ~/go/bin
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
