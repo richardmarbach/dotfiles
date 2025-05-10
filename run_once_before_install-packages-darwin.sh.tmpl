@@ -43,8 +43,8 @@ brew "zint"
 brew "zk"
 brew "timewarrior"
 brew "task"
-brew "ghostty"
 
+cask "cleanshot"
 cask "alfred"
 cask "nikitabobko/tap/aerospace"
 cask "firefox"
@@ -52,5 +52,7 @@ cask "font-hack"
 EOF
 {{ end -}}
 
-which fish | sudo tee -a /etc/shells
-chsh -s $(which fish)
+if [[ "$SHELL" != *"fish"* ]]; then
+    which fish | sudo tee -a /etc/shells
+    chsh -s $(which fish)
+fi
