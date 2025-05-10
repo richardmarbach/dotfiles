@@ -1,5 +1,7 @@
 set fish_greeting
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 if status is-interactive
     # Commands to run in interactive sessions can go here
 end
@@ -24,4 +26,3 @@ set -x -g MANPAGER "nvim +Man!"
 
 fish_add_path -a ~/go/bin
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
