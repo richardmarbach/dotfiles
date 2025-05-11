@@ -36,6 +36,6 @@ vim.keymap.set("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error"
 vim.keymap.set("n", "]w", diagnostic_goto(true, "WARNING"), { desc = "Next Warning" })
 vim.keymap.set("n", "[w", diagnostic_goto(false, "WARNING"), { desc = "Prev Warning" })
 
-local format = require("plugins.lsp.format").format
+local format = require("custom.autoformat").format
 vim.keymap.set("n", "<leader>=", format, { desc = "Format Document" })
 vim.keymap.set("v", "<leader>=", format, { desc = "Format Document" })

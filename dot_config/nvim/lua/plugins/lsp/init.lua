@@ -108,7 +108,7 @@ return {
     },
     ---@param opts PluginLspOpts
     config = function(plugin, opts)
-      require("plugins.lsp.format").setup()
+      require("custom.autoformat").setup()
 
       -- setup formatting and keymaps
       setup_on_attach(function(client, buffer)

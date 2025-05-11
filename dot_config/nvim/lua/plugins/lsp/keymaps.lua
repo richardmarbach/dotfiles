@@ -5,7 +5,6 @@ M._keys = nil
 
 ---@return (LazyKeys|{has?:string})[]
 function M.get()
-  -- local format = require("plugins.lsp.format").format
   ---@class PluginLspKeys
   -- stylua: ignore
   M._keys = M._keys or {
@@ -30,8 +29,6 @@ function M.get()
     { "]w", M.diagnostic_goto(true, "WARNING"), desc = "Next Warning" },
     { "[w", M.diagnostic_goto(false, "WARNING"), desc = "Prev Warning" },
 
-    -- { "<leader>=", format, desc = "Format Document", has = "documentFormatting" },
-    -- { "<leader>=", format, desc = "Format Range", mode = "v", has = "documentRangeFormatting" },
     { "<F4>", vim.lsp.buf.rename, expr = true, desc = "Rename", has = "rename" },
     { "<F5>", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" },
   }
