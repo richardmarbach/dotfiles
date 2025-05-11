@@ -2,7 +2,6 @@ return {
   -- Nicer quickfix list
   {
     "folke/trouble.nvim",
-    dependencies = { "nvim-web-devicons" },
     keys = {
       {
         "<leader>xx",

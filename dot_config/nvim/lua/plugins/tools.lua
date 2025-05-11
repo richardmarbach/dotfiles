@@ -1,109 +1,11 @@
 return {
-  -- Documentation generation
-  {
-    "danymat/neogen",
-    opts = { snippet_engine = "luasnip" },
-    -- stylua: ignore
-    keys = {
-      { "<Leader>ng", function() require("neogen").generate() end, silent = true, desc = "[N]eogen [G]enerate" },
-    },
-  },
-
   {
     "ckolkey/ts-node-action",
-    dependencies = { "nvim-treesitter" },
     opts = {},
     keys = function()
       return {
         { "<leader>a", require("ts-node-action").node_action, { desc = "Trigger Node Action" } },
       }
-    end,
-  },
-
-  {
-    "vim-test/vim-test",
-    config = function()
-      vim.g["test#strategy"] = "neovim"
-      vim.g["test#neovim#term_position"] = "vert"
-    end,
-    -- stylua: ignore
-    keys = {
-      { "<leader>tt", "<cmd>TestNearest<CR>" },
-      { "<leader>tf", "<cmd>TestFile<CR>" },
-      { "<leader>ts", "<cmd>TestSuite<CR>" },
-      { "<leader>tl", "<cmd>TestLast<CR>" },
-      { "<leader>tg", "<cmd>TestVisit<CR>" },
-    },
-  },
-
-  -- Notes
-  {
-    "mickael-menu/zk-nvim",
-    name = "zk",
-    cmds = { "ZkNew", "ZkNotes", "ZkMatch", "ZkTags" },
-    opts = { picker = "telescope" },
-    -- stylua: ignore
-    keys = {
-      -- Create a new note after asking for its title.
-      { "<leader>zn", "<Cmd>ZkNew { title = vim.fn.input('Title: ') }<CR>" },
-
-      -- Open notes.
-      { "<leader>zo", "<Cmd>ZkNotes { sort = { 'modified' } }<CR>" },
-      -- Search for the notes matching the current visual selection.
-      -- { "<leader>zo", ":'<,'>ZkMatch<CR>", {mode = "v"} },
-
-      -- Open todos
-      { "<leader>zl", "<Cmd>ZkNew { title = 'TODO', dir = 'todo' }<CR>" },
-
-      -- Open notes associated with the selected tags.
-      { "<leader>zt", "<Cmd>ZkTags<CR>" },
-
-      { "<leader>zj", [[<Cmd>ZkNew { dir = "journal/daily" }<CR>]] },
-
-    },
-  },
-
-  -- Alt file navigation
-  {
-    "ThePrimeagen/harpoon",
-    -- stylua: ignore
-    keys = {
-      { "<leader>ha", function() require("harpoon.mark").add_file() end, { desc = "[H]arpoon [A]dd" } },
-      { "<leader>hv", function() require("harpoon.ui").toggle_quick_menu() end, { desc = "[H]arpoon [V]iew" } },
-      { "<M-6>", function() require("harpoon.ui").nav_file(1) end },
-      { "<M-5>", function() require("harpoon.ui").nav_file(2) end },
-      { "<M-4>", function() require("harpoon.ui").nav_file(3) end },
-      { "<M-3>", function() require("harpoon.ui").nav_file(4) end },
-      { "<M-2>", function() require("harpoon.ui").nav_file(5) end },
-      { "<M-1>", function() require("harpoon.ui").nav_file(6) end },
-    },
-  },
-
-  -- Navigate vim's undo tree
-  {
-    "mbbill/undotree",
-    cmd = "UndotreeToggle",
-    config = false,
-    -- stylua: ignore
-    keys = {
-      { "<leader>ut", function() vim.cmd.UndotreeToggle() end, desc = "Open undo tree" },
-    },
-  },
-
-  -- comments
-  { "JoosepAlviste/nvim-ts-context-commentstring", lazy = true },
-  {
-    "echasnovski/mini.comment",
-    event = "VeryLazy",
-    opts = {
-      hooks = {
-        pre = function()
-          require("ts_context_commentstring.internal").update_commentstring({})
-        end,
-      },
-    },
-    config = function(_, opts)
-      require("mini.comment").setup(opts)
     end,
   },
 
@@ -176,23 +78,5 @@ return {
       local ai = require("mini.ai")
       ai.setup(opts)
     end,
-  },
-
-  -- Ruby refactorings and helpers
-  { "richardmarbach/extract-ruby-constant", ft = { "ruby" } },
-
-  {
-    "ray-x/go.nvim",
-    dependencies = { -- optional packages
-      "ray-x/guihua.lua",
-      "nvim-lspconfig",
-      "nvim-treesitter",
-    },
-    config = function()
-      require("go").setup()
-    end,
-    event = { "CmdlineEnter" },
-    ft = { "go", "gomod" },
-    build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
   },
 }

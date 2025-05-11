@@ -1,9 +1,5 @@
 return {
   "olimorris/codecompanion.nvim",
-  dependencies = {
-    "plenary.nvim",
-    "nvim-treesitter",
-  },
   opts = {
     opts = {
       log_level = "DEBUG",

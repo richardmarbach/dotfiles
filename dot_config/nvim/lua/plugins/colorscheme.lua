@@ -1,14 +1,11 @@
 return {
-  "ellisonleao/gruvbox.nvim", -- Theme inspired by Atom
-  lazy = false, -- make sure we load this during startup if it is your main colorscheme
-  priority = 1000, -- make sure to load this before all the other start plugins
-  config = function()
-    -- Set colorscheme
+  "ellisonleao/gruvbox.nvim",
+  lazy = false,
+  priority = 1000,
+  opts = { contrast = "soft" },
+  config = function(_, opts)
     vim.o.termguicolors = true
-
-    require("gruvbox").setup({
-      contrast = "soft",
-    })
+    require("gruvbox").setup(opts)
     vim.cmd([[colorscheme gruvbox]])
   end,
 }

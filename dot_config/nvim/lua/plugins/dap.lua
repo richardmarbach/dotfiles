@@ -1,14 +1,3 @@
-local function find_codelldb()
-  local ok, registry = pcall(require, "mason-registry")
-
-  if ok and registry.is_installed("codelldb") then
-    local pkg = registry.get_package("codelldb")
-    return table.concat({ pkg:get_install_path(), "extension", "adapter", "codelldb" }, "/")
-  end
-
-  return nil
-end
-
 return {
   {
     "mfussenegger/nvim-dap",

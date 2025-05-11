@@ -2,7 +2,6 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    -- event = "VeryLazy",
     opts = {
       sync_install = false,
 
@@ -13,6 +12,7 @@ return {
         "diff",
         "fish",
         "gitignore",
+        "go",
         "graphql",
         "html",
         "http",

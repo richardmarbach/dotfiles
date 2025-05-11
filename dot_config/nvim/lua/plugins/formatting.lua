@@ -31,6 +31,7 @@ return {
     },
     init = function()
       vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+      require("custom.autoformat").setup()
     end,
   },
 }
