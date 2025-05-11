@@ -1,6 +1,8 @@
+
 [user]
   name = Richard Marbach
   email = rmarbach@gmail.com
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHiZu588k5kduoAGD27bTboFoUY5ITuQGJk5vsObuDeG
 [color]
   ui = auto
 [branch]
@@ -92,3 +94,9 @@
   autocorrect = prompt
 [rebase]
   updateRefs = true
+[gpg]
+  format = ssh
+[gpg "ssh"]
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+[commit]
+  gpgsign = true
