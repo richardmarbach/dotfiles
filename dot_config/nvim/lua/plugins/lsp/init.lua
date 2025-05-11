@@ -22,14 +22,6 @@ return {
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/cmp-nvim-lsp",
       "b0o/SchemaStore.nvim",
-      {
-        "simrat39/rust-tools.nvim",
-        dependencies = { "nvim-lspconfig" },
-        opt = {},
-        config = function(_, opts)
-          require("rust-tools").setup(opts)
-        end,
-      },
     },
     ---@class PluginLspOpts
     opts = {
@@ -167,42 +159,6 @@ return {
 
       require("mason-lspconfig").setup({ ensure_installed = ensure_installed })
       require("mason-lspconfig").setup_handlers({ setup })
-    end,
-  },
-
-  {
-    "stevearc/conform.nvim",
-    event = { "BufWritePre" },
-    cmd = { "ConformInfo" },
-    opts = {
-      formatters_by_ft = {
-        lua = { "stylua" },
-        sql = { "pg_format" },
-        javascript = { "prettierd" },
-        javascriptreact = { "prettierd" },
-        typescript = { "prettierd" },
-        typescriptreact = { "prettierd" },
-        yaml = { "prettierd" },
-        -- json = { "prettierd" },
-        -- jsonc = { "prettierd" },
-        css = { "prettierd" },
-        php = { "easy-coding-standard" },
-        scss = { "prettierd" },
-        html = { "prettierd" },
-        ruby = { "rubocop" },
-        python = { "black" },
-      },
-      default_format_opts = {
-        lsp_format = "fallback",
-      },
-      formatters = {
-        rubocop = {
-          command = "bin/rubocop",
-        },
-      },
-    },
-    init = function()
-      vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
     end,
   },
 
