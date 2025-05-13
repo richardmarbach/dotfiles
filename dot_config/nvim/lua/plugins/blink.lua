@@ -17,7 +17,10 @@ return {
       keymap = { preset = "default" },
       completion = {
         ghost_text = { enabled = true },
-        trigger = { show_on_keyword = false, show_on_trigger_character = false },
+        -- trigger = {
+        --   show_on_keyword = false,
+        --   show_on_trigger_character = false,
+        -- },
       },
       sources = {
         default = { "lsp", "path", "snippets", "copilot" },
