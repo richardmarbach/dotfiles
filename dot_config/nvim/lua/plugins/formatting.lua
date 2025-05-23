@@ -19,6 +19,7 @@ return {
         html = { "prettierd" },
         ruby = { "rubocop" },
         python = { "black" },
+        terraform = { "terraform_fmt" },
       },
       default_format_opts = {
         lsp_format = "fallback",

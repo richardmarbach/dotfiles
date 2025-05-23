@@ -17,13 +17,22 @@ return {
       keymap = { preset = "default" },
       completion = {
         ghost_text = { enabled = true },
+        menu = {
+          draw = {
+            columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind" } },
+          },
+        },
+        documentation = {
+          auto_show = true,
+          auto_show_delay_ms = 100,
+        },
         -- trigger = {
         --   show_on_keyword = false,
         --   show_on_trigger_character = false,
         -- },
       },
       sources = {
-        default = { "lsp", "path", "snippets", "copilot" },
+        default = { "lsp", "path", "snippets", "copilot", "buffer" },
         providers = {
           lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
           lsp = { fallbacks = {} }, -- fallback to buffer
