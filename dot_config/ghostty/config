@@ -3,3 +3,5 @@ font-family = "Hack"
 
 window-decoration = false
 macos-titlebar-style = "hidden"
+
+confirm-close-surface = false
