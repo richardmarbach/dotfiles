@@ -64,3 +64,6 @@ vim.keymap.set({ "n", "v", "o" }, "<Bs>", "<leader>", { remap = true })
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
 vim.o.shell = "/bin/bash"
+
+-- Prepend mise shims to PATH
+vim.env.PATH = vim.env.HOME .. "/.local/share/mise/shims:" .. vim.env.PATH
