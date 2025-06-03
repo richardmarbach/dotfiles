@@ -38,14 +38,9 @@ return {
         })
       end,
       openai = function()
-        return require("codecompanion.adapters").extend("openai", {
+        return require("codecompanion.adapters").extend("gemini", {
           env = {
-            api_key = "cmd:op read 'op://Private/OpenAI CodeCompanion/password' --no-newline",
-          },
-          schema = {
-            model = {
-              default = "o3-mini",
-            },
+            api_key = "cmd:op read 'op://Private/Gemini API key/password' --no-newline",
           },
         })
       end,
