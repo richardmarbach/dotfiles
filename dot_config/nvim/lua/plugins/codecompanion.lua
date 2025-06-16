@@ -37,7 +37,7 @@ return {
           },
         })
       end,
-      openai = function()
+      gemini = function()
         return require("codecompanion.adapters").extend("gemini", {
           env = {
             api_key = "cmd:op read 'op://Private/Gemini API key/password' --no-newline",
