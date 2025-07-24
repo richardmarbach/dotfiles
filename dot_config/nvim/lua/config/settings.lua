@@ -67,3 +67,21 @@ vim.o.shell = "/bin/bash"
 
 -- Prepend mise shims to PATH
 vim.env.PATH = vim.env.HOME .. "/.local/share/mise/shims:" .. vim.env.PATH
+
+vim.o.foldenable = true
+vim.o.foldlevelstart = 99
+vim.o.foldmethod = "expr"
+
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+-- vim.o.foldtext = "v:lua.vim.treesitter.foldtext()"
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client:supports_method("textDocument/foldingRange") then
+      local win = vim.api.nvim_get_current_win()
+      vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
+      -- vim.wo[win][0].foldtext = "v:lua.vim.lsp.foldtext()"
+    end
+  end,
+})
