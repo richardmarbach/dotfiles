@@ -286,7 +286,7 @@ ${existingNotes ? `Recent notes in the system for context:\n${existingNotes}\n` 
 Provide:
 1. A concise, descriptive title (max 60 characters) that would work well as a Zettelkasten note
 2. Relevant tags (3-6 tags) that connect this note to broader concepts
-3. Clean up the transcript for clarity and readability. Do not include the summarized title or tags in the body.
+3. Clean up the transcript for clarity and readability. Use lists where appropriate, and remove any filler words or unnecessary phrases.
 4. Suggest potential connections to other notes if you see conceptual overlap
 
 Respond in this exact JSON format:
@@ -297,7 +297,7 @@ Respond in this exact JSON format:
   "connections": ["concept1", "concept2"] 
 }
 
-Common Zettelkasten tag categories: concept, method, question, insight, meeting, project, idea, reference, fleeting, permanent, literature`;
+Common Zettelkasten tag categories: concept, method, question, insight, meeting, project, idea, reference, fleeting, permanent, literature, todo, work`;
 
     const response = execSync(
       `ollama run llama3.2:3b '${prompt.replace(/'/g, "'\\''")}' --format json`,
