@@ -1,6 +1,13 @@
 return {
-  { "b0o/SchemaStore.nvim" },
-  { "neovim/nvim-lspconfig" },
+  {
+    "neovim/nvim-lspconfig",
+    event = "VeryLazy",
+    dependencies = {
+      "mason.nvim",
+      "b0o/SchemaStore.nvim",
+      { "mason-org/mason-lspconfig.nvim", config = function() end },
+    },
+  },
 
   {
     "mason-org/mason.nvim",
