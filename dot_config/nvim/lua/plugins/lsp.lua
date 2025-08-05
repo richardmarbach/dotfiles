@@ -1,12 +1,17 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    event = "VeryLazy",
     dependencies = {
       "mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
       "b0o/SchemaStore.nvim",
-      { "mason-org/mason-lspconfig.nvim", config = function() end },
     },
+    config = function()
+      vim.lsp.enable("ts_ls")
+      vim.lsp.enable("solargraph")
+      vim.lsp.enable("jsonls")
+      vim.lsp.enable("lua_ls")
+    end,
   },
 
   {

@@ -53,6 +53,7 @@ return {
     },
     opts_extend = { "sources.default" },
   },
+
   {
     "zbirenbaum/copilot.lua",
     config = function()
@@ -62,7 +63,6 @@ return {
       })
     end,
   },
-  {
-    "giuxtaposition/blink-cmp-copilot",
-  },
+
+  { "giuxtaposition/blink-cmp-copilot" },
 }

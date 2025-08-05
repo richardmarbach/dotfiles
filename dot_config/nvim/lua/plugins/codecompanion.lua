@@ -50,6 +50,12 @@ return {
     { "<leader>ca", "<cmd>CodeCompanionActions<cr>", mode = { "n", "v" } },
     { "<LocalLeader>co", "<cmd>CodeCompanionChat Toggle<cr>", mode = { "n", "v" } },
   },
+  cmd = {
+    "CodeCompanion",
+    "CodeCompanionActions",
+    "CodeCompanionChat",
+    "CodeCompanionCmd",
+  },
   setup = function(_, opts)
     require("codecompanion").setup(opts)
     -- Expand 'cc' into 'CodeCompanion' in the command line
