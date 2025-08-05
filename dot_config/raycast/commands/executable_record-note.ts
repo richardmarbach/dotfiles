@@ -274,8 +274,6 @@ Existing Zettelkasten tags: ${await getExistingTags()}`;
     ),
   ];
 
-  // TODO: ask model to find connecting notes
-
   show("success", "AI analysis completed");
   return { title, body, tags };
 }
