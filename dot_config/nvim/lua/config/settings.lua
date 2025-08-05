@@ -65,14 +65,10 @@ vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
 vim.o.shell = "/bin/bash"
 
--- Prepend mise shims to PATH
 vim.env.PATH = vim.env.HOME .. "/.local/share/mise/shims:" .. vim.env.PATH
 
 vim.o.foldenable = true
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
--- vim.o.foldmethod = "expr"
--- vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
--- vim.o.foldtext = ""
 vim.o.foldcolumn = "0"
 vim.o.foldnestmax = 4
