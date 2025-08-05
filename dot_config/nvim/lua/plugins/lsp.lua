@@ -1,4 +1,7 @@
 return {
+  { "b0o/SchemaStore.nvim" },
+  { "neovim/nvim-lspconfig" },
+
   {
     "mason-org/mason.nvim",
     version = "v2.*",
@@ -14,12 +17,5 @@ return {
     config = function()
       require("mason-lspconfig").setup()
     end,
-  },
-
-  { "b0o/SchemaStore.nvim" },
-
-  {
-    "neovim/nvim-lspconfig",
-    event = { "BufReadPre", "BufNewFile" },
   },
 }
