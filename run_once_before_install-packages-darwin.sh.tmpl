@@ -56,6 +56,8 @@ if [[ "$SHELL" != *"fish"* ]]; then
     chsh -s $(which fish)
 fi
 
-mkdir -p ~/.task/hooks
-cp "$(brew --prefix)/Cellar/timewarrior/$(timew --version)/share/doc/timew/ext/on-modify.timewarrior" ~/task/hooks/
-chmod +x ~/.task/hooks/on-modify.timewarrior
+if [[ -z "~/.task/hooks/on-modify.timewarrior" ]]; then
+    mkdir -p ~/.task/hooks
+    cp "$(brew --prefix)/Cellar/timewarrior/$(timew --version)/share/doc/timew/ext/on-modify.timewarrior" ~/.task/hooks/
+    chmod +x ~/.task/hooks/on-modify.timewarrior
+fi
