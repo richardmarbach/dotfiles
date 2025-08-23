@@ -43,8 +43,8 @@ brew "zk"
 brew "timewarrior"
 brew "task"
 
-cask "cleanshot"
-cask "alfred"
+cask "shottr"
+cask "raycast"
 cask "nikitabobko/tap/aerospace"
 cask "firefox"
 cask "font-hack"
@@ -55,3 +55,7 @@ if [[ "$SHELL" != *"fish"* ]]; then
     which fish | sudo tee -a /etc/shells
     chsh -s $(which fish)
 fi
+
+mkdir -p ~/.task/hooks
+cp "$(brew --prefix)/Cellar/timewarrior/$(timew --version)/share/doc/timew/ext/on-modify.timewarrior" ~/task/hooks/
+chmod +x ~/.task/hooks/on-modify.timewarrior
