@@ -41,6 +41,11 @@ return {
         },
       })
       vim.lsp.enable("jsonls")
+
+      -- vim.lsp.config("ts_ls", {
+      --   root_markers = { ".git" },
+      -- })
+      -- vim.lsp.enable("ts_ls")
     end,
   },
 

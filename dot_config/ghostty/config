@@ -1,4 +1,4 @@
-theme = "GruvboxDark"
+theme = "Gruvbox Dark"
 font-family = "Hack"
 
 window-decoration = false
