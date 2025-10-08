@@ -28,22 +28,24 @@ return {
       },
     },
     adapters = {
-      copilot = function()
-        return require("codecompanion.adapters").extend("copilot", {
-          schema = {
-            model = {
-              default = "claude-3.7-sonnet",
+      http = {
+        copilot = function()
+          return require("codecompanion.adapters").extend("copilot", {
+            schema = {
+              model = {
+                default = "claude-3.7-sonnet",
+              },
             },
-          },
-        })
-      end,
-      gemini = function()
-        return require("codecompanion.adapters").extend("gemini", {
-          env = {
-            api_key = "cmd:op read 'op://Private/Gemini API key/password' --no-newline",
-          },
-        })
-      end,
+          })
+        end,
+        gemini = function()
+          return require("codecompanion.adapters").extend("gemini", {
+            env = {
+              api_key = "cmd:op read 'op://Private/Gemini API key/password' --no-newline",
+            },
+          })
+        end,
+      },
     },
   },
   keys = {
