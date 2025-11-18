@@ -23,7 +23,7 @@ end
 
 function M.format()
   local buf = vim.api.nvim_get_current_buf()
-  require("conform").format({ timeout_ms = 5000, lsp_fallback = true, buf = buf })
+  require("conform").format({ timeout_ms = 10000, lsp_fallback = true, buf = buf })
 end
 
 return M
