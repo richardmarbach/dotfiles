@@ -1,2 +1,2 @@
-vim.keymap.set("o", "<leader>oc", require("extract-ruby-constant").extract)
-vim.keymap.set("n", "<leader>oc", require("extract-ruby-constant").yank)
+vim.keymap.set("o", "<leader>oc", function() require("extract-ruby-constant").extract() end)
+vim.keymap.set("n", "<leader>oc", function() require("extract-ruby-constant").yank() end)
