@@ -2,104 +2,62 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    opts = {
-      sync_install = false,
-
-      -- Add languages to be installed here that you want installed for treesitter
-      ensure_installed = {
-        "c",
-        "css",
-        "diff",
-        "fish",
-        "gitignore",
-        "go",
-        "graphql",
-        "html",
-        "http",
-        "javascript",
-        "json",
-        "lua",
-        "markdown",
-        "markdown_inline",
-        "nix",
-        "python",
-        "regex",
-        "ruby",
-        "rust",
-        "scss",
-        "sql",
-        "svelte",
-        "toml",
-        "tsx",
-        "typescript",
-        "vim",
-        "yaml",
-        "zig",
-      },
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighing = "markdown",
-      },
-      indent = { enable = true, disable = { "python" } },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "<c-space>",
-          node_incremental = "<c-space>",
-          scope_incremental = "<nop>",
-          node_decremental = "<bs>",
+    branch = "main",
+    config = function()
+      require("nvim-treesitter").setup({
+        ensure_installed = {
+          "c",
+          "css",
+          "diff",
+          "fish",
+          "gitignore",
+          "go",
+          "graphql",
+          "html",
+          "http",
+          "javascript",
+          "json",
+          "lua",
+          "markdown",
+          "markdown_inline",
+          "nix",
+          "python",
+          "regex",
+          "ruby",
+          "rust",
+          "scss",
+          "sql",
+          "svelte",
+          "toml",
+          "tsx",
+          "typescript",
+          "vim",
+          "yaml",
+          "zig",
         },
-      },
+      })
 
-      textobjects = {
-        move = {
-          enable = true,
-          set_jumps = true, -- whether to set jumps in the jumplist
-          goto_next_start = {
-            ["]b"] = "@block.outer",
-            ["]m"] = "@function.outer",
-            ["]["] = { query = "@class.outer", desc = "Next class start" },
+      -- Disable treesitter indent for python
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "python",
+        callback = function()
+          vim.bo.indentexpr = ""
+        end,
+      })
 
-            ["]o"] = { query = { "@loop.inner", "@loop.outer" } },
-
-            -- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
-            -- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
-            ["]s"] = { query = "@local.scope", query_group = "locals", desc = "Next scope" },
-            ["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
-          },
-          goto_next_end = {
-            ["]B"] = "@block.outer",
-            ["]M"] = "@function.outer",
-
-            ["]O"] = { query = { "@loop.inner", "@loop.outer" } },
-            ["]S"] = { query = "@local.scope", query_group = "locals", desc = "Next scope" },
-            ["]Z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
-          },
-          goto_previous_start = {
-            ["[b"] = "@block.outer",
-            ["[m"] = "@function.outer",
-            ["[["] = "@class.outer",
-
-            ["[o"] = { query = { "@loop.inner", "@loop.outer" } },
-            ["[s"] = { query = "@local.scope", query_group = "locals", desc = "Next scope" },
-            ["[z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
-          },
-          goto_previous_end = {
-            ["[B"] = "@block.outer",
-            ["[M"] = "@function.outer",
-
-            ["[O"] = { query = { "@loop.inner", "@loop.outer" } },
-            ["[S"] = { query = "@local.scope", query_group = "locals", desc = "Next scope" },
-            ["[Z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
-          },
-        },
-      },
-    },
-    config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
+      -- Incremental selection keymaps
+      vim.keymap.set("n", "<C-Space>", function()
+        require("nvim-treesitter.incremental_selection").init_selection()
+      end, { desc = "Init treesitter selection" })
+      vim.keymap.set("x", "<C-Space>", function()
+        require("nvim-treesitter.incremental_selection").node_incremental()
+      end, { desc = "Increment treesitter selection" })
+      vim.keymap.set("x", "<BS>", function()
+        require("nvim-treesitter.incremental_selection").node_decremental()
+      end, { desc = "Decrement treesitter selection" })
 
       -- Only apply special highlighting for mise files
-      require("vim.treesitter.query").add_predicate("is-mise?", function(_, _, bufnr, _)
+      vim.treesitter.query.add_predicate("is-mise?", function(_, _, bufnr, _)
         local filepath = vim.api.nvim_buf_get_name(tonumber(bufnr) or 0)
         local filename = vim.fn.fnamemodify(filepath, ":t")
         return string.match(filename, ".*mise.*%.toml$") ~= nil
@@ -107,11 +65,99 @@ return {
     end,
   },
 
-  -- {
-  --   "nvim-treesitter/nvim-treesitter-context",
-  --   event = "BufReadPost",
-  --   config = true,
-  -- },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    event = "BufReadPost",
+    config = true,
+  },
 
-  { "nvim-treesitter/nvim-treesitter-textobjects" },
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    branch = "main",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = function()
+      require("nvim-treesitter-textobjects").setup({
+        move = {
+          set_jumps = true,
+        },
+      })
+
+      local move = require("nvim-treesitter-textobjects.move")
+      local modes = { "n", "x", "o" }
+
+      -- goto_next_start
+      vim.keymap.set(modes, "]b", function()
+        move.goto_next_start("@block.outer", "textobjects")
+      end, { desc = "Next block start" })
+      vim.keymap.set(modes, "]m", function()
+        move.goto_next_start("@function.outer", "textobjects")
+      end, { desc = "Next function start" })
+      vim.keymap.set(modes, "][", function()
+        move.goto_next_start("@class.outer", "textobjects")
+      end, { desc = "Next class start" })
+      vim.keymap.set(modes, "]o", function()
+        move.goto_next_start({ "@loop.inner", "@loop.outer" }, "textobjects")
+      end, { desc = "Next loop" })
+      vim.keymap.set(modes, "]s", function()
+        move.goto_next_start("@local.scope", "locals")
+      end, { desc = "Next scope" })
+      vim.keymap.set(modes, "]z", function()
+        move.goto_next_start("@fold", "folds")
+      end, { desc = "Next fold" })
+
+      -- goto_next_end
+      vim.keymap.set(modes, "]B", function()
+        move.goto_next_end("@block.outer", "textobjects")
+      end, { desc = "Next block end" })
+      vim.keymap.set(modes, "]M", function()
+        move.goto_next_end("@function.outer", "textobjects")
+      end, { desc = "Next function end" })
+      vim.keymap.set(modes, "]O", function()
+        move.goto_next_end({ "@loop.inner", "@loop.outer" }, "textobjects")
+      end, { desc = "Next loop end" })
+      vim.keymap.set(modes, "]S", function()
+        move.goto_next_end("@local.scope", "locals")
+      end, { desc = "Next scope end" })
+      vim.keymap.set(modes, "]Z", function()
+        move.goto_next_end("@fold", "folds")
+      end, { desc = "Next fold end" })
+
+      -- goto_previous_start
+      vim.keymap.set(modes, "[b", function()
+        move.goto_previous_start("@block.outer", "textobjects")
+      end, { desc = "Previous block start" })
+      vim.keymap.set(modes, "[m", function()
+        move.goto_previous_start("@function.outer", "textobjects")
+      end, { desc = "Previous function start" })
+      vim.keymap.set(modes, "[[", function()
+        move.goto_previous_start("@class.outer", "textobjects")
+      end, { desc = "Previous class start" })
+      vim.keymap.set(modes, "[o", function()
+        move.goto_previous_start({ "@loop.inner", "@loop.outer" }, "textobjects")
+      end, { desc = "Previous loop" })
+      vim.keymap.set(modes, "[s", function()
+        move.goto_previous_start("@local.scope", "locals")
+      end, { desc = "Previous scope" })
+      vim.keymap.set(modes, "[z", function()
+        move.goto_previous_start("@fold", "folds")
+      end, { desc = "Previous fold" })
+
+      -- goto_previous_end
+      vim.keymap.set(modes, "[B", function()
+        move.goto_previous_end("@block.outer", "textobjects")
+      end, { desc = "Previous block end" })
+      vim.keymap.set(modes, "[M", function()
+        move.goto_previous_end("@function.outer", "textobjects")
+      end, { desc = "Previous function end" })
+      vim.keymap.set(modes, "[O", function()
+        move.goto_previous_end({ "@loop.inner", "@loop.outer" }, "textobjects")
+      end, { desc = "Previous loop end" })
+      vim.keymap.set(modes, "[S", function()
+        move.goto_previous_end("@local.scope", "locals")
+      end, { desc = "Previous scope end" })
+      vim.keymap.set(modes, "[Z", function()
+        move.goto_previous_end("@fold", "folds")
+      end, { desc = "Previous fold end" })
+    end,
+  },
 }
