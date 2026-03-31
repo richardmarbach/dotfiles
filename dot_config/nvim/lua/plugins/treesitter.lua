@@ -30,6 +30,7 @@ return {
           "svelte",
           "toml",
           "tsx",
+          "elixir",
           "typescript",
           "vim",
           "yaml",
