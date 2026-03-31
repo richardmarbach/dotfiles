@@ -26,24 +26,7 @@ local types = require("luasnip.util.types")
 local parse = require("luasnip.util.parser").parse_snippet
 --- @diagnostic enable: unused-local
 
-local ts_locals = require("nvim-treesitter.locals")
-local ts_utils = require("nvim-treesitter.ts_utils")
 local textcase = require("textcase").api
-
-local function instance_variables(_)
-  local cursor_node = ts_utils.get_node_at_cursor()
-  if not cursor_node or cursor_node:type() ~= "method_parameters" then
-    return
-  end
-  print("called")
-  print(vim.inspect(cursor_node:type()))
-end
-
-local function assign_instance_variable(args)
-  local params = args[1][1]
-  instance_variables(params)
-  return sn(nil, fmt("@{} = {}", { i(1, params), i(2, params) }))
-end
 
 local function definit_snippet()
   return s(
