@@ -9,8 +9,8 @@ function M.setup()
 
   vim.api.nvim_create_autocmd("BufWritePre", {
     group = vim.api.nvim_create_augroup("AutoFormat", {}),
-    callback = function()
-      if M.autoformat then
+    callback = function(args)
+      if M.autoformat and vim.bo[args.buf].buftype == "" then
         M.format()
       end
     end,
