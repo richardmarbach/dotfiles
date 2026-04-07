@@ -35,6 +35,7 @@ return {
     config = function()
       require("ufo").setup({
         fold_virt_text_handler = handler,
+        filetype_exclude = { "gitcommit", "gitrebase" },
       })
     end,
   },
