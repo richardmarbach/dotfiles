@@ -1,21 +1,5 @@
-return {
-  -- Text casing library
-  {
-    "johmsalas/text-case.nvim",
-    config = function()
-      require("textcase").setup({})
-      require("telescope").load_extension("textcase")
-    end,
-    keys = {
-      { "<leader>sc", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "x" }, desc = "Telescope" },
-    },
-    cmd = {
-      "Subs",
-      "TextCaseOpenTelescope",
-      "TextCaseOpenTelescopeQuickChange",
-      "TextCaseOpenTelescopeLSPChange",
-      "TextCaseStartReplacingCommand",
-    },
-    lazy = false,
-  },
-}
+vim.pack.add({ "https://github.com/johmsalas/text-case.nvim" })
+
+require("textcase").setup({})
+require("telescope").load_extension("textcase")
+vim.keymap.set({ "n", "x" }, "<leader>sc", "<cmd>TextCaseOpenTelescope<CR>", { desc = "Telescope" })

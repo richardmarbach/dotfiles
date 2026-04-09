@@ -1,28 +1,11 @@
-return {
-  -- Notes
-  {
-    "mickael-menu/zk-nvim",
-    name = "zk",
-    cmds = { "ZkNew", "ZkNotes", "ZkMatch", "ZkTags" },
-    opts = { picker = "telescope" },
-    -- stylua: ignore
-    keys = {
-      -- Create a new note after asking for its title.
-      { "<leader>zn", "<Cmd>ZkNew { title = vim.fn.input('Title: ') }<CR>" },
+vim.pack.add({ "https://github.com/mickael-menu/zk-nvim" })
 
-      -- Open notes.
-      { "<leader>zo", "<Cmd>ZkNotes { sort = { 'modified' } }<CR>" },
-      -- Search for the notes matching the current visual selection.
-      -- { "<leader>zo", ":'<,'>ZkMatch<CR>", {mode = "v"} },
+require("zk").setup({ picker = "telescope" })
 
-      -- Open todos
-      { "<leader>zl", "<Cmd>ZkNew { title = 'TODO', dir = 'todo' }<CR>" },
-
-      -- Open notes associated with the selected tags.
-      { "<leader>zt", "<Cmd>ZkTags<CR>" },
-
-      { "<leader>zj", [[<Cmd>ZkNew { dir = "journal/daily" }<CR>]] },
-
-    },
-  },
-}
+-- stylua: ignore start
+vim.keymap.set("n", "<leader>zn", "<Cmd>ZkNew { title = vim.fn.input('Title: ') }<CR>")
+vim.keymap.set("n", "<leader>zo", "<Cmd>ZkNotes { sort = { 'modified' } }<CR>")
+vim.keymap.set("n", "<leader>zl", "<Cmd>ZkNew { title = 'TODO', dir = 'todo' }<CR>")
+vim.keymap.set("n", "<leader>zt", "<Cmd>ZkTags<CR>")
+vim.keymap.set("n", "<leader>zj", [[<Cmd>ZkNew { dir = "journal/daily" }<CR>]])
+-- stylua: ignore end

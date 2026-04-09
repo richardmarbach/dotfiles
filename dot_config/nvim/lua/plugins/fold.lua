@@ -1,3 +1,10 @@
+local gh = require("config.gh")
+
+vim.pack.add({
+  gh("kevinhwang91/nvim-ufo"),
+  gh("kevinhwang91/promise-async"),
+})
+
 local handler = function(virtText, lnum, endLnum, width, truncate)
   local newVirtText = {}
   local suffix = (" 󰁂 %d "):format(endLnum - lnum)
@@ -26,17 +33,7 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
   return newVirtText
 end
 
-return {
-  {
-    "kevinhwang91/nvim-ufo",
-    dependencies = {
-      "kevinhwang91/promise-async",
-    },
-    config = function()
-      require("ufo").setup({
-        fold_virt_text_handler = handler,
-        filetype_exclude = { "gitcommit", "gitrebase" },
-      })
-    end,
-  },
-}
+require("ufo").setup({
+  fold_virt_text_handler = handler,
+  filetype_exclude = { "gitcommit", "gitrebase" },
+})

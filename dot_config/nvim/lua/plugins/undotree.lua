@@ -1,12 +1,5 @@
-return {
-  -- Navigate vim's undo tree
-  {
-    "mbbill/undotree",
-    cmd = "UndotreeToggle",
-    config = false,
-    keys = {
-      -- stylua: ignore
-      { "<leader>ut", function() vim.cmd.UndotreeToggle() end, desc = "Open undo tree" },
-    },
-  },
-}
+vim.cmd.packadd("nvim.undotree")
+
+vim.keymap.set("n", "<leader>ut", function()
+  require("undotree").open()
+end, { desc = "Open undo tree" })

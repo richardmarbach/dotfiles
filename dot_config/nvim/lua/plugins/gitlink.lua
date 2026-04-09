@@ -1,7 +1,3 @@
-return {
-  {
-    "linrongbin16/gitlinker.nvim",
-    cmd = "GitLink",
-    opts = {},
-  },
-}
+vim.pack.add({ "https://github.com/linrongbin16/gitlinker.nvim" })
+
+require("gitlinker").setup({})

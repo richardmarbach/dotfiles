@@ -1,29 +1,23 @@
-return {
-  {
-    "JoosepAlviste/nvim-ts-context-commentstring",
-    lazy = true,
-    opts = {
-      enable_autocmd = false,
-    },
-  },
-  {
-    "echasnovski/mini.comment",
-    event = "VeryLazy",
-    opts = {
-      options = {
-        custom_commentstring = function()
-          return require("ts_context_commentstring").calculate_commentstring() or vim.bo.commentstring
-        end,
-      },
-    },
-  },
+local gh = require("config.gh")
 
-  -- Todo comment highlights
-  {
-    "folke/todo-comments.nvim",
-    event = "VeryLazy",
-    opts = {
-      signs = false,
-    },
+vim.pack.add({
+  gh("JoosepAlviste/nvim-ts-context-commentstring"),
+  gh("echasnovski/mini.comment"),
+  gh("folke/todo-comments.nvim"),
+})
+
+require("ts_context_commentstring").setup({
+  enable_autocmd = false,
+})
+
+require("mini.comment").setup({
+  options = {
+    custom_commentstring = function()
+      return require("ts_context_commentstring").calculate_commentstring() or vim.bo.commentstring
+    end,
   },
-}
+})
+
+require("todo-comments").setup({
+  signs = false,
+})

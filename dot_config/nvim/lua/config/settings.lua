@@ -67,8 +67,14 @@ vim.o.shell = "/bin/bash"
 
 vim.env.PATH = vim.env.HOME .. "/.local/share/mise/shims:" .. vim.env.PATH
 
+-- Native LSP completion
+vim.opt.completeopt = "menu,menuone,noselect,popup"
+vim.o.autocomplete = true
+
 vim.o.foldenable = true
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.foldcolumn = "0"
 vim.o.foldnestmax = 4
+
+require("vim._core.ui2").enable({})

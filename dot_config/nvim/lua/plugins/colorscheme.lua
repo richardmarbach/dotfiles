@@ -1,11 +1,5 @@
-return {
-  "ellisonleao/gruvbox.nvim",
-  lazy = false,
-  priority = 1000,
-  opts = { contrast = "soft" },
-  config = function(_, opts)
-    vim.o.termguicolors = true
-    require("gruvbox").setup(opts)
-    vim.cmd([[colorscheme gruvbox]])
-  end,
-}
+vim.pack.add({ "https://github.com/ellisonleao/gruvbox.nvim" })
+
+vim.o.termguicolors = true
+require("gruvbox").setup({ contrast = "soft" })
+vim.cmd([[colorscheme gruvbox]])

@@ -1,8 +1,3 @@
-return {
-  {
-    "MagicDuck/grug-far.nvim",
-    config = function()
-      require("grug-far").setup({})
-    end,
-  },
-}
+vim.pack.add({ "https://github.com/MagicDuck/grug-far.nvim" })
+
+require("grug-far").setup({})
