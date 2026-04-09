@@ -68,7 +68,7 @@ vim.o.shell = "/bin/bash"
 vim.env.PATH = vim.env.HOME .. "/.local/share/mise/shims:" .. vim.env.PATH
 
 -- Native LSP completion
-vim.opt.completeopt = "menu,menuone,noselect,popup"
+vim.opt.completeopt = "menu,menuone,noinsert,popup"
 vim.o.autocomplete = true
 
 vim.o.foldenable = true

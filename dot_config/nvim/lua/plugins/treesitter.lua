@@ -66,17 +66,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Incremental selection keymaps
-vim.keymap.set("n", "<C-Space>", function()
-  require("nvim-treesitter.incremental_selection").init_selection()
-end, { desc = "Init treesitter selection" })
-vim.keymap.set("x", "<C-Space>", function()
-  require("nvim-treesitter.incremental_selection").node_incremental()
-end, { desc = "Increment treesitter selection" })
-vim.keymap.set("x", "<BS>", function()
-  require("nvim-treesitter.incremental_selection").node_decremental()
-end, { desc = "Decrement treesitter selection" })
-
 -- Only apply special highlighting for mise files
 vim.treesitter.query.add_predicate("is-mise?", function(_, _, bufnr, _)
   local filepath = vim.api.nvim_buf_get_name(tonumber(bufnr) or 0)

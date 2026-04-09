@@ -3,7 +3,6 @@ local gh = require("config.gh")
 vim.pack.add({
   gh("nvim-lua/plenary.nvim"),
   gh("nvim-tree/nvim-web-devicons"),
-  gh("stevearc/dressing.nvim"),
   gh("richardmarbach/extract-ruby-constant"),
 })
 require("nvim-web-devicons").setup({})
