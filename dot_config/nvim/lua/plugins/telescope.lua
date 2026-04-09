@@ -28,13 +28,19 @@ local attach_mappings = function(_, map)
   return true
 end
 
-local trouble = require("trouble.sources.telescope")
-
 require("telescope").setup({
   defaults = {
     mappings = {
-      i = { ["<c-o>"] = trouble.open_with_trouble },
-      n = { ["<c-o>"] = trouble.open_with_trouble },
+      i = {
+        ["<c-o>"] = function(...)
+          require("trouble.sources.telescope").open(...)
+        end,
+      },
+      n = {
+        ["<c-o>"] = function(...)
+          require("trouble.sources.telescope").open(...)
+        end,
+      },
     },
     extensions = {
       file_browser = {},
