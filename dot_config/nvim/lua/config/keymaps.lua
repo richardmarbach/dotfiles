@@ -20,6 +20,23 @@ else
   vim.keymap.set("n", "<leader>Y", [["+Y]])
 end
 
+-- Copy file path / region reference to clipboard
+local function relpath()
+  return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":~:.")
+end
+
+vim.keymap.set("n", "<leader>yf", function()
+  local path = relpath()
+  vim.fn.setreg("*", "*" .. path)
+  vim.notify(path)
+end, { desc = "Copy file path" })
+
+vim.keymap.set("v", "<leader>yf", function()
+  local ref = relpath() .. ":" .. vim.fn.line("v") .. "-" .. vim.fn.line(".")
+  vim.fn.setreg("*", "@" .. ref)
+  vim.notify(ref)
+end, { desc = "Copy file path with line range" })
+
 vim.keymap.set("t", "<C-o>", "<C-\\><C-n>", { desc = "Exit edit mode in integrated terminal" })
 
 local format = require("custom.autoformat").format
