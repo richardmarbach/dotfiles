@@ -153,8 +153,8 @@
       "src": "https://github.com/nvim-telescope/telescope-ui-select.nvim"
     },
     "telescope.nvim": {
-      "rev": "daf516deb85fb9399caaaa26f673098668fa6633",
-      "src": "https://github.com/richardmarbach/telescope.nvim"
+      "rev": "48d2656e54d3e3953ae647153ccdaffa50d4d76b",
+      "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "text-case.nvim": {
       "rev": "e898cfd46fa6cde0e83abb624a16e67d2ffc6457",

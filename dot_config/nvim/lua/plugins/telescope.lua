@@ -9,7 +9,7 @@ vim.api.nvim_create_autocmd("PackChanged", {
 })
 
 vim.pack.add({
-  gh("richardmarbach/telescope.nvim"),
+  gh("nvim-telescope/telescope.nvim"),
   gh("nvim-telescope/telescope-file-browser.nvim"),
   gh("nvim-telescope/telescope-fzf-native.nvim"),
   gh("nvim-telescope/telescope-ui-select.nvim"),
