@@ -27,7 +27,7 @@ end
 
 vim.keymap.set("n", "<leader>yf", function()
   local path = relpath()
-  vim.fn.setreg("*", "*" .. path)
+  vim.fn.setreg("*", "@" .. path)
   vim.notify(path)
 end, { desc = "Copy file path" })
 
