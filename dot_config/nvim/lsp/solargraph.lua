@@ -5,6 +5,7 @@ return {
   settings = {
     solargraph = {
       diagnostics = true,
+      reporters = { "rubocop" },
     },
   },
 }
