@@ -26,3 +26,6 @@ set -x -g MANPAGER "nvim +Man!"
 
 fish_add_path -a ~/go/bin
 
+if command -q op
+  set -x -g BRAVE_API_KEY (op read "op://Private/Brave/pi-dev" 2>/dev/null)
+end
