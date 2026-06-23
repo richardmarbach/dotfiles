@@ -2,5 +2,17 @@ Include /Users/richard/.colima/ssh_config
 
 Include /Users/jerb/.colima/ssh_config
 
+Host test-rig-nyc test-rig-nyc.local
+	HostName test-rig-nyc.local
+	User gigs-admin
+	IdentityFile ~/.ssh/test-rig-nyc
+	IdentitiesOnly yes
+
+Host test-rig-nyc-mac
+	HostName test-rig-nyc-mac
+	User testrig
+	IdentityFile ~/.ssh/test-rig-nyc-mac.pub
+	IdentitiesOnly yes
+
 Host *
 	IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"

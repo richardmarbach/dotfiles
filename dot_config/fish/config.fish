@@ -26,6 +26,14 @@ set -x -g MANPAGER "nvim +Man!"
 
 fish_add_path -a ~/go/bin
 
-if command -q op
-  set -x -g BRAVE_API_KEY (op read "op://Private/Brave/pi-dev" 2>/dev/null)
+# Android SDK
+set -gx ANDROID_HOME $HOME/Library/Android/sdk
+fish_add_path -a $ANDROID_HOME/platform-tools $ANDROID_HOME/emulator
+
+# maestro-runner
+fish_add_path -a $HOME/.maestro-runner/bin
+
+# pi with Brave Search API key from 1Password
+function pi
+    BRAVE_API_KEY=(op read "op://Private/Brave/pi-dev" 2>/dev/null) command pi $argv
 end
