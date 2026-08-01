@@ -1,0 +1,26 @@
+{
+  "lastChangelogVersion": "0.83.0",
+  "defaultProvider": "anthropic",
+  "defaultModel": "claude-opus-5",
+  "defaultThinkingLevel": "high",
+  "packages": [
+    "npm:pi-web-access",
+    "npm:pi-prompt-template-model",
+    "git:github.com/elpapi42/pi-minimal-subagent",
+    "../../projects/annotate-review"
+  ],
+  "steeringMode": "one-at-a-time",
+  "followUpMode": "one-at-a-time",
+  "transport": "sse",
+  "hideThinkingBlock": false,
+  "collapseChangelog": false,
+  "doubleEscapeAction": "tree",
+  "theme": "dark",
+  "enabledModels": [
+    "anthropic/claude-opus-5",
+    "anthropic/claude-opus-4-8",
+    "anthropic/claude-fable-5",
+    "anthropic/claude-sonnet-4-6",
+    "anthropic/claude-haiku-4-5"
+  ]
+}

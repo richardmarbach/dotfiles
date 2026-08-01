@@ -10,3 +10,8 @@
 [".tmux/plugins/tpm"]
   type = "git-repo"
   url = "git@github.com:tmux-plugins/tpm.git"
+
+[".pi/agent/skills/pi-skills"]
+  type = "git-repo"
+  url = "https://github.com/badlogic/pi-skills.git"
+  refreshPeriod = "168h"

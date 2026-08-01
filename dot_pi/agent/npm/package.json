@@ -1,0 +1,8 @@
+{
+  "name": "pi-extensions",
+  "private": true,
+  "dependencies": {
+    "pi-prompt-template-model": "^0.10.0",
+    "pi-web-access": "^0.17.1"
+  }
+}
