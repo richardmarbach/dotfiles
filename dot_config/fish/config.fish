@@ -33,7 +33,9 @@ fish_add_path -a $ANDROID_HOME/platform-tools $ANDROID_HOME/emulator
 # maestro-runner
 fish_add_path -a $HOME/.maestro-runner/bin
 
-# pi with Brave Search API key from 1Password
+# Pin pi to the Homebrew install so mise node shims can't shadow it.
+# Credentials (Brave, GitHub, Linear, gcloud) are injected host-side by the
+# gondolin extension, so no secrets are needed in this shell.
 function pi
-    BRAVE_API_KEY=(op read "op://Private/Brave/pi-dev" 2>/dev/null) command pi $argv
+    /opt/homebrew/bin/pi $argv
 end
