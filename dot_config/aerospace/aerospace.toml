@@ -9,7 +9,16 @@ after-login-command = []
 # You can use it to add commands that run after AeroSpace startup.
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
-after-startup-command = []
+# Launch the apps on startup; the 'on-window-detected' rules below place each
+# window on its assigned workspace as soon as it appears.
+after-startup-command = [
+  'exec-and-forget open -a Ghostty',
+  'exec-and-forget open -a Firefox',
+  'exec-and-forget open -a Linear',
+  'exec-and-forget open -a Slack',
+  'exec-and-forget open -a 1Password',
+  'exec-and-forget open -a Spotify',
+]
 
 # Start AeroSpace at login
 start-at-login = true
@@ -201,8 +210,29 @@ cmd-alt-ctrl-shift-j = ['join-with down', 'mode main']
 cmd-alt-ctrl-shift-k = ['join-with up', 'mode main']
 cmd-alt-ctrl-shift-l = ['join-with right', 'mode main']
 
+# Assign apps to workspaces. When a matching window is detected (including on
+# startup after the after-startup-command launches above), move it to its
+# workspace. See: https://nikitabobko.github.io/AeroSpace/guide#on-window-detected-callback
 [[on-window-detected]]
-if.app-id="com.mitchellh.ghostty"
-run= [
-  "layout tiling",
-]
+if.app-id = 'com.mitchellh.ghostty'
+run = ['layout tiling', 'move-node-to-workspace 0']
+
+[[on-window-detected]]
+if.app-id = 'org.mozilla.firefox'
+run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+if.app-id = 'com.linear'
+run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
+if.app-id = 'com.1password.1password'
+run = 'move-node-to-workspace 5'
+
+[[on-window-detected]]
+if.app-id = 'com.spotify.client'
+run = 'move-node-to-workspace 9'
