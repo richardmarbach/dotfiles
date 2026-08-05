@@ -36,6 +36,7 @@ fish_add_path -a $HOME/.maestro-runner/bin
 # Pin pi to the Homebrew install so mise node shims can't shadow it.
 # Credentials (Brave, GitHub, Linear, gcloud) are injected host-side by the
 # gondolin extension, so no secrets are needed in this shell.
+# Run pi inside the nono sandbox using the nolabs-ai/pi profile.
 function pi
-    /opt/homebrew/bin/pi $argv
+    nono run --profile nolabs-ai/pi -- pi $argv
 end
