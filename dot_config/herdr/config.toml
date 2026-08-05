@@ -1,0 +1,25 @@
+[keys]
+# Match tmux: prefix is ctrl+q
+prefix = "ctrl+q"
+
+# Match tmux: s/v splits like vim
+split_horizontal = "prefix+s"
+split_vertical = "prefix+v"
+
+# settings moved off prefix+s (taken by split)
+settings = "prefix+."
+
+# Match tmux: vim-style pane switching (herdr defaults, explicit for clarity)
+focus_pane_left = "prefix+h"
+focus_pane_down = "prefix+j"
+focus_pane_up = "prefix+k"
+focus_pane_right = "prefix+l"
+
+# Match tmux: S opens the session navigator (choose-session)
+goto = "prefix+shift+s"
+
+# Match tmux: d detaches
+detach = "prefix+d"
+
+# Match tmux: comma renames the tab (window)
+rename_tab = "prefix+comma"
