@@ -12,23 +12,25 @@ function herdr-sessionizer
     set selected (realpath "$selected")
     set selected_name (basename "$selected" | tr . _)
 
-    if not pgrep -qf 'herdr'
+    if not herdr workspace list >/dev/null 2>&1
+        # No server yet: start one rooted at the selected folder.
+        pushd "$selected"
         herdr
-        return 0
+        popd
+        return $status
     end
 
-    set existing (herdr pane list 2>/dev/null | jq -r --arg cwd "$selected" '.result.panes[] | select(.cwd == $cwd) | .workspace_id' | head -n1)
+    set workspaces (herdr workspace list 2>/dev/null)
+
+    set existing (echo $workspaces | jq -r --arg label "$selected_name" --arg cwd "$selected" '.result.workspaces[] | select(.label == $label or .worktree.checkout_path == $cwd or .worktree.repo_root == $cwd) | .workspace_id' | head -n1)
 
     if test -z "$existing"
-        set existing (herdr workspace list 2>/dev/null | jq -r --arg label "$selected_name" '.result.workspaces[] | select(.label == $label) | .workspace_id' | head -n1)
-    end
-
-    if test -n "$existing"
-        herdr workspace focus "$existing" >/dev/null
+        set existing (herdr workspace create --cwd "$selected" --label "$selected_name" --focus 2>/dev/null | jq -r '.result.workspace.workspace_id // empty')
     else
-        herdr workspace create --cwd "$selected" --label "$selected_name" --focus >/dev/null
+        herdr workspace focus "$existing" >/dev/null
     end
 
+    # Inside herdr the focus/create above is all that is needed; never nest.
     if test -z "$HERDR_ENV"
         herdr
     end
