@@ -37,6 +37,13 @@ fish_add_path -a $HOME/.maestro-runner/bin
 # Credentials (Brave, GitHub, Linear, gcloud) are injected host-side by the
 # gondolin extension, so no secrets are needed in this shell.
 # Run pi inside the nono sandbox using the nolabs-ai/pi profile.
+# `pi --profile <name>` overrides the sandbox profile; the flag is consumed here
+# and not forwarded to pi.
 function pi
-    nono run --profile nolabs-ai/pi -- pi $argv
+    argparse -i profile= -- $argv; or return
+    set -l profile nolabs-ai/pi
+    if set -q _flag_profile
+        set profile $_flag_profile
+    end
+    nono run --profile $profile -- pi $argv
 end

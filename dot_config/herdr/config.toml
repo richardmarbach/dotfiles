@@ -1,3 +1,16 @@
+[ui]
+# Create tabs immediately with generated names instead of prompting
+prompt_new_tab_name = false
+
+# Start with the sidebar collapsed, and collapse to zero width
+sidebar_start_collapsed = true
+sidebar_collapsed_mode = "hidden"
+
+tab_bar_position = "bottom"
+
+[ui.sound]
+enabled = false
+
 [keys]
 # Match tmux: prefix is ctrl+q
 prefix = "ctrl+q"
@@ -23,3 +36,7 @@ detach = "prefix+d"
 
 # Match tmux: comma renames the tab (window)
 rename_tab = "prefix+comma"
+
+# Sidebar toggle (moves zoom off prefix+z)
+toggle_sidebar = "prefix+z"
+zoom = "prefix+shift+z"
