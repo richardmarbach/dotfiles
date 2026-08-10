@@ -11,6 +11,10 @@ tab_bar_position = "bottom"
 [ui.sound]
 enabled = false
 
+[experimental]
+# Kitty graphics passthrough (Ghostty supports the protocol natively)
+kitty_graphics = true
+
 [keys]
 # Match tmux: prefix is ctrl+q
 prefix = "ctrl+q"
