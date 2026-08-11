@@ -8,6 +8,10 @@ sidebar_collapsed_mode = "hidden"
 
 tab_bar_position = "bottom"
 
+# Share divider borders between split panes instead of padding them apart
+pane_gaps = false
+pane_borders = false
+
 [ui.sound]
 enabled = false
 
@@ -26,11 +30,9 @@ split_vertical = "prefix+v"
 # settings moved off prefix+s (taken by split)
 settings = "prefix+."
 
-# Match tmux: vim-style pane switching (herdr defaults, explicit for clarity)
-focus_pane_left = "prefix+h"
-focus_pane_down = "prefix+j"
-focus_pane_up = "prefix+k"
-focus_pane_right = "prefix+l"
+# Match tmux: L goes back to the previous space
+previous_workspace = "prefix+shift+l"
+next_workspace = "prefix+shift+h"
 
 # Match tmux: S opens the session navigator (choose-session)
 goto = "prefix+shift+s"
@@ -40,7 +42,3 @@ detach = "prefix+d"
 
 # Match tmux: comma renames the tab (window)
 rename_tab = "prefix+comma"
-
-# Sidebar toggle (moves zoom off prefix+z)
-toggle_sidebar = "prefix+z"
-zoom = "prefix+shift+z"

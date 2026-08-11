@@ -46,6 +46,13 @@ vim.o.spell = true
 -- Vertical splits for diffs
 vim.opt.diffopt:append("vertical")
 
+-- nvim 0.12 defaults to linematch:40, whose recursive path search blows up to a
+-- 100%-CPU spin on some hunks (seen via qf_jump -> ex_diffupdate).
+vim.opt.diffopt = vim.tbl_filter(function(o)
+  return not o:match("^linematch:")
+end, vim.opt.diffopt:get())
+vim.opt.diffopt:append("linematch:10")
+
 -- More clear diff removed character
 -- vim.opt.fillchars:append("diff:╱")
 
