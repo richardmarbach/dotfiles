@@ -1,6 +1,10 @@
 .luarc.json
 stylua.toml
 
+# runtime-mutated by pi, not managed dotfiles
+.pi/agent/settings.json
+.pi/agent/npm/package.json
+
 .gitignore
 .gitmodules
 oil:

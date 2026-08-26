@@ -27,6 +27,12 @@ prefix = "ctrl+q"
 split_horizontal = "prefix+s"
 split_vertical = "prefix+v"
 
+# Match tmux: prefix+arrows move between splits
+focus_pane_left = "prefix+left"
+focus_pane_down = "prefix+down"
+focus_pane_up = "prefix+up"
+focus_pane_right = "prefix+right"
+
 # settings moved off prefix+s (taken by split)
 settings = "prefix+."
 
