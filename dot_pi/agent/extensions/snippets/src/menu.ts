@@ -46,7 +46,7 @@ export async function showSnippetMenu(
 					});
 					const start = Math.max(0, Math.min(cursor - maxRows + 1, allRows.length - maxRows));
 					rows = allRows.slice(start, start + maxRows);
-					help = "↑↓ navigate • Space toggle • Tab preview • Enter apply • Esc cancel";
+					help = "↑↓/jk navigate • Space toggle • Tab preview • Enter apply • Esc cancel";
 				} else {
 					const snippet = snippets[cursor];
 					const metadata = theme.fg("dim", `${snippet.placement} · order ${snippet.order} · ${snippet.scope} · ${snippet.id}`);
@@ -54,7 +54,7 @@ export async function showSnippetMenu(
 					const allRows = [truncateToWidth(metadata, contentWidth), "", ...bodyRows];
 					scroll = Math.max(0, Math.min(scroll, Math.max(0, allRows.length - maxRows)));
 					rows = allRows.slice(scroll, scroll + maxRows).map((line) => truncateToWidth(line, contentWidth));
-					help = "↑↓ scroll • Tab/Esc back";
+					help = "↑↓/jk scroll • Tab/Esc back";
 				}
 
 				const border = theme.fg("accent", "─".repeat(Math.max(1, width)));
@@ -70,8 +70,8 @@ export async function showSnippetMenu(
 			},
 			invalidate() {},
 			handleInput(data: string) {
-				const up = keyMatches(data, "tui.select.up", Key.up);
-				const down = keyMatches(data, "tui.select.down", Key.down);
+				const up = keyMatches(data, "tui.select.up", Key.up) || data === "k";
+				const down = keyMatches(data, "tui.select.down", Key.down) || data === "j";
 				const cancel = keyMatches(data, "tui.select.cancel", Key.escape);
 
 				if (mode === "preview") {
