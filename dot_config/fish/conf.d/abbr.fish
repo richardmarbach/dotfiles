@@ -15,4 +15,4 @@ abbr -a rdbm "bin/rails db:migrate"
 abbr -a rdbmd "bin/rails db:migrate:down STEP=1"
 abbr -a rdbmr "bin/rails db:migrate:redo"
 
-abbr -a ts "herdr-sessionizer"
+abbr -a ts "rex-sessionizer"
