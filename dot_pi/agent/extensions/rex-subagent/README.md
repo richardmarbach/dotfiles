@@ -5,7 +5,7 @@ Adds a `rex_subagent` tool that delegates a task to a fresh pi session running i
 ## How it works
 
 1. The parent creates a run directory in `$TMPDIR/pi-rex-subagents/` and opens a background tab with
-   `rex window new -s $REX_SESSION <label> -- pi --rex-subagent <run-dir> --name <label> -- <task>`.
+   `rex window new -s ${REX_SESSION:-$REX_BLOCK} <label> -- pi --rex-subagent <run-dir> --name <label> -- <task>`.
 2. The child loads the same extension. The `--rex-subagent` flag makes it read `<run-dir>/config.json`, apply the
    agent type's prompt, add a system-prompt section describing its role, skip registering `rex_subagent` unless the
    agent allows spawning, and record the current tool call in `<run-dir>/activity`.
@@ -63,7 +63,7 @@ You are a codebase research agent. ...
 
 Run several `rex_subagent` calls in one assistant message to run subagents in parallel.
 
-The tool is only registered when `REX_SESSION` is set, so it only appears when pi runs inside Rex.
+The tool is only registered when `REX_SESSION` or `REX_BLOCK` is set, so it only appears when pi runs inside Rex.
 
 ## Tests
 

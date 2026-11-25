@@ -138,8 +138,8 @@ function registerTool(pi: ExtensionAPI, agents: AgentDefinition[]) {
 
 		async execute(_toolCallId, rawParams, signal, onUpdate, ctx: ExtensionContext) {
 			const params = rawParams as { task: string; agent?: string; cwd?: string } & Parameters<typeof planSpawn>[0];
-			const session = process.env.REX_SESSION;
-			if (!session) throw new Error("REX_SESSION is not set; pi must run inside a Rex terminal");
+			const session = process.env.REX_SESSION ?? process.env.REX_BLOCK;
+			if (!session) throw new Error("neither REX_SESSION nor REX_BLOCK is set; pi must run inside a Rex terminal");
 
 			const available = loadAgents(agentDirectories(ctx));
 			const agent = params.agent ? available.find((candidate) => candidate.name === params.agent) : undefined;
@@ -282,7 +282,7 @@ export default function rexSubagentExtension(pi: ExtensionAPI) {
 		runDir = typeof flag === "string" && flag ? flag : undefined;
 		config = runDir ? readConfig(runDir) : undefined;
 		reported = false;
-		if (process.env.REX_SESSION && (!config || config.spawning)) registerTool(pi, loadAgents(agentDirectories(ctx)));
+		if ((process.env.REX_SESSION || process.env.REX_BLOCK) && (!config || config.spawning)) registerTool(pi, loadAgents(agentDirectories(ctx)));
 	});
 
 	pi.on("before_agent_start", (event) => {
