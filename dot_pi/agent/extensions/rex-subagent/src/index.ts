@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { appendFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
@@ -16,8 +17,10 @@ import {
 	needsRouting,
 	parseModelRef,
 	planModel,
-	selectTier,
-	sizingContext,
+	decisionRecord,
+	routingContext,
+	selectRoute,
+	type ClassifierOutcome,
 	type Mode,
 	type RoutingConfig,
 	type Selection,
@@ -67,6 +70,7 @@ function agentDirectories(ctx: ExtensionContext): AgentDirectory[] {
 }
 
 const MODE_FLAG = "subagent-mode";
+const DECISION_LOG = "rex-subagent-decisions.jsonl";
 const MODE_ENTRY = "rex-subagent-mode";
 
 function initialMode(flag: unknown, ctx: ExtensionContext, config: RunConfig | undefined): Mode {
@@ -92,18 +96,19 @@ async function sizeTask(
 	task: string,
 	agent: AgentDefinition | undefined,
 	signal: AbortSignal | undefined,
-): Promise<{ selection?: Selection; failure?: string }> {
+): Promise<{ selection?: Selection; failure?: string; result?: ClassifierOutcome }> {
 	try {
 		const classifier = await pickClassifier(ctx, config.classifier);
 		if (!classifier) return { failure: "no classifier available" };
 		const timeout = AbortSignal.timeout(config.timeoutMs);
-		const result = await ctx.modelRegistry.classify(classifier, sizingContext(task, agent, config.tiers), {
+		const context = routingContext(task, agent, config) as Parameters<typeof ctx.modelRegistry.classify>[1];
+		const result = await ctx.modelRegistry.classify(classifier, context, {
 			signal: signal ? AbortSignal.any([signal, timeout]) : timeout,
 		});
-		const selection = selectTier(result, config, mode);
+		const selection = selectRoute(result, config, mode);
 		return selection
-			? { selection }
-			: { failure: `classifier gave no usable answer${result.errorMessage ? `: ${result.errorMessage}` : ""}` };
+			? { selection, result }
+			: { failure: `classifier gave no usable answer${result.errorMessage ? `: ${result.errorMessage}` : ""}`, result };
 	} catch (error) {
 		return { failure: `classifier failed: ${error instanceof Error ? error.message : String(error)}` };
 	}
@@ -234,7 +239,8 @@ function registerTool(pi: ExtensionAPI, agents: AgentDefinition[], getMode: () =
 				mode,
 				config: routingConfig,
 				catalog: availableModels(ctx),
-				...sized,
+				selection: sized.selection,
+				failure: sized.failure,
 			});
 			const routing = modelPlan.note;
 
@@ -250,6 +256,22 @@ function registerTool(pi: ExtensionAPI, agents: AgentDefinition[], getMode: () =
 			const runDir = join(tmpdir(), "pi-rex-subagents", `${label}-${id}`);
 			const started = Date.now();
 			createRun(runDir, { ...plan.config, mode });
+			if (routingConfig.log) {
+				const record = decisionRecord({
+					time: new Date(),
+					cwd: ctx.cwd,
+					mode,
+					agent: agent?.name,
+					task: params.task,
+					result: sized.result,
+					model: plan.model,
+					thinking: plan.thinking,
+					note: routing,
+				});
+				try {
+					appendFileSync(join(getAgentDir(), DECISION_LOG), `${JSON.stringify(record)}\n`);
+				} catch {}
+			}
 
 			const details = (patch: Partial<SubagentDetails>): SubagentDetails => ({
 				label,

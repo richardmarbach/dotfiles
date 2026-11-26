@@ -66,24 +66,38 @@ Run several `rex_subagent` calls in one assistant message to run subagents in pa
 ## Task sizing
 
 When a call leaves `model` or `thinking` unset, the parent asks a decision model (a `classifier`, default
-`typesafe/jev-latest`, else the first available one) to score the task and the agent's role on a five-level scale.
-The level picks a tier, and the session's [mode](#modes) picks that tier's model. The tier fills in whichever of
-`model` and `thinking` the call left open:
+`typesafe/jev-latest`, else the first available one) three questions about the task and the agent's role, in one
+request:
 
-| Size | `claude` (default) | `openai` | `mixed` |
-| --- | --- | --- | --- |
-| trivial | `claude-haiku-*` low | `gpt-*-luna` low | `claude-haiku-*` low |
-| small | `claude-haiku-*` medium | `gpt-*-luna` medium | `gpt-*-luna` medium |
-| medium | `claude-sonnet-*` medium | `gpt-*-sol` medium | `claude-sonnet-*` medium |
-| large | `claude-sonnet-*` xhigh | `gpt-*-sol` xhigh | `gpt-*-sol` xhigh |
-| very large | `claude-opus-*` high | `gpt-*-astra` high | `claude-opus-*` high |
+- **Size** (score) picks the model. It judges scope only: files, steps, and whether the approach is given. It is told
+  to ignore wording about importance or risk, so "be careful, this is production" does not upgrade the model.
+- **Effort** (score) picks the thinking level: `low` mechanical, `medium` ordinary care, `high` subtle logic or edge
+  cases, `xhigh` concurrency, security or data integrity.
+- **Review** (yes/no) sends reviews, audits and critiques of existing work to the review model whatever their size.
+  Acting on review feedback is not a review. The answer counts as yes at a probability of 0.7 or more.
 
-A tier overrides the agent's `model` and `thinking`; those become fallbacks. Sizing falls back to them when no
-decision model is available, the request errors or takes longer than `timeoutMs`, the answer's confidence is below
-`minConfidence`, or the tier's model has no credentials. If the fallback model's provider is not used by the mode
-(say, a Claude agent default in `openai` mode), the mode's middle tier is used instead. The result and the progress
-line show the chosen model and why, e.g. `auto: large (98%)`, `defaults: no classifier available` or
+| Size | Description | `claude` (default) | `openai` | `mixed` |
+| --- | --- | --- | --- | --- |
+| trivial | one specific lookup, command or one-line edit | `claude-haiku-*` | `gpt-*-luna` | `claude-haiku-*` |
+| small | self-contained, one or two files, approach clear | `claude-haiku-*` | `gpt-*-luna` | `gpt-*-luna` |
+| medium | several files or steps, the task says what to do | `claude-sonnet-*` | `gpt-*-sol` | `claude-sonnet-*` |
+| large | many files, or the goal is named but not the approach | `claude-sonnet-*` | `gpt-*-sol` | `gpt-*-sol` |
+| very large | open-ended design across a whole system | `claude-opus-*` | `gpt-*-astra` | `claude-opus-*` |
+| review (any size) | | `claude-opus-*` | `gpt-*-astra` | `claude-opus-*` |
+
+Scores round to the nearest size, except "very large" needs a score of at least `topTierMinScore` (3.6). If the
+effort question has no answer, the size's own thinking level is used.
+
+A selection overrides the agent's `model` and `thinking`; those become fallbacks. Sizing falls back to them when no
+decision model is available, the request errors or takes longer than `timeoutMs`, the size answer's confidence is
+below `minConfidence`, or the chosen model has no credentials. If the fallback model's provider is not used by the
+mode (say, a Claude agent default in `openai` mode), the mode's middle size is used instead. The result and progress
+line show the choice and why, e.g. `auto: small, review, effort high (90%)`, `defaults: no classifier available` or
 `openai fallback: medium; timeout`.
+
+Every spawn appends a line to `~/.pi/agent/rex-subagent-decisions.jsonl`: time, cwd, mode, agent, the task (first
+400 characters) and its length, the raw scores, and the chosen model, thinking level and note. Use it to tune the
+descriptions against real tasks. Set `"log": false` to turn it off.
 
 ## Modes
 
@@ -107,7 +121,8 @@ in this extension or the agent files needs editing. Pin an exact ID when you wan
 ## Configuration
 
 Override any of the above in `~/.pi/agent/rex-subagent.json`. Top-level keys replace the defaults; `tiers` replaces
-the whole list, may have any length, and every tier must name a model for all three modes.
+the whole list, may have any length, and every tier must name a model for all three modes. `efforts` and
+`overrides` work the same way; an override is any yes/no question with a `threshold` and a model per mode.
 
 ```json
 {
@@ -116,6 +131,8 @@ the whole list, may have any length, and every tier must name a model for all th
   "classifier": "typesafe/jev-latest",
   "timeoutMs": 10000,
   "minConfidence": 0,
+  "topTierMinScore": 3.6,
+  "log": true,
   "tiers": [
     {
       "size": "trivial",
