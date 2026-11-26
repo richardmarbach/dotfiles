@@ -9,6 +9,20 @@ import { Type } from "typebox";
 import { describeAgents, loadAgents, type AgentDefinition, type AgentDirectory } from "./agents.ts";
 import { captureTail, closeTab, openTab, waitForExit, type RexTab } from "./rex.ts";
 import {
+	DEFAULT_MODE,
+	MODES,
+	isMode,
+	loadRoutingConfig,
+	needsRouting,
+	parseModelRef,
+	planModel,
+	selectTier,
+	sizingContext,
+	type Mode,
+	type RoutingConfig,
+	type Selection,
+} from "./routing.ts";
+import {
 	SUBAGENT_FLAG,
 	TOOL_NAME,
 	buildPiArgs,
@@ -38,6 +52,9 @@ interface SubagentDetails {
 	runDir: string;
 	elapsedMs: number;
 	keepOpen: boolean;
+	model?: string;
+	thinking?: string;
+	routing?: string;
 	activity?: string;
 	windowId?: string;
 	sessionFile?: string;
@@ -48,6 +65,52 @@ function agentDirectories(ctx: ExtensionContext): AgentDirectory[] {
 	if (ctx.isProjectTrusted()) directories.push({ path: join(ctx.cwd, CONFIG_DIR_NAME, "agents"), scope: "project" });
 	return directories;
 }
+
+const MODE_FLAG = "subagent-mode";
+const MODE_ENTRY = "rex-subagent-mode";
+
+function initialMode(flag: unknown, ctx: ExtensionContext, config: RunConfig | undefined): Mode {
+	if (isMode(flag)) return flag;
+	const saved = ctx.sessionManager
+		.getBranch()
+		.findLast((entry) => entry.type === "custom" && entry.customType === MODE_ENTRY) as { data?: { mode?: unknown } } | undefined;
+	if (isMode(saved?.data?.mode)) return saved.data.mode;
+	if (isMode(config?.mode)) return config.mode;
+	return loadRoutingConfig(join(getAgentDir(), "rex-subagent.json")).defaultMode;
+}
+
+async function pickClassifier(ctx: ExtensionContext, preferred: string | undefined) {
+	const available = await ctx.modelRegistry.getAvailableOfType("classifier");
+	const ref = preferred ? parseModelRef(preferred) : undefined;
+	return (ref && available.find((m) => m.provider === ref.provider && m.id === ref.id)) ?? available[0];
+}
+
+async function sizeTask(
+	ctx: ExtensionContext,
+	config: RoutingConfig,
+	mode: Mode,
+	task: string,
+	agent: AgentDefinition | undefined,
+	signal: AbortSignal | undefined,
+): Promise<{ selection?: Selection; failure?: string }> {
+	try {
+		const classifier = await pickClassifier(ctx, config.classifier);
+		if (!classifier) return { failure: "no classifier available" };
+		const timeout = AbortSignal.timeout(config.timeoutMs);
+		const result = await ctx.modelRegistry.classify(classifier, sizingContext(task, agent, config.tiers), {
+			signal: signal ? AbortSignal.any([signal, timeout]) : timeout,
+		});
+		const selection = selectTier(result, config, mode);
+		return selection
+			? { selection }
+			: { failure: `classifier gave no usable answer${result.errorMessage ? `: ${result.errorMessage}` : ""}` };
+	} catch (error) {
+		return { failure: `classifier failed: ${error instanceof Error ? error.message : String(error)}` };
+	}
+}
+
+const availableModels = (ctx: ExtensionContext) =>
+	ctx.modelRegistry.getAvailable().map((model) => ({ provider: model.provider, id: model.id }));
 
 function buildParameters(agents: AgentDefinition[]) {
 	const agentParam = agents.length
@@ -66,10 +129,16 @@ function buildParameters(agents: AgentDefinition[]) {
 		...agentParam,
 		name: Type.Optional(Type.String({ description: "Short tab label, e.g. 'auth-scout'" })),
 		cwd: Type.Optional(Type.String({ description: "Working directory (default: current cwd)" })),
-		model: Type.Optional(Type.String({ description: "Model pattern; overrides the agent's model (default: current model)" })),
+		model: Type.Optional(
+			Type.String({
+				description:
+					"Model, or a family like anthropic/claude-opus-* for its newest version. Omit to let a classifier pick one from the task's size within the session's subagent mode (falls back to the agent's model, then the current model)",
+			}),
+		),
 		thinking: Type.Optional(
 			StringEnum(["off", "minimal", "low", "medium", "high", "xhigh", "max"] as const, {
-				description: "Thinking level; overrides the agent's level (default: current level)",
+				description:
+					"Thinking level. Omit to let a classifier pick one from the task's size (falls back to the agent's level, then the current level)",
 			}),
 		),
 		tools: Type.Optional(
@@ -122,7 +191,7 @@ async function awaitResult(
 	}
 }
 
-function registerTool(pi: ExtensionAPI, agents: AgentDefinition[]) {
+function registerTool(pi: ExtensionAPI, agents: AgentDefinition[], getMode: () => Mode) {
 	pi.registerTool({
 		name: TOOL_NAME,
 		label: "Rex Subagent",
@@ -149,18 +218,38 @@ function registerTool(pi: ExtensionAPI, agents: AgentDefinition[]) {
 				);
 			}
 
+			const routingConfig = loadRoutingConfig(join(getAgentDir(), "rex-subagent.json"));
+			const mode = getMode();
+			const parentModel = ctx.model ? `${ctx.model.provider}/${ctx.model.id}` : undefined;
+			let sized: Awaited<ReturnType<typeof sizeTask>> = {};
+			if (routingConfig.enabled && needsRouting(params)) {
+				onUpdate?.({ content: [{ type: "text", text: `sizing task (${mode})…` }], details: undefined });
+				sized = await sizeTask(ctx, routingConfig, mode, params.task, agent, signal);
+				if (signal?.aborted) throw new Error("Subagent cancelled before it started");
+			}
+			const modelPlan = planModel({
+				request: params,
+				agentModel: agent?.model,
+				parentModel,
+				mode,
+				config: routingConfig,
+				catalog: availableModels(ctx),
+				...sized,
+			});
+			const routing = modelPlan.note;
+
 			const id = randomUUID().slice(0, 8);
 			const plan = planSpawn(
-				params,
-				agent,
-				{ model: ctx.model ? `${ctx.model.provider}/${ctx.model.id}` : undefined, thinking: pi.getThinkingLevel() },
+				{ ...params, ...modelPlan.request },
+				agent && { ...agent, model: modelPlan.agentModel },
+				{ model: parentModel, thinking: pi.getThinkingLevel() },
 				id.slice(0, 4),
 			);
 			const { label } = plan;
 			const { keepOpen } = plan.config;
 			const runDir = join(tmpdir(), "pi-rex-subagents", `${label}-${id}`);
 			const started = Date.now();
-			createRun(runDir, plan.config);
+			createRun(runDir, { ...plan.config, mode });
 
 			const details = (patch: Partial<SubagentDetails>): SubagentDetails => ({
 				label,
@@ -168,6 +257,9 @@ function registerTool(pi: ExtensionAPI, agents: AgentDefinition[]) {
 				status: "running",
 				runDir,
 				keepOpen,
+				model: plan.model,
+				thinking: plan.thinking,
+				routing,
 				elapsedMs: Date.now() - started,
 				...patch,
 			});
@@ -194,7 +286,8 @@ function registerTool(pi: ExtensionAPI, agents: AgentDefinition[]) {
 			let lastText = "";
 			const tick = (activity: string | undefined) => {
 				const update = details({ activity, windowId: tab.windowId });
-				const text = `${label} running ${formatElapsed(update.elapsedMs)}${activity ? ` · ${activity}` : ""}`;
+				const model = [plan.model?.split("/").pop(), plan.thinking].filter(Boolean).join(":");
+				const text = `${label}${model ? ` (${model})` : ""} running ${formatElapsed(update.elapsedMs)}${activity ? ` · ${activity}` : ""}`;
 				if (text === lastText) return;
 				lastText = text;
 				onUpdate?.({ content: [{ type: "text", text }], details: update });
@@ -223,7 +316,8 @@ function registerTool(pi: ExtensionAPI, agents: AgentDefinition[]) {
 				};
 			}
 
-			const trailer = `\n\n[subagent ${label}${keepOpen ? " (tab left open)" : ""} · session ${result.sessionFile ?? "n/a"}]`;
+			const modelInfo = [plan.model, plan.thinking].filter(Boolean).join(":");
+			const trailer = `\n\n[subagent ${label}${keepOpen ? " (tab left open)" : ""} · ${modelInfo || "default model"}${routing ? ` (${routing})` : ""} · session ${result.sessionFile ?? "n/a"}]`;
 			const body = result.status === "error" ? `Subagent failed: ${result.error}\n\n${result.output}` : result.output;
 			return {
 				content: [{ type: "text", text: `${body.trim() || "(no output)"}${trailer}` }],
@@ -255,7 +349,10 @@ function registerTool(pi: ExtensionAPI, agents: AgentDefinition[]) {
 			}
 			const lines = body.split("\n");
 			const shown = expanded ? lines : lines.slice(0, 8);
-			const summary = `${info.label} · ${formatElapsed(info.elapsedMs)}`;
+			const modelInfo = [info.model?.split("/").pop(), info.thinking].filter(Boolean).join(":");
+			const summary = [info.label, modelInfo, info.routing && `(${info.routing})`, formatElapsed(info.elapsedMs)]
+				.filter(Boolean)
+				.join(" · ");
 			const header = info.status === "done" ? theme.fg("success", `✓ ${summary}`) : theme.fg("error", `✗ ${summary}`);
 			const more =
 				!expanded && lines.length > shown.length
@@ -271,10 +368,44 @@ export default function rexSubagentExtension(pi: ExtensionAPI) {
 	let runDir: string | undefined;
 	let config: RunConfig | undefined;
 	let reported = false;
+	let mode: Mode = DEFAULT_MODE;
+	let toolRegistered = false;
 
 	pi.registerFlag(SUBAGENT_FLAG, {
 		description: "Internal: run as a rex_subagent child reporting to this run directory",
 		type: "string",
+	});
+	pi.registerFlag(MODE_FLAG, {
+		description: `Which models rex_subagent may pick: ${MODES.join(", ")} (default: ${DEFAULT_MODE})`,
+		type: "string",
+	});
+
+	const showMode = (ctx: ExtensionContext) => {
+		if (toolRegistered) ctx.ui.setStatus("rex-subagent", `subagents: ${mode}`);
+	};
+
+	pi.registerCommand("subagent-mode", {
+		description: `Choose which models rex_subagent may pick (${MODES.join(", ")})`,
+		getArgumentCompletions: (prefix: string) => {
+			const items = MODES.filter((m) => m.startsWith(prefix.trim())).map((m) => ({ value: m, label: m }));
+			return items.length ? items : null;
+		},
+		handler: async (args, ctx) => {
+			let next: string | undefined = args.trim() || undefined;
+			if (!next && ctx.hasUI) next = await ctx.ui.select(`Subagent models (current: ${mode})`, [...MODES]);
+			if (!next) {
+				ctx.ui.notify(`Subagent mode: ${mode}`, "info");
+				return;
+			}
+			if (!isMode(next)) {
+				ctx.ui.notify(`Unknown mode "${next}". Use one of: ${MODES.join(", ")}`, "error");
+				return;
+			}
+			mode = next;
+			pi.appendEntry(MODE_ENTRY, { mode });
+			showMode(ctx);
+			ctx.ui.notify(`Subagent mode: ${mode}`, "info");
+		},
 	});
 
 	pi.on("session_start", (_event, ctx) => {
@@ -282,7 +413,10 @@ export default function rexSubagentExtension(pi: ExtensionAPI) {
 		runDir = typeof flag === "string" && flag ? flag : undefined;
 		config = runDir ? readConfig(runDir) : undefined;
 		reported = false;
-		if ((process.env.REX_SESSION || process.env.REX_BLOCK) && (!config || config.spawning)) registerTool(pi, loadAgents(agentDirectories(ctx)));
+		mode = initialMode(pi.getFlag(MODE_FLAG), ctx, config);
+		toolRegistered = !!(process.env.REX_SESSION || process.env.REX_BLOCK) && (!config || config.spawning);
+		if (toolRegistered) registerTool(pi, loadAgents(agentDirectories(ctx)), () => mode);
+		showMode(ctx);
 	});
 
 	pi.on("before_agent_start", (event) => {

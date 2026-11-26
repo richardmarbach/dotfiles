@@ -2,8 +2,8 @@
 name: worker
 description: Implements focused coding tasks and verifies the result
 tools: read,bash,edit,write
-thinking: high
-model: openai-codex/gpt-6-luna
+thinking: xhigh
+model: anthropic/claude-sonnet-*
 spawning: false
 auto-exit: true
 system-prompt: replace

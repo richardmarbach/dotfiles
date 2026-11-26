@@ -3,7 +3,7 @@ name: planner
 description: Produces concrete implementation plans without changing files
 tools: read,bash
 thinking: high
-model: openai-codex/gpt-6-astra
+model: anthropic/claude-opus-*
 spawning: false
 auto-exit: true
 system-prompt: replace

@@ -3,7 +3,7 @@ name: scout
 description: Quickly investigates a codebase and reports relevant findings
 tools: read,bash
 thinking: low
-model: openai-codex/gpt-6-luna
+model: anthropic/claude-haiku-*
 spawning: false
 auto-exit: true
 system-prompt: replace

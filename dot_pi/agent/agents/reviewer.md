@@ -3,7 +3,7 @@ name: reviewer
 description: Reviews code changes for correctness, security, and maintainability
 tools: read,bash
 thinking: high
-model: anthropic/claude-opus-5-5
+model: anthropic/claude-opus-*
 spawning: false
 auto-exit: true
 system-prompt: replace

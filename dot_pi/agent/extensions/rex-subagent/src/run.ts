@@ -5,6 +5,7 @@ import type { AgentDefinition, PromptMode } from "./agents.ts";
 export interface RunConfig {
 	keepOpen: boolean;
 	spawning: boolean;
+	mode?: string;
 	agent?: { name: string; prompt: string; promptMode: PromptMode };
 }
 
