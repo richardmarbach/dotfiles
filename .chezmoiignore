@@ -8,3 +8,5 @@ stylua.toml
 .gitignore
 .gitmodules
 oil:
+
+README.md
