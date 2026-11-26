@@ -403,7 +403,7 @@ export default function rexSubagentExtension(pi: ExtensionAPI) {
 	});
 
 	const showMode = (ctx: ExtensionContext) => {
-		if (toolRegistered) ctx.ui.setStatus("rex-subagent", `subagents: ${mode}`);
+		if (toolRegistered) ctx.ui.setStatus("rex-subagent", ctx.ui.theme.fg("dim", `subagents: ${mode}`));
 	};
 
 	pi.registerCommand("subagent-mode", {
