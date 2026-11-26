@@ -86,7 +86,9 @@ request:
 | review (any size) | | `claude-opus-*` | `gpt-*-astra` | `claude-opus-*` |
 
 Scores round to the nearest size, except "very large" needs a score of at least `topTierMinScore` (3.6). If the
-effort question has no answer, the size's own thinking level is used.
+effort question has no answer, the size's own thinking level is used. `thinkingRanges` then clamps the chosen
+thinking level per model or family; by default `claude-opus-*` stays between `medium` and `high`. A `thinking` passed
+in the call is never clamped.
 
 A selection overrides the agent's `model` and `thinking`; those become fallbacks. Sizing falls back to them when no
 decision model is available, the request errors or takes longer than `timeoutMs`, the size answer's confidence is
@@ -133,6 +135,7 @@ the whole list, may have any length, and every tier must name a model for all th
   "minConfidence": 0,
   "topTierMinScore": 3.6,
   "log": true,
+  "thinkingRanges": [{ "model": "anthropic/claude-opus-*", "min": "medium", "max": "high" }],
   "tiers": [
     {
       "size": "trivial",

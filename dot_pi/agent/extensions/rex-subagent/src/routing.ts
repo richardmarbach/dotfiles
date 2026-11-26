@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from "node:fs";
 import type { AgentDefinition } from "./agents.ts";
-import { resolveModel, type ModelRef } from "./latest.ts";
+import { matchesModel, resolveModel, type ModelRef } from "./latest.ts";
 import type { SpawnRequest } from "./run.ts";
 
 export const MODES = ["claude", "openai", "mixed"] as const;
@@ -33,6 +33,15 @@ export interface ModelOverride {
 	models: Record<Mode, string>;
 }
 
+/** Keeps automatically chosen thinking levels for a model (or family) within [min, max]. */
+export interface ThinkingRange {
+	model: string;
+	min?: string;
+	max?: string;
+}
+
+export const THINKING_LEVELS = ["off", "minimal", "low", "medium", "high", "xhigh", "max"];
+
 export interface RoutingConfig {
 	enabled: boolean;
 	defaultMode: Mode;
@@ -45,6 +54,7 @@ export interface RoutingConfig {
 	tiers: Tier[];
 	efforts: Effort[];
 	overrides: ModelOverride[];
+	thinkingRanges: ThinkingRange[];
 }
 
 export interface ClassifierAnswer {
@@ -145,6 +155,7 @@ export const DEFAULT_ROUTING: RoutingConfig = {
 		{ thinking: "high", description: "Tricky: subtle logic, edge cases, or reasoning about how parts interact" },
 		{ thinking: "xhigh", description: "Hard: concurrency, security, data integrity, or correctness that is easy to get subtly wrong" },
 	],
+	thinkingRanges: [{ model: opus, min: "medium", max: "high" }],
 	overrides: [
 		{
 			id: "review",
@@ -178,6 +189,7 @@ export function loadRoutingConfig(path: string): RoutingConfig {
 		if (!tiersValid(config.tiers)) config.tiers = DEFAULT_ROUTING.tiers;
 		if (!effortsValid(config.efforts)) config.efforts = DEFAULT_ROUTING.efforts;
 		if (!overridesValid(config.overrides)) config.overrides = DEFAULT_ROUTING.overrides;
+		if (!Array.isArray(config.thinkingRanges)) config.thinkingRanges = DEFAULT_ROUTING.thinkingRanges;
 		return config;
 	} catch {
 		return DEFAULT_ROUTING;
@@ -270,6 +282,17 @@ export interface ModelPlan {
 	note?: string;
 }
 
+export function clampThinking(thinking: string, model: string, ranges: readonly ThinkingRange[]): string {
+	const range = ranges.find((r) => matchesModel(r.model, model));
+	const level = THINKING_LEVELS.indexOf(thinking);
+	if (!range || level < 0) return thinking;
+	const min = range.min ? THINKING_LEVELS.indexOf(range.min) : -1;
+	const max = range.max ? THINKING_LEVELS.indexOf(range.max) : -1;
+	if (min >= 0 && level < min) return THINKING_LEVELS[min];
+	if (max >= 0 && level > max) return THINKING_LEVELS[max];
+	return thinking;
+}
+
 const fill = (request: SpawnRequest, model: string, thinking: string): SpawnRequest => ({
 	...request,
 	model: request.model ?? model,
@@ -296,7 +319,7 @@ export function planModel(input: ModelPlanInput): ModelPlan {
 		const model = resolveModel(input.selection.choice.model, catalog);
 		if (model && catalog.some((ref) => `${ref.provider}/${ref.id}` === model)) {
 			return {
-				request: fill(request, model, input.selection.choice.thinking),
+				request: fill(request, model, clampThinking(input.selection.choice.thinking, model, config.thinkingRanges)),
 				agentModel,
 				note: `auto: ${describeSelection(input.selection)}`,
 			};
@@ -312,7 +335,7 @@ export function planModel(input: ModelPlanInput): ModelPlan {
 	const { tier, choice } = fallbackSelection(config, mode);
 	const model = resolveModel(choice.model, catalog);
 	if (!model) return { request, agentModel, note };
-	return { request: fill(request, model, choice.thinking), agentModel, note: `${mode} fallback: ${tier.size}${failure ? `; ${failure}` : ""}` };
+	return { request: fill(request, model, clampThinking(choice.thinking, model, config.thinkingRanges)), agentModel, note: `${mode} fallback: ${tier.size}${failure ? `; ${failure}` : ""}` };
 }
 
 export interface DecisionRecord {

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { resolveLatest, resolveModel } from "../src/latest.ts";
+import { matchesModel, resolveLatest, resolveModel } from "../src/latest.ts";
 
 const catalog = [
 	"anthropic/claude-opus-4-5",
@@ -46,4 +46,12 @@ test("resolveModel passes concrete refs through", () => {
 	assert.equal(resolveModel("anything/at-all", []), "anything/at-all");
 	assert.equal(resolveModel(undefined, catalog), undefined);
 	assert.equal(resolveModel("anthropic/claude-opus-*", catalog), "anthropic/claude-opus-5-5");
+});
+
+test("matchesModel matches exact refs and family members", () => {
+	assert.equal(matchesModel("anthropic/claude-opus-*", "anthropic/claude-opus-5-5"), true);
+	assert.equal(matchesModel("anthropic/claude-opus-*", "anthropic/claude-sonnet-5-5"), false);
+	assert.equal(matchesModel("anthropic/claude-opus-*", "openrouter/claude-opus-5-5"), false);
+	assert.equal(matchesModel("a/b", "a/b"), true);
+	assert.equal(matchesModel("a/b", "a/c"), false);
 });

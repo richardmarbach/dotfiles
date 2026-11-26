@@ -17,6 +17,7 @@ import {
 	decisionRecord,
 	describeSelection,
 	routingContext,
+	clampThinking,
 	selectRoute,
 	tierIndex,
 	type Mode,
@@ -137,6 +138,26 @@ test("planModel resolves the selected tier to the newest model in its family", (
 		assert.equal(result.request.thinking, "high");
 		assert.equal(result.request.model, mode === "openai" ? "openai-codex/gpt-6.2-astra" : "anthropic/claude-opus-5-5");
 	}
+});
+
+test("clampThinking keeps opus between medium and high", () => {
+	const ranges = DEFAULT_ROUTING.thinkingRanges;
+	assert.equal(clampThinking("xhigh", "anthropic/claude-opus-5-5", ranges), "high");
+	assert.equal(clampThinking("low", "anthropic/claude-opus-5-5", ranges), "medium");
+	assert.equal(clampThinking("high", "anthropic/claude-opus-6", ranges), "high");
+	assert.equal(clampThinking("xhigh", "anthropic/claude-sonnet-5-5", ranges), "xhigh");
+	assert.equal(clampThinking("weird", "anthropic/claude-opus-5-5", ranges), "weird");
+	assert.equal(clampThinking("xhigh", "a/b", [{ model: "a/b", max: "medium" }]), "medium");
+});
+
+test("planModel caps automatic opus thinking but not explicit thinking", () => {
+	const hardReview = selectRoute(scored(3, 0.9, { ...review(0.95), ...effort(3) }), DEFAULT_ROUTING, "claude")!;
+	assert.deepEqual(plan("claude", { selection: hardReview }).request, { model: "anthropic/claude-opus-5-5", thinking: "high" });
+	assert.equal(plan("claude", { selection: hardReview, request: { thinking: "xhigh" } }).request.thinking, "xhigh");
+	const easyReview = selectRoute(scored(0, 0.9, { ...review(0.95), ...effort(0) }), DEFAULT_ROUTING, "claude")!;
+	assert.equal(plan("claude", { selection: easyReview }).request.thinking, "medium");
+	const hardFix = selectRoute(scored(2, 0.9, effort(3)), DEFAULT_ROUTING, "claude")!;
+	assert.equal(plan("claude", { selection: hardFix }).request.thinking, "xhigh");
 });
 
 test("planModel keeps explicit call values", () => {
