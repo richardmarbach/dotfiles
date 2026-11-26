@@ -29,10 +29,9 @@ for key, direction in pairs({
 end
 rex.bind("resize/esc", "client.mode.exit")
 
-rex.host({
-	label = "richard-linux-laptop",
-	endpoints = {
-		"https://gigs-admin@richard-linux-laptop.osiris-tuna.ts.net",
-		"http://gigs-admin@richard-linux-laptop.osiris-tuna.ts.net:7297",
-	},
-})
+local work_config = os.getenv("HOME") .. "/.config/rex/work.lua"
+local work_file = io.open(work_config, "r")
+if work_file then
+	work_file:close()
+	dofile(work_config)
+end

@@ -15,3 +15,10 @@
   type = "git-repo"
   url = "https://github.com/badlogic/pi-skills.git"
   refreshPeriod = "168h"
+{{- if index . "work" }}
+
+[".local/share/chezmoi-work"]
+  type = "git-repo"
+  url = "git@github.com:richardmarbach/dotfiles-work.git"
+  refreshPeriod = "24h"
+{{- end }}

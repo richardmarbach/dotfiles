@@ -1,0 +1,3 @@
+{{- $work := promptBoolOnce . "work" "Apply private work dotfiles (requires access to richardmarbach/dotfiles-work)" -}}
+[data]
+  work = {{ $work }}

@@ -1,0 +1,7 @@
+{{ if index . "work" -}}
+#!/bin/sh
+set -eu
+exec chezmoi apply \
+  --source "$HOME/.local/share/chezmoi-work" \
+  --persistent-state "$HOME/.config/chezmoi/chezmoi-work-state.boltdb"
+{{ end -}}

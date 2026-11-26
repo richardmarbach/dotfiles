@@ -14,3 +14,7 @@ brew install chezmoi
 
 chezmoi init git@github.com:richardmarbach/dotfiles.git
 ```
+
+`chezmoi init` asks whether to apply the private work dotfiles. When enabled,
+`richardmarbach/dotfiles-work` is cloned to `~/.local/share/chezmoi-work` and
+applied after every `chezmoi apply`. Manage it with `chezmoi-work`.
