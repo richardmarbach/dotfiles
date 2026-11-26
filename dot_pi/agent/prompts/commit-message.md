@@ -1,6 +1,5 @@
 ---
 description: Generate a git commit message from staged changes
-model: claude-sonnet-4-6
 thinking: low
 run: git status -vv
 handoff: always

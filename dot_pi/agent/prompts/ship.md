@@ -1,7 +1,6 @@
 ---
 description: Stage everything, write a Conventional Commit, confirm, then push
 argument-hint: "[optional: extra context for the commit message]"
-model: claude-sonnet-5
 thinking: medium
 run: |
   echo "=== branch / upstream ==="
